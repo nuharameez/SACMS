@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.Startpage">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Text layoutX="235.0" layoutY="76.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SCAMS" wrappingWidth="129.94329833984375">
+               <font>
+                  <Font size="37.0" />
+               </font>
+            </Text>
+            <Text layoutX="90.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <Text layoutX="90.0" layoutY="208.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Text>
+            <TextField layoutX="216.0" layoutY="150.0" prefHeight="26.0" prefWidth="314.0" />
+            <PasswordField layoutX="216.0" layoutY="203.0" prefHeight="26.0" prefWidth="314.0" />
+            <Text layoutX="188.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do no have an account?" wrappingWidth="144.80322265625">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Text>
+            <Hyperlink layoutX="333.0" layoutY="265.0" text="Register here" />
+         </children>
+      </AnchorPane>
+      <Text layoutX="245.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SCAMS" wrappingWidth="129.94329833984375">
+         <font>
+            <Font size="37.0" />
+         </font>
+      </Text>
+      <Text layoutX="100.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Text>
+      <Text layoutX="100.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Text>
+      <TextField layoutX="226.0" layoutY="160.0" prefHeight="26.0" prefWidth="314.0" />
+      <PasswordField layoutX="226.0" layoutY="213.0" prefHeight="26.0" prefWidth="314.0" />
+      <Text layoutX="198.0" layoutY="292.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do no have an account?" wrappingWidth="144.80322265625">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Text>
+      <Hyperlink layoutX="343.0" layoutY="275.0" text="Register here" />
+   </children>
+</AnchorPane>
