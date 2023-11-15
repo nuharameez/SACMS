@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="565.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.HelloController">
+    <FlowPane fx:id="calendar" hgap="10.0" layoutX="59.0" layoutY="168.0" prefHeight="275.0" prefWidth="682.0" vgap="5.0" />
+    <HBox alignment="CENTER" layoutX="190.0" layoutY="64.0" prefHeight="44.0" prefWidth="419.0" spacing="5.0">
+        <children>
+            <Button mnemonicParsing="false" onAction="#backOneMonth" text="&lt;" />
+            <Text fx:id="year" strokeType="OUTSIDE" strokeWidth="0.0" text="####">
+                <font>
+                    <Font size="22.0" />
+                </font>
+            </Text>
+            <Text fx:id="month" strokeType="OUTSIDE" strokeWidth="0.0" text="####">
+                <font>
+                    <Font size="22.0" />
+                </font>
+            </Text>
+            <Button mnemonicParsing="false" onAction="#forwardOneMonth" text="&gt;" />
+        </children>
+    </HBox>
+    <HBox alignment="CENTER" layoutX="79.0" layoutY="127.0" prefHeight="18.0" prefWidth="569.0" spacing="88.75">
+        <children>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Su" textAlignment="CENTER" />
+            <Text layoutX="213.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mo" textAlignment="CENTER" />
+            <Text layoutX="222.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu" textAlignment="CENTER" />
+            <Text layoutX="232.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We" textAlignment="CENTER" />
+            <Text layoutX="241.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Th" textAlignment="CENTER" />
+            <Text layoutX="251.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fr" textAlignment="CENTER" />
+            <Text layoutX="266.0" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sa" textAlignment="CENTER" />
+        </children>
+        <padding>
+            <Insets right="9.0" />
+        </padding>
+    </HBox>
+   <Text layoutX="290.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Schedule">
+      <font>
+         <Font size="33.0" />
+      </font>
+   </Text>
+   <DatePicker layoutX="79.0" layoutY="492.0" promptText="Add event" />
+</AnchorPane>
