@@ -9,37 +9,40 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.StartPage">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #264653;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.StartPage">
    <children>
-      <Text layoutX="131.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Welcome to SCAMS" wrappingWidth="341.143310546875">
+      <Text fill="#e9c46a" layoutX="112.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WELCOME TO SCAMS" wrappingWidth="427.143310546875">
          <font>
-            <Font size="37.0" />
+            <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <Text layoutX="89.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+      <Text fill="#e9c46a" layoutX="89.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME">
          <font>
-            <Font size="19.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Text layoutX="88.0" layoutY="180.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+      <Text fill="#e9c46a" layoutX="88.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD">
          <font>
-            <Font size="19.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="username" layoutX="226.0" layoutY="109.0" prefHeight="26.0" prefWidth="314.0" />
-      <PasswordField fx:id="password" layoutX="226.0" layoutY="160.0" prefHeight="26.0" prefWidth="314.0" />
-      <Text layoutX="188.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do no have an account?" wrappingWidth="144.80322265625">
+      <TextField fx:id="username" layoutX="226.0" layoutY="121.0" prefHeight="26.0" prefWidth="314.0" />
+      <PasswordField fx:id="password" layoutX="226.0" layoutY="173.0" prefHeight="26.0" prefWidth="314.0" />
+      <Text fill="WHITE" layoutX="188.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do not have an account?" wrappingWidth="144.80322265625">
          <font>
             <Font size="13.0" />
          </font>
       </Text>
-      <Hyperlink fx:id="registerlink" layoutX="333.0" layoutY="340.0" onAction="#handleRegisterLink" text="Register here" />
-      <Button fx:id="login" layoutX="222.0" layoutY="285.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="159.0" text="Login" />
-      <Text layoutX="88.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select" wrappingWidth="112.99884033203125">
+      <Hyperlink fx:id="registerlink" layoutX="333.0" layoutY="340.0" onAction="#handleRegisterLink" text="Register here" textFill="#e63946" />
+      <Button fx:id="login" layoutX="221.0" layoutY="279.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="159.0" style="-fx-background-color: #e9c46a;" text="LOGIN" textFill="#264653">
          <font>
-            <Font size="19.0" />
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Text fill="#e9c46a" layoutX="88.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLEASE SELECT" wrappingWidth="112.99884033203125">
+         <font>
+            <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <ChoiceBox fx:id="userSelect" layoutX="227.0" layoutY="208.0" prefHeight="26.0" prefWidth="314.0" />
+      <ChoiceBox fx:id="userSelect" layoutX="226.0" layoutY="227.0" prefHeight="26.0" prefWidth="314.0" />
    </children>
 </AnchorPane>
