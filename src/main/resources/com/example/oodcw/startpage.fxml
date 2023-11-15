@@ -33,7 +33,7 @@
             <Font size="13.0" />
          </font>
       </Text>
-      <Hyperlink fx:id="registerlink" layoutX="333.0" layoutY="340.0" onAction="#handleRegisterLink" text="Register here" textFill="#e63946" />
+      <Hyperlink fx:id="registerlink" layoutX="333.0" layoutY="340.0" onAction="#handleRegisterLink" text="Register here" textFill="#e76f51" />
       <Button fx:id="login" layoutX="221.0" layoutY="279.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="159.0" style="-fx-background-color: #e9c46a;" text="LOGIN" textFill="#264653">
          <font>
             <Font name="System Bold" size="14.0" />

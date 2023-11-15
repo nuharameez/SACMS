@@ -7,37 +7,40 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.RegisterStudent">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #264653;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.RegisterStudent">
    <children>
-      <Text layoutX="151.0" layoutY="89.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student Registration">
+      <Text fill="#e9c46a" layoutX="85.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STUDENT REGISTRATION">
          <font>
-            <Font size="33.0" />
+            <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <Text layoutX="83.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+      <Text fill="#e9c46a" layoutX="83.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NAME">
          <font>
-            <Font size="17.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Text layoutX="83.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Student ID">
+      <Text fill="#e9c46a" layoutX="83.0" layoutY="204.0" strokeType="OUTSIDE" strokeWidth="0.0" text="STUDENT ID">
          <font>
-            <Font size="17.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Text layoutX="83.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+      <Text fill="#e9c46a" layoutX="83.0" layoutY="244.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME">
          <font>
-            <Font size="17.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Text layoutX="83.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password">
+      <Text fill="#e9c46a" layoutX="83.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD">
          <font>
-            <Font size="17.0" />
+            <Font name="System Bold" size="14.0" />
          </font>
       </Text>
       <TextField layoutX="237.0" layoutY="143.0" prefHeight="26.0" prefWidth="311.0" />
       <TextField layoutX="237.0" layoutY="225.0" prefHeight="26.0" prefWidth="311.0" />
       <TextField layoutX="237.0" layoutY="185.0" prefHeight="26.0" prefWidth="311.0" />
-      <PasswordField layoutX="237.0" layoutY="265.0" prefHeight="26.0" prefWidth="311.0" />
-      <Button layoutX="237.0" layoutY="326.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="114.0" text="Register" />
+      <PasswordField layoutX="237.0" layoutY="264.0" prefHeight="26.0" prefWidth="311.0" />
+      <Button layoutX="227.0" layoutY="320.0" mnemonicParsing="false" prefHeight="44.0" prefWidth="147.0" style="-fx-background-color: #e9c46a;" text="REGISTER" textFill="#264653">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
    </children>
 </AnchorPane>
