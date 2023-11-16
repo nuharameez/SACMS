@@ -39,7 +39,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField promptText="Name of Club" GridPane.columnIndex="1" />
+                  <TextField fx:id="clubName" promptText="Name of Club" GridPane.columnIndex="1" />
                </children>
             </GridPane>
             <Label layoutX="170.0" layoutY="200.0" prefHeight="25.0" prefWidth="249.0" text="WHAT DO YOU WANT TO MANAGE?" textFill="#214469">
@@ -47,12 +47,12 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Button layoutX="313.0" layoutY="276.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="171.0" style="-fx-background-color: #e76f51;" text="DELETE CLUB" textFill="#eeeeee">
+            <Button fx:id="deleteClub" layoutX="313.0" layoutY="276.0" mnemonicParsing="false" onAction="#deleteClubClick" prefHeight="30.0" prefWidth="171.0" style="-fx-background-color: #e76f51;" text="DELETE CLUB" textFill="#eeeeee">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Button>
-            <Button layoutX="112.0" layoutY="276.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="171.0" style="-fx-background-color: #214469;" text="EDIT CLUB DETAILS" textFill="WHITE">
+            <Button fx:id="editClub" layoutX="112.0" layoutY="276.0" mnemonicParsing="false" onAction="#editClubClick" prefHeight="30.0" prefWidth="171.0" style="-fx-background-color: #214469;" text="EDIT CLUB DETAILS" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
