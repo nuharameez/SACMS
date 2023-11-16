@@ -5,44 +5,51 @@
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #264653;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.StartPage">
    <children>
-      <Text fill="#e9c46a" layoutX="112.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WELCOME TO SCAMS" wrappingWidth="427.143310546875">
+      <ImageView fitHeight="400.0" fitWidth="600.0">
+         <image>
+            <Image url="@SCAMS_NewBG.png" />
+         </image>
+      </ImageView>
+      <Text fill="#214469" layoutX="112.0" layoutY="68.0" strokeType="OUTSIDE" strokeWidth="0.0" text="WELCOME TO SCAMS" wrappingWidth="427.143310546875">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <Text fill="#e9c46a" layoutX="89.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME">
+      <Text fill="#214469" layoutX="106.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Text fill="#e9c46a" layoutX="88.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD">
+      <Text fill="#214469" layoutX="105.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="username" layoutX="226.0" layoutY="121.0" prefHeight="26.0" prefWidth="314.0" />
-      <PasswordField fx:id="password" layoutX="226.0" layoutY="173.0" prefHeight="26.0" prefWidth="314.0" />
-      <Text fill="WHITE" layoutX="188.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do not have an account?" wrappingWidth="144.80322265625">
+      <TextField fx:id="username" layoutX="226.0" layoutY="121.0" prefHeight="26.0" prefWidth="291.0" />
+      <PasswordField fx:id="password" layoutX="226.0" layoutY="173.0" prefHeight="26.0" prefWidth="291.0" />
+      <Text fill="#023047" layoutX="188.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do not have an account?" wrappingWidth="144.80322265625">
          <font>
             <Font size="13.0" />
          </font>
       </Text>
       <Hyperlink fx:id="registerlink" layoutX="333.0" layoutY="340.0" onAction="#handleRegisterLink" text="Register here" textFill="#e76f51" />
-      <Button fx:id="login" layoutX="221.0" layoutY="279.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="159.0" style="-fx-background-color: #e9c46a;" text="LOGIN" textFill="#264653">
+      <Button fx:id="login" layoutX="221.0" layoutY="279.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="159.0" style="-fx-background-color: #214469;" text="LOGIN" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
-      <Text fill="#e9c46a" layoutX="88.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLEASE SELECT" wrappingWidth="112.99884033203125">
+      <Text fill="#214469" layoutX="106.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLEASE SELECT" wrappingWidth="112.99884033203125">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <ChoiceBox fx:id="userSelect" layoutX="226.0" layoutY="227.0" prefHeight="26.0" prefWidth="314.0" />
+      <ChoiceBox fx:id="userSelect" layoutX="226.0" layoutY="227.0" prefHeight="26.0" prefWidth="291.0" />
    </children>
 </AnchorPane>
