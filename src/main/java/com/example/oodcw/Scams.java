@@ -53,7 +53,12 @@ public class Scams extends Application {
 
     @FXML
     private void handleRegisterLink() throws IOException {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        Stage newStage = new Stage();
+        Parent root = FXMLLoader.load(getClass().getResource("registerStudent.fxml"));
+        newStage.setScene(new Scene(root, 600, 400));
+        newStage.show();
+    }
+        /*Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Registration Type");
         alert.setHeaderText("Are you a student or a club advisor?");
         alert.setContentText("Choose your role: ");
@@ -94,7 +99,7 @@ public class Scams extends Application {
         registrationStage.setTitle("Registration Page");
         registrationStage.show();
 
-    }
+    }*/
 
     @FXML
     protected void onLoginButtonClick(ActionEvent actionEvent) throws Exception{

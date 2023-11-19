@@ -10,15 +10,7 @@ import javafx.scene.control.*;
 // 2 registrations required.
 //1. student registration. 2. club advisor registration
 public class Login {
-    @FXML
-    private TextField username;
-    @FXML
-    private PasswordField password;
-
-    @FXML
-    private Button login;
-    @FXML
-    private Label loginSuccess;
+    
 
 
     public Login() {
