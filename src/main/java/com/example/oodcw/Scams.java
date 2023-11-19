@@ -3,6 +3,8 @@ package com.example.oodcw;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -13,18 +15,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class StartPage extends Application {
+public class Scams extends Application {
     ObservableList<String> userOption = FXCollections.observableArrayList( "Student","Club Advisor");
+
+    @FXML
+    private ChoiceBox userSelect;
+    @FXML
+    private Hyperlink registerlink;
+    @FXML
+    private Label loginError;
     @FXML
     private TextField username;
     @FXML
     private PasswordField password;
-    @FXML
-    private Hyperlink registerlink;
-    @FXML
-    private Button login;
-    @FXML
-    private ChoiceBox userSelect;
 
     @FXML
     private void initialize(){
@@ -45,7 +48,6 @@ public class StartPage extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("startpage.fxml"));
         newStage.setScene(new Scene(root, 600, 400));
         newStage.show();
-
 
     }
 
@@ -81,6 +83,7 @@ public class StartPage extends Application {
         });
     }
 
+    //method to open the relevant registration page.
     private void navigateToRegistrationPage(String fxmlPath) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
         AnchorPane root = loader.load();
@@ -90,7 +93,30 @@ public class StartPage extends Application {
         registrationStage.setScene(scene);
         registrationStage.setTitle("Registration Page");
         registrationStage.show();
+
     }
+
+    @FXML
+    protected void onLoginButtonClick(ActionEvent actionEvent) throws Exception{
+        String usernameField = username.getText();
+        String passwordField = password.getText();
+        String selectedRole = (String) userSelect.getValue();
+        //error login option here since the controller for login is in startpage.fxml
+        if (usernameField.isEmpty() || passwordField.isEmpty() || selectedRole == null || selectedRole.isEmpty()){
+            loginError.setText("Please Enter Login Details");
+        }
+        else{
+            loginError.setText("");
+            //code to check if student or club advisor and open the relevant menu
+        }
+    }
+
+
+
+
+
+
+
 
     public static void main(String[] args) {
         launch(args);
