@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #264653;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.Register">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0">
+         <image>
+            <Image url="@SCAMS_NewBG.png" />
+         </image>
+      </ImageView>
+      <Text fill="#214469" layoutX="122.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USER REGISTRATION">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <Text fill="#214469" layoutX="114.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NAME">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#214469" layoutX="361.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#214469" layoutX="114.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <Text fill="#214469" layoutX="114.0" layoutY="241.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="name" layoutX="214.0" layoutY="100.0" prefHeight="26.0" prefWidth="291.0" />
+      <TextField fx:id="username" layoutX="214.0" layoutY="183.0" prefHeight="26.0" prefWidth="291.0" />
+      <TextField fx:id="id" layoutX="382.0" layoutY="143.0" prefHeight="26.0" prefWidth="121.0" />
+      <PasswordField fx:id="password" layoutX="214.0" layoutY="222.0" prefHeight="26.0" prefWidth="291.0" />
+      <Button fx:id="register" layoutX="243.0" layoutY="319.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="44.0" prefWidth="147.0" style="-fx-background-color: #214469;" text="REGISTER" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Button>
+      <Text fill="#214469" layoutX="114.0" layoutY="161.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ROLE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <ChoiceBox fx:id="role" layoutX="214.0" layoutY="143.0" prefHeight="26.0" prefWidth="138.0" />
+      <Text fill="#214469" layoutX="114.0" layoutY="269.0" strokeType="OUTSIDE" strokeWidth="0.0" text="RE-TYPE PASSWORD" wrappingWidth="89.1494140625">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Text>
+      <PasswordField fx:id="repassword" layoutX="214.0" layoutY="261.0" prefHeight="26.0" prefWidth="291.0" />
+      <Label fx:id="registerError" layoutX="257.0" layoutY="62.0" textFill="#ff0000">
+         <font>
+            <Font size="13.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

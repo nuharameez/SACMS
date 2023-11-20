@@ -54,7 +54,7 @@ public class Scams extends Application {
     @FXML
     private void handleRegisterLink() throws IOException {
         Stage newStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("registerStudent.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
         newStage.setScene(new Scene(root, 600, 400));
         newStage.show();
     }
@@ -74,7 +74,7 @@ public class Scams extends Application {
         alert.showAndWait().ifPresent(buttonType -> {
             if (buttonType == studentButton) {
                 try {
-                    navigateToRegistrationPage("registerstudent.fxml");
+                    navigateToRegistrationPage("register.fxml");
                 } catch (IOException e) {
                     throw new RuntimeException(e);
                 }
