@@ -58,48 +58,6 @@ public class Scams extends Application {
         newStage.setScene(new Scene(root, 600, 400));
         newStage.show();
     }
-        /*Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Registration Type");
-        alert.setHeaderText("Are you a student or a club advisor?");
-        alert.setContentText("Choose your role: ");
-
-        ButtonType studentButton = new ButtonType("Student");
-        ButtonType clubadvisorButton = new ButtonType("Club Advisor");
-
-        alert.getButtonTypes().setAll(studentButton, clubadvisorButton);
-
-        //showAndWait: displays alert and waits for user to interact
-        //.ifPresent(buttonType -> {--}: optional method. takes a lambda expression as a parameter.
-        //performs action when user interacts with the dialog.
-        alert.showAndWait().ifPresent(buttonType -> {
-            if (buttonType == studentButton) {
-                try {
-                    navigateToRegistrationPage("register.fxml");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            } else if (buttonType == clubadvisorButton) {
-                try {
-                    navigateToRegistrationPage("registerclubadvisor.fxml");
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-    }
-
-    //method to open the relevant registration page.
-    private void navigateToRegistrationPage(String fxmlPath) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
-        AnchorPane root = loader.load();
-
-        Stage registrationStage = new Stage();
-        Scene scene = new Scene(root, 600, 400);
-        registrationStage.setScene(scene);
-        registrationStage.setTitle("Registration Page");
-        registrationStage.show();
-
-    }*/
 
     @FXML
     protected void onLoginButtonClick(ActionEvent actionEvent) throws Exception{
@@ -112,8 +70,22 @@ public class Scams extends Application {
         }
         else{
             loginError.setText("");
+            openMenu(selectedRole);
             //code to check if student or club advisor and open the relevant menu
         }
+    }
+    private void openMenu(String selectedRole) throws IOException {
+        Stage newStage = new Stage();
+        if(selectedRole.equals("Student")){
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("studentmenu.fxml"));
+            Parent root = loader.load();
+            newStage.setScene(new Scene(root, 600, 400));
+        }
+        else{
+            Parent root = FXMLLoader.load(getClass().getResource("clubadvisormenu.fxml"));
+            newStage.setScene(new Scene(root, 600, 400));
+        }
+        newStage.show();
     }
 
 

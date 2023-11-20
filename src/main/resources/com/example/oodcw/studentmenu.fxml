@@ -6,22 +6,18 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.StudentMenu">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #000000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.StudentMenu">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0">
          <image>
             <Image url="@SCAMS_Final_MAin.png" />
          </image>
       </ImageView>
-      <Button layoutX="22.0" layoutY="176.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="176.0" style="-fx-background-color: #214469;" text="JOIN CLUBS" textFill="WHITE">
+      <Button fx:id="join" layoutX="212.0" layoutY="150.0" mnemonicParsing="false" onAction="#onJoinClick" prefHeight="49.0" prefWidth="176.0" style="-fx-background-color: #214469;" text="JOIN CLUBS" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
-      <Button layoutX="212.0" layoutY="176.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="176.0" style="-fx-background-color: #214469;" text="VIEW MY CLUBS" textFill="WHITE">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font></Button>
-      <Button layoutX="402.0" layoutY="176.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="176.0" style="-fx-background-color: #214469;" text="VIEW CLUB MATERIALS" textFill="WHITE">
+      <Button fx:id="view" layoutX="212.0" layoutY="222.0" mnemonicParsing="false" onAction="#onViewClick" prefHeight="49.0" prefWidth="176.0" style="-fx-background-color: #214469;" text="VIEW MY CLUBS" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
