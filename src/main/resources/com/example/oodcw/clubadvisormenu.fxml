@@ -13,19 +13,19 @@
             <Image url="@SCAMS_Final_MAin.png" />
          </image>
       </ImageView>
-      <Button layoutX="92.0" layoutY="151.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #214469;" text="CREATE CLUBS" textFill="WHITE">
+      <Button layoutX="72.0" layoutY="166.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #214469;" text="CREATE CLUBS" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
-      <Button layoutX="343.0" layoutY="151.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #214469;" text="MANAGE CLUBS" textFill="WHITE">
+      <Button layoutX="327.0" layoutY="166.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #214469;" text="MANAGE CLUBS" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
-      <Button layoutX="343.0" layoutY="226.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #214469;" text="BUTTON" textFill="WHITE">
+      <Button layoutX="327.0" layoutY="226.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #214469;" text="BUTTON" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
-      <Button layoutX="92.0" layoutY="226.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="170.0" style="-fx-background-color: #214469;" text="TRACK ATTENDANCE" textFill="WHITE">
+      <Button layoutX="72.0" layoutY="226.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #214469;" text="TRACK ATTENDANCE" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
