@@ -30,10 +30,10 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <TextField layoutX="187.0" layoutY="85.0" />
-      <TextField layoutX="187.0" layoutY="174.0" />
-      <TextArea layoutX="187.0" layoutY="219.0" prefHeight="122.0" prefWidth="307.0" />
-      <DatePicker layoutX="187.0" layoutY="130.0" />
+      <TextField fx:id="meetingName" layoutX="187.0" layoutY="85.0" />
+      <TextField fx:id="meetingVenue" layoutX="187.0" layoutY="174.0" />
+      <TextArea fx:id="meetingDescription" layoutX="187.0" layoutY="219.0" prefHeight="122.0" prefWidth="307.0" />
+      <DatePicker fx:id="meetingDate" layoutX="187.0" layoutY="130.0" />
       <Button layoutX="524.0" layoutY="17.0" mnemonicParsing="false" text="Submit" />
    </children>
 </AnchorPane>

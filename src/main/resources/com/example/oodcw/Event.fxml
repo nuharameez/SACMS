@@ -30,17 +30,17 @@
                 <Font size="18.0" />
             </font>
         </Text>
-        <TextField layoutX="191.0" layoutY="85.0" />
-        <TextField layoutX="191.0" layoutY="174.0" />
-        <DatePicker layoutX="191.0" layoutY="131.0" />
-        <TextField layoutX="191.0" layoutY="233.0" prefHeight="26.0" prefWidth="59.0" />
+        <TextField fx:id="nameEvent" layoutX="191.0" layoutY="85.0" />
+        <TextField fx:id="eventVenue" layoutX="191.0" layoutY="174.0" />
+        <DatePicker fx:id="eventDate" layoutX="191.0" layoutY="131.0" />
+        <TextField fx:id="maxParticipants" layoutX="191.0" layoutY="233.0" prefHeight="26.0" prefWidth="59.0" />
         <Text layoutX="73.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sponsors" wrappingWidth="100.693359375">
             <font>
                 <Font size="18.0" />
             </font>
         </Text>
-      <TextField layoutX="192.0" layoutY="285.0" />
-      <TextArea layoutX="191.0" layoutY="323.0" prefHeight="59.0" prefWidth="318.0" />
+      <TextField fx:id="sponsors" layoutX="192.0" layoutY="285.0" />
+      <TextArea fx:id="eventDetails" layoutX="191.0" layoutY="323.0" prefHeight="59.0" prefWidth="318.0" />
       <Text layoutX="73.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Details" wrappingWidth="100.693359375">
          <font>
             <Font size="18.0" />
@@ -51,7 +51,7 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <ChoiceBox layoutX="397.0" layoutY="233.0" prefHeight="26.0" prefWidth="94.0" />
+      <ChoiceBox fx:id="MemOnly" layoutX="397.0" layoutY="233.0" prefHeight="26.0" prefWidth="94.0" />
       <Text layoutX="309.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Member Only" wrappingWidth="100.693359375">
          <font>
             <Font size="18.0" />

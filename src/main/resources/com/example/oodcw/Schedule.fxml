@@ -10,15 +10,15 @@
          <font>
             <Font size="24.0" />
          </font></Text>
-      <TableView layoutX="42.0" layoutY="86.0" prefHeight="200.0" prefWidth="530.0">
+      <TableView fx:id="tableView" layoutX="42.0" layoutY="86.0" prefHeight="200.0" prefWidth="530.0">
         <columns>
           <TableColumn prefWidth="83.39996337890625" text="Date " />
           <TableColumn minWidth="0.0" prefWidth="117.59998321533203" text="Type" />
             <TableColumn minWidth="0.0" prefWidth="330.3999938964844" text="Name " />
         </columns>
       </TableView>
-      <Button layoutX="58.0" layoutY="332.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Add Event" />
-      <Button layoutX="261.0" layoutY="332.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Add Meeting" />
-      <Button layoutX="442.0" layoutY="332.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Add Activity" />
+      <Button fx:id="addEvent" layoutX="58.0" layoutY="332.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Add Event" />
+      <Button fx:id="addMeeting" layoutX="261.0" layoutY="332.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Add Meeting" />
+      <Button fx:id="addActivity" layoutX="442.0" layoutY="332.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Add Activity" />
    </children>
 </AnchorPane>

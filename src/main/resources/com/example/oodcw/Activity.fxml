@@ -30,16 +30,16 @@
                 <Font size="18.0" />
             </font>
         </Text>
-        <TextField layoutX="191.0" layoutY="85.0" />
-        <TextField layoutX="191.0" layoutY="174.0" />
-        <DatePicker layoutX="191.0" layoutY="131.0" />
-      <TextField layoutX="191.0" layoutY="233.0" prefHeight="26.0" prefWidth="59.0" />
+        <TextField fx:id="activityName" layoutX="191.0" layoutY="85.0" />
+        <TextField fx:id="activityVenue" layoutX="191.0" layoutY="174.0" />
+        <DatePicker fx:id="activityDate" layoutX="191.0" layoutY="131.0" />
+      <TextField fx:id="activityMaxParticipants" layoutX="191.0" layoutY="233.0" prefHeight="26.0" prefWidth="59.0" />
       <Text layoutX="73.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="100.693359375">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <TextArea layoutX="191.0" layoutY="284.0" prefHeight="86.0" prefWidth="359.0" />
+      <TextArea fx:id="activityDescription" layoutX="191.0" layoutY="284.0" prefHeight="86.0" prefWidth="359.0" />
       <Button layoutX="513.0" layoutY="17.0" mnemonicParsing="false" text="Submit" />
     </children>
 </AnchorPane>
