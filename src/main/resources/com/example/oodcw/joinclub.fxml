@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.JoinClub">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.JoinClub">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0">
          <image>
@@ -21,7 +21,7 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Text>
-      <Button fx:id="joinClub" layoutX="146.0" layoutY="245.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #fcbf49;" text="JOIN" textFill="WHITE">
+      <Button fx:id="joinClub" layoutX="235.0" layoutY="230.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #fcbf49;" text="JOIN" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
@@ -30,10 +30,13 @@
             <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <Button fx:id="clearClub" layoutX="319.0" layoutY="245.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #e76f51;" text="CLEAR" textFill="WHITE">
+      <Button fx:id="clearClub" layoutX="234.0" layoutY="279.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #e76f51;" text="CLEAR" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font></Button>
-      <Text fill="#e76f51" layoutX="301.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLEASE SELECT CLEAR TO SELECT A NEW CLUB TO JOIN" textAlignment="CENTER" wrappingWidth="177.802734375" />
+      <Text fill="#9e1212" layoutX="116.0" layoutY="345.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PLEASE SELECT CLEAR TO SELECT A NEW CLUB TO JOIN" textAlignment="CENTER" wrappingWidth="369.60003662109375">
+         <font>
+            <Font size="14.0" />
+         </font></Text>
    </children>
 </AnchorPane>

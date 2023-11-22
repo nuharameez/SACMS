@@ -23,7 +23,7 @@ public class StudentMenu {
     }@FXML
     protected void onViewClick(ActionEvent actionEvent) throws IOException{
         Stage newStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("joinclub.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("viewclub.fxml"));
         newStage.setScene(new Scene(root, 600, 400));
         newStage.show();
     }
