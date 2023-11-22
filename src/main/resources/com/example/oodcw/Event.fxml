@@ -57,6 +57,6 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Button layoutX="509.0" layoutY="29.0" mnemonicParsing="false" text="Submit" />
+      <Button fx:id="eventSubmitButton" layoutX="509.0" layoutY="29.0" mnemonicParsing="false" text="Submit" />
     </children>
 </AnchorPane>

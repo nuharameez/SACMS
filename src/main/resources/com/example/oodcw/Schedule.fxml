@@ -17,8 +17,8 @@
             <TableColumn minWidth="0.0" prefWidth="330.3999938964844" text="Name " />
         </columns>
       </TableView>
-      <Button fx:id="addEvent" layoutX="58.0" layoutY="332.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Add Event" />
-      <Button fx:id="addMeeting" layoutX="261.0" layoutY="332.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Add Meeting" />
-      <Button fx:id="addActivity" layoutX="442.0" layoutY="332.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="116.0" text="Add Activity" />
+      <Button fx:id="addEvent" layoutX="58.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#handleAddEvent" prefHeight="26.0" prefWidth="116.0" text="Add Event" />
+      <Button fx:id="addMeeting" layoutX="261.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#handleAddMeeting" prefHeight="26.0" prefWidth="116.0" text="Add Meeting" />
+      <Button fx:id="addActivity" layoutX="442.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#handleAddActivity" prefHeight="26.0" prefWidth="116.0" text="Add Activity" />
    </children>
 </AnchorPane>
