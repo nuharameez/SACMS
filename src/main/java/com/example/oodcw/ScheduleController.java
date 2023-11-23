@@ -12,32 +12,29 @@ import java.io.IOException;
 public class ScheduleController {
 
     @FXML
-    private void handleAddEvent(ActionEvent event) {
+    private void handleAddEvent(ActionEvent event) throws IOException {
         openFXML("Event.fxml", "Add Event");
+        System.out.println("hi");
     }
 
     @FXML
-    private void handleAddMeeting(ActionEvent event) {
+    private void handleAddMeeting(ActionEvent event) throws IOException {
         openFXML("Meeting.fxml", "Add Meeting");
     }
 
     @FXML
-    private void handleAddActivity(ActionEvent event) {
+    private void handleAddActivity(ActionEvent event) throws IOException {
         openFXML("Activity.fxml", "Add Activity");
     }
 
-    private void openFXML(String fxmlFileName, String stageTitle) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-            Parent root = loader.load();
+    private void openFXML(String fxmlFileName, String stageTitle) throws IOException {
 
-            Stage stage = new Stage();
-            stage.setTitle(stageTitle);
-            stage.setScene(new Scene(root));
-
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+        Parent root = loader.load();
+        Stage stage = new Stage();
+        stage.setTitle(stageTitle);
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }
+

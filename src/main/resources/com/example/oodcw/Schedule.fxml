@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.Schedule">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.ScheduleController">
    <children>
       <Text layoutX="252.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schedule">
          <font>
@@ -17,8 +17,8 @@
             <TableColumn minWidth="0.0" prefWidth="330.3999938964844" text="Name " />
         </columns>
       </TableView>
-      <Button fx:id="addEvent" layoutX="58.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#handleAddEvent" prefHeight="26.0" prefWidth="116.0" text="Add Event" />
-      <Button fx:id="addMeeting" layoutX="261.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#handleAddMeeting" prefHeight="26.0" prefWidth="116.0" text="Add Meeting" />
-      <Button fx:id="addActivity" layoutX="442.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#handleAddActivity" prefHeight="26.0" prefWidth="116.0" text="Add Activity" />
+      <Button fx:id="addEvent" layoutX="58.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddEvent" prefHeight="26.0" prefWidth="116.0" text="Add Event" />
+      <Button fx:id="addMeeting" layoutX="261.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddMeeting" prefHeight="26.0" prefWidth="116.0" text="Add Meeting" />
+      <Button fx:id="addActivity" layoutX="442.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddActivity" prefHeight="26.0" prefWidth="116.0" text="Add Activity" />
    </children>
 </AnchorPane>

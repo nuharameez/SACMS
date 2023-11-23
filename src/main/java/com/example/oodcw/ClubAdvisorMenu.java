@@ -24,6 +24,7 @@ public class ClubAdvisorMenu {
     @FXML
     private void handleSchedule(ActionEvent event) throws IOException {
         openFXML("Schedule.fxml", "Schedule");
+        System.out.println("Schedule button clicked");
     }
 
     @FXML
