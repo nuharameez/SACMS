@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.Schedule">
+    <children>
+        <Text layoutX="211.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schedule Event">
+            <font>
+                <Font size="24.0" />
+            </font></Text>
+        <Text layoutX="73.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="52.693359375">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <Text layoutX="73.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="52.693359375">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <Text layoutX="73.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Venue" wrappingWidth="52.693359375">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <Text layoutX="73.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Max Participants" wrappingWidth="100.693359375">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <TextField fx:id="nameEvent" layoutX="191.0" layoutY="85.0" />
+        <TextField fx:id="eventVenue" layoutX="191.0" layoutY="174.0" />
+        <DatePicker fx:id="eventDate" layoutX="191.0" layoutY="131.0" />
+        <TextField fx:id="maxParticipants" layoutX="191.0" layoutY="233.0" prefHeight="26.0" prefWidth="59.0" />
+        <Text layoutX="73.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sponsors" wrappingWidth="100.693359375">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+      <TextField fx:id="sponsors" layoutX="192.0" layoutY="285.0" />
+      <TextArea fx:id="eventDetails" layoutX="191.0" layoutY="323.0" prefHeight="59.0" prefWidth="318.0" />
+      <Text layoutX="73.0" layoutY="346.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Details" wrappingWidth="100.693359375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="290.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="100.693359375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <ChoiceBox fx:id="MemOnly" layoutX="397.0" layoutY="233.0" prefHeight="26.0" prefWidth="94.0" />
+      <Text layoutX="309.0" layoutY="237.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Member Only" wrappingWidth="100.693359375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Button fx:id="eventSubmitButton" layoutX="509.0" layoutY="29.0" mnemonicParsing="false" text="Submit" />
+    </children>
+</AnchorPane>

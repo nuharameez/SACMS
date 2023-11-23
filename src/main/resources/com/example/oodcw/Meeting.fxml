@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.Schedule">
+   <children>
+      <Text layoutX="211.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schedule Meeting">
+         <font>
+            <Font size="24.0" />
+         </font></Text>
+      <Text layoutX="73.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name" wrappingWidth="52.693359375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="73.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" wrappingWidth="52.693359375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="73.0" layoutY="194.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Venue" wrappingWidth="52.693359375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="73.0" layoutY="239.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Description" wrappingWidth="100.693359375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="meetingName" layoutX="187.0" layoutY="85.0" />
+      <TextField fx:id="meetingVenue" layoutX="187.0" layoutY="174.0" />
+      <TextArea fx:id="meetingDescription" layoutX="187.0" layoutY="219.0" prefHeight="122.0" prefWidth="307.0" />
+      <DatePicker fx:id="meetingDate" layoutX="187.0" layoutY="130.0" />
+      <Button fx:id="meetingSubmitButton" layoutX="524.0" layoutY="17.0" mnemonicParsing="false" text="Submit" />
+   </children>
+</AnchorPane>

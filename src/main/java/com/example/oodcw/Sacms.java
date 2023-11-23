@@ -86,13 +86,6 @@ public class Sacms extends Application {
         newStage.show();
     }
 
-
-
-
-
-
-
-
     public static void main(String[] args) {
         launch(args);
     }
