@@ -14,7 +14,6 @@ public class ScheduleController {
     @FXML
     private void handleAddEvent(ActionEvent event) throws IOException {
         openFXML("Event.fxml", "Add Event");
-        System.out.println("hi");
     }
 
     @FXML
@@ -26,6 +25,8 @@ public class ScheduleController {
     private void handleAddActivity(ActionEvent event) throws IOException {
         openFXML("Activity.fxml", "Add Activity");
     }
+
+
 
     private void openFXML(String fxmlFileName, String stageTitle) throws IOException {
 
