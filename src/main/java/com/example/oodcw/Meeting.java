@@ -5,10 +5,10 @@ import java.util.Date;
 public class Meeting extends Schedule{
     private String description;
 
-    public Meeting(String name, Date date, String venue) {
+    public Meeting(String name, Date date, String venue, String description) {
         super(name, date, venue);
+        this.description=description;
     }
-
 
     @Override
     public String getName() {
