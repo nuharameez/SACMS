@@ -4,11 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -62,26 +58,15 @@ public class Register {
         }
         else{
             registerError.setText("");
-            openMenu(roleField); //opens relevant menu
+            Login login = new Login();
+            login.openMenu(roleField); //opens relevant menu
         }
 
 
     }
 
-    //method to open the relevant menu according to role
-    private void openMenu(String selectedRole) throws IOException {
-        Stage newStage = new Stage();
-        if(selectedRole.equals("Student")){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("studentmenu.fxml"));
-            Parent root = loader.load();
-            newStage.setScene(new Scene(root, 600, 400));
-        }
-        else{
-            Parent root = FXMLLoader.load(getClass().getResource("clubadvisormenu.fxml"));
-            newStage.setScene(new Scene(root, 600, 400));
-        }
-        newStage.show();
-    }
+    //createAccount method here
+
 
 }
 

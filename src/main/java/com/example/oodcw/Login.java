@@ -12,8 +12,12 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-public class Sacms extends Application {
+import static com.example.oodcw.SacmsDatabaseConnector.dbConnector;
+
+public class Login extends Application {
     ObservableList<String> userOption = FXCollections.observableArrayList( "Student","Club Advisor");
 
     @FXML
@@ -68,11 +72,18 @@ public class Sacms extends Application {
         }
         else{
             loginError.setText("");
-            openMenu(selectedRole);
+            Connection connection = SacmsDatabaseConnector.dbConnector();
+            boolean accountExists = SacmsDatabaseConnector.authenticateUser(selectedRole, usernameField, passwordField, connection);
+            if (accountExists) {
+                openMenu(selectedRole);
+            } else {
+                loginError.setText("Invalid username or password");
+            }
+
             //code to check if student or club advisor and open the relevant menu
         }
     }
-    private void openMenu(String selectedRole) throws IOException {
+    protected void openMenu(String selectedRole) throws IOException {
         Stage newStage = new Stage();
         if(selectedRole.equals("Student")){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("studentmenu.fxml"));
