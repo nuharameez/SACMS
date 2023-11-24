@@ -43,7 +43,7 @@ public class Register {
     //2. checks if the 2 passwords match
     //3. opens menu according to the role of the user
     @FXML
-    protected void onRegisterButtonClick(ActionEvent actionEvent) throws IOException, SQLException {
+    protected void onRegisterButtonClick(ActionEvent actionEvent) {
         String nameField = name.getText();
         String idField = id.getText();
         String roleField = (String) role.getValue();
