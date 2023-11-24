@@ -39,7 +39,7 @@ public class Login extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException {
         /*FXMLLoader loader = new FXMLLoader(getClass().getResource("startpage.fxml"));
-        AnchorPane root = loader.load();
+        AnchorPane root = loader.load();dfghjhjj
 
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setScene(scene);
