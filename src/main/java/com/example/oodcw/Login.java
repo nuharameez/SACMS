@@ -13,9 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.SQLException;
 
-import static com.example.oodcw.SacmsDatabaseConnector.dbConnector;
 
 public class Login extends Application {
     ObservableList<String> userOption = FXCollections.observableArrayList( "Student","Club Advisor");
@@ -37,26 +35,28 @@ public class Login extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws IOException {
-        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("startpage.fxml"));
-        AnchorPane root = loader.load();dfghjhjj
-
-        Scene scene = new Scene(root, 600, 400);
-        primaryStage.setScene(scene);
-        primaryStage.setTitle("SCAMS");
-        primaryStage.show();*/
-
+    public void start(Stage primaryStage){
         Stage newStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("startpage.fxml"));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("startpage.fxml"));
+        } catch (IOException e) {
+            System.out.println("Cannot start application");;
+        }
         newStage.setScene(new Scene(root, 600, 400));
         newStage.show();
 
     }
 
     @FXML
-    private void handleRegisterLink() throws IOException {
+    private void handleRegisterLink() {
         Stage newStage = new Stage();
-        Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("register.fxml"));
+        } catch (IOException e) {
+            loginError.setText("Failed to open register page");
+        }
         newStage.setScene(new Scene(root, 600, 400));
         newStage.show();
     }
@@ -84,15 +84,25 @@ public class Login extends Application {
             //code to check if student or club advisor and open the relevant menu
         }
     }
-    protected void openMenu(String selectedRole) throws IOException {
+    protected void openMenu(String selectedRole) {
         Stage newStage = new Stage();
         if(selectedRole.equals("Student")){
             FXMLLoader loader = new FXMLLoader(getClass().getResource("studentmenu.fxml"));
-            Parent root = loader.load();
+            Parent root = null;
+            try {
+                root = loader.load();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             newStage.setScene(new Scene(root, 600, 400));
         }
         else{
-            Parent root = FXMLLoader.load(getClass().getResource("clubadvisormenu.fxml"));
+            Parent root = null;
+            try {
+                root = FXMLLoader.load(getClass().getResource("clubadvisormenu.fxml"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             newStage.setScene(new Scene(root, 600, 400));
         }
         newStage.show();
