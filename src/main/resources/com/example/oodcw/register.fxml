@@ -63,7 +63,7 @@
          </font>
       </Text>
       <PasswordField fx:id="repassword" layoutX="214.0" layoutY="261.0" prefHeight="26.0" prefWidth="291.0" />
-      <Label fx:id="registerError" layoutX="257.0" layoutY="62.0" textFill="#ff0000">
+      <Label fx:id="registerError" alignment="CENTER" contentDisplay="CENTER" layoutX="121.0" layoutY="62.0" prefHeight="19.0" prefWidth="357.0" textAlignment="CENTER" textFill="#ff0000">
          <font>
             <Font size="13.0" />
          </font>

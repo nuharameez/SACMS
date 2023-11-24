@@ -73,7 +73,8 @@ public class Login extends Application {
         else{
             loginError.setText("");
             Connection connection = SacmsDatabaseConnector.dbConnector();
-            boolean accountExists = SacmsDatabaseConnector.authenticateUser(selectedRole, usernameField, passwordField, connection);
+            String role = (selectedRole.equalsIgnoreCase("student"))? "student" : "clubadvisor";
+            boolean accountExists = SacmsDatabaseConnector.authenticateUser(role, usernameField, passwordField, connection);
             if (accountExists) {
                 openMenu(selectedRole);
             } else {
