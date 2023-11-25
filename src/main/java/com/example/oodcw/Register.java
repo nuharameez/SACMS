@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 
-public class Register {
+public class Register extends Sacms {
 
     @FXML
     private TextField name;
@@ -35,8 +35,6 @@ public class Register {
     private void initialize(){
         role.setItems(roleOption);
     }
-
-
 
     //when the registration button is clicked
     //1. checks if all fields filled
@@ -64,7 +62,6 @@ public class Register {
         else{
             registerError.setText("");
 
-            Login login = new Login();
             Connection connection = SacmsDatabaseConnector.dbConnector();
             //since it is read as Club Advisor from the drop down but the table name is clubadvisor
             String role = (roleField.equalsIgnoreCase("student"))? "student" : "clubadvisor";
@@ -86,7 +83,7 @@ public class Register {
                 }
                 else {
                     SacmsDatabaseConnector.addNewUser(role, idField, usernameField, passwordField, connection);
-                    login.openMenu(roleField);
+                    openMenu(roleField);
                 }
             }
 
@@ -95,9 +92,9 @@ public class Register {
 
     }
 
-    //createAccount method here
+
 
 
 }
 
-//connect to database and work on saving.
+

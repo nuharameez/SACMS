@@ -1,6 +1,4 @@
 package com.example.oodcw;
-
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,13 +13,16 @@ import java.io.IOException;
 import java.sql.Connection;
 
 
-public class Login extends Application {
-    ObservableList<String> userOption = FXCollections.observableArrayList( "Student","Club Advisor");
+public class Login extends Sacms {
 
+    //composition used here
+    private SacmsDatabaseConnector databaseConnector;
+    public Login(){
+        this.databaseConnector = new SacmsDatabaseConnector();
+    }
+    ObservableList<String> userOption = FXCollections.observableArrayList( "Student","Club Advisor");
     @FXML
     private ChoiceBox userSelect;
-    @FXML
-    private Hyperlink registerlink;
     @FXML
     private Label loginError;
     @FXML
@@ -31,38 +32,13 @@ public class Login extends Application {
 
     @FXML
     private void initialize(){
+
         userSelect.setItems(userOption);
     }
 
-    @Override
-    public void start(Stage primaryStage){
-        Stage newStage = new Stage();
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("startpage.fxml"));
-        } catch (IOException e) {
-            System.out.println("Cannot start application");;
-        }
-        newStage.setScene(new Scene(root, 600, 400));
-        newStage.show();
-
-    }
 
     @FXML
-    private void handleRegisterLink() {
-        Stage newStage = new Stage();
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("register.fxml"));
-        } catch (IOException e) {
-            loginError.setText("Failed to open register page");
-        }
-        newStage.setScene(new Scene(root, 600, 400));
-        newStage.show();
-    }
-
-    @FXML
-    protected void onLoginButtonClick(ActionEvent actionEvent) throws Exception{
+    protected void onLoginButtonClick(ActionEvent actionEvent){
         String usernameField = username.getText();
         String passwordField = password.getText();
         String selectedRole = (String) userSelect.getValue();
@@ -72,7 +48,7 @@ public class Login extends Application {
         }
         else{
             loginError.setText("");
-            Connection connection = SacmsDatabaseConnector.dbConnector();
+            Connection connection = databaseConnector.dbConnector();
             String role = (selectedRole.equalsIgnoreCase("student"))? "student" : "clubadvisor";
             boolean accountExists = SacmsDatabaseConnector.authenticateUser(role, usernameField, passwordField, connection);
             if (accountExists) {
@@ -80,35 +56,21 @@ public class Login extends Application {
             } else {
                 loginError.setText("Invalid username or password");
             }
-
-            //code to check if student or club advisor and open the relevant menu
         }
     }
-    protected void openMenu(String selectedRole) {
+    @FXML
+    private void handleRegisterLink() {
         Stage newStage = new Stage();
-        if(selectedRole.equals("Student")){
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("studentmenu.fxml"));
-            Parent root = null;
-            try {
-                root = loader.load();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            newStage.setScene(new Scene(root, 600, 400));
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("register.fxml"));
+        } catch (IOException e) {
+            System.out.println("Failed to open register page");
         }
-        else{
-            Parent root = null;
-            try {
-                root = FXMLLoader.load(getClass().getResource("clubadvisormenu.fxml"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-            newStage.setScene(new Scene(root, 600, 400));
-        }
+        newStage.setScene(new Scene(root, 600, 400));
         newStage.show();
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+
+
 }
