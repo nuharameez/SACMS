@@ -14,6 +14,12 @@ import java.sql.SQLException;
 //when join button is clicked, the club needs to be saved with the students name and other details
 //when clear is clicked a new window needs to be opened.
 public class JoinClub {
+
+    private static UserDetails currentUserDetails;  // static to hold a single instance across all instances
+
+    public static void setUserDetails(UserDetails userDetails) {
+        currentUserDetails = userDetails;
+    }
     @FXML
     private ChoiceBox selectClub;
     @FXML
@@ -30,5 +36,13 @@ public class JoinClub {
     protected void onJoinButtonClick(ActionEvent actionEvent)  {
         //when join button clicked, the relevant table needs to add the student name in it.
         joinMessage.setText("You have joined the club successfully");
+        StudentMenu studentMenuController = new StudentMenu();
+        studentMenuController.setUserDetails(currentUserDetails);
+
+        //getUserInfo method comes here
     }
+
+
+
+
 }

@@ -13,13 +13,16 @@ import java.io.IOException;
 import java.sql.Connection;
 
 
-public class Login extends Sacms {
+public class Login {
+
 
     //composition used here
     private SacmsDatabaseConnector databaseConnector;
+
     public Login(){
         this.databaseConnector = new SacmsDatabaseConnector();
     }
+    Sacms sacms = new Sacms();
     ObservableList<String> userOption = FXCollections.observableArrayList( "Student","Club Advisor");
     @FXML
     private ChoiceBox userSelect;
@@ -52,7 +55,7 @@ public class Login extends Sacms {
             String role = (selectedRole.equalsIgnoreCase("student"))? "student" : "clubadvisor";
             boolean accountExists = SacmsDatabaseConnector.authenticateUser(role, usernameField, passwordField, connection);
             if (accountExists) {
-                openMenu(selectedRole);
+                sacms.openMenu(selectedRole);
             } else {
                 loginError.setText("Invalid username or password");
             }
@@ -70,6 +73,8 @@ public class Login extends Sacms {
         newStage.setScene(new Scene(root, 600, 400));
         newStage.show();
     }
+
+
 
 
 

@@ -97,4 +97,21 @@ public class SacmsDatabaseConnector {
         }
 
     }
+
+    public static UserDetails getUserDetails(String role, String username, Connection connection) {
+        String query = "SELECT id, name FROM " + role + " WHERE username = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String id = resultSet.getString("id");
+                String name = resultSet.getString("name");
+                return new UserDetails(id, name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }

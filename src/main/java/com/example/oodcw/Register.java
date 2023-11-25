@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 
-public class Register extends Sacms {
+public class Register {
 
     @FXML
     private TextField name;
@@ -30,6 +30,7 @@ public class Register extends Sacms {
 
 
     ObservableList<String> roleOption = FXCollections.observableArrayList( "Student","Club Advisor");
+    Sacms sacms = new Sacms();
 
     @FXML
     private void initialize(){
@@ -83,7 +84,7 @@ public class Register extends Sacms {
                 }
                 else {
                     SacmsDatabaseConnector.addNewUser(role, idField, usernameField, passwordField, connection);
-                    openMenu(roleField);
+                    sacms.openMenu(roleField);
                 }
             }
 
@@ -96,5 +97,3 @@ public class Register extends Sacms {
 
 
 }
-
-
