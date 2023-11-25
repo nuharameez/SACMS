@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.ScheduleController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.ScheduleController">
    <children>
-      <Text layoutX="252.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schedule">
+      <ImageView fitHeight="400.0" fitWidth="600.0">
+         <image>
+            <Image url="@SCAMS_NewBG.png" />
+         </image>
+      </ImageView>
+      <Text fill="#214469" layoutX="210.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SCHEDULE">
          <font>
-            <Font size="24.0" />
+            <Font name="System Bold" size="36.0" />
          </font></Text>
-      <TableView fx:id="tableView" layoutX="42.0" layoutY="86.0" prefHeight="200.0" prefWidth="530.0">
+      <TableView fx:id="tableView" layoutX="66.0" layoutY="86.0" prefHeight="230.0" prefWidth="475.0">
         <columns>
           <TableColumn prefWidth="83.39996337890625" text="ID" />
           <TableColumn minWidth="0.0" prefWidth="100.79999542236328" text="Type" />
@@ -18,8 +29,34 @@
             <TableColumn prefWidth="258.3999328613281" text="Name " />
         </columns>
       </TableView>
-      <Button fx:id="addEvent" layoutX="58.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddEvent" prefHeight="26.0" prefWidth="116.0" text="Add Event" />
-      <Button fx:id="addMeeting" layoutX="261.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddMeeting" prefHeight="26.0" prefWidth="116.0" text="Add Meeting" />
-      <Button fx:id="addActivity" layoutX="442.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddActivity" prefHeight="26.0" prefWidth="116.0" text="Add Activity" />
+      <Button fx:id="addEvent" layoutX="103.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddEvent" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #214469;" text="ADD EVENT" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="addMeeting" layoutX="246.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddMeeting" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #214469;" text="ADD MEETING" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button fx:id="addActivity" layoutX="390.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddActivity" prefHeight="26.0" prefWidth="116.0" style="-fx-background-color: #214469;" text="ADD ACTIVITY" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+      <Button layoutX="42.0" layoutY="35.0" mnemonicParsing="false" onAction="#backToMenuClick" style="-fx-background-color: #214469;" text="&lt;---" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
