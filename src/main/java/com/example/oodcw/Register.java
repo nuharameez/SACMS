@@ -78,7 +78,7 @@ public class Register {
             }
             else {
                 //checks if the ID is in database
-                boolean checkId = SacmsDatabaseConnector.authenticateId(role, idField, connection);
+                boolean checkId = SacmsDatabaseConnector.authenticateRegistration(role, idField, connection);
                 if(checkId){
                     registerError.setText("");
                     registerError.setText("This user ID already exists");
