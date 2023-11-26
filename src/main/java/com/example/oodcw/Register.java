@@ -83,7 +83,7 @@ public class Register {
 
                 }
                 else {
-                    SacmsDatabaseConnector.addNewUser(role, idField, usernameField, passwordField, connection);
+                    SacmsDatabaseConnector.addNewUser(role, idField, usernameField, passwordField, nameField, connection);
                     sacms.openMenu(roleField);
                 }
             }

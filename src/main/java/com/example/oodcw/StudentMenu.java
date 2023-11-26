@@ -9,25 +9,23 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
 
 public class StudentMenu {
+
+    private SacmsDatabaseConnector databaseConnector;
     //method to open the join club page
     //to open the view clubs page
 
-    private static UserDetails currentUserDetails;  // static to hold a single instance across all instances
 
-    public void setUserDetails(UserDetails userDetails) {
-        currentUserDetails = userDetails;
-    }
 
     @FXML
     protected void onJoinClick(ActionEvent actionEvent) throws IOException{
-        JoinClub joinClubController = new JoinClub();
-        joinClubController.setUserDetails(currentUserDetails);
         Stage newStage = new Stage();
         Parent root = FXMLLoader.load(getClass().getResource("joinclub.fxml"));
         newStage.setScene(new Scene(root, 600, 400));
         newStage.show();
+
     }
 
     @FXML

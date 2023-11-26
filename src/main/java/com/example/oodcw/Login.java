@@ -33,6 +33,17 @@ public class Login {
     @FXML
     private PasswordField password;
 
+    private static String userId;
+    private static String userName;
+
+    public static String getUserId() {
+        return userId;
+    }
+
+    public static String getUserName() {
+        return userName;
+    }
+
     @FXML
     private void initialize(){
 
@@ -52,10 +63,22 @@ public class Login {
         else{
             loginError.setText("");
             Connection connection = databaseConnector.dbConnector();
+            UserDetails userDetails = SacmsDatabaseConnector.getUserDetails( usernameField, connection);
             String role = (selectedRole.equalsIgnoreCase("student"))? "student" : "clubadvisor";
             boolean accountExists = SacmsDatabaseConnector.authenticateUser(role, usernameField, passwordField, connection);
+            String userId = userDetails.getId();
+            String userName = userDetails.getName();
+            userId = userDetails.getId();
+            userName = userDetails.getName();
+            JoinClub.setUserDetails(userId,userName);
             if (accountExists) {
                 sacms.openMenu(selectedRole);
+                if (userDetails != null) {
+                    System.out.println("User ID: " + userDetails.getId());
+                    System.out.println("User Name: " + userDetails.getName());
+                } else {
+                    System.out.println("User details are null");
+                }
             } else {
                 loginError.setText("Invalid username or password");
             }
