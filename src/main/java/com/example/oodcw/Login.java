@@ -33,16 +33,9 @@ public class Login {
     @FXML
     private PasswordField password;
 
-    private static String userId;
-    private static String userName;
 
-    public static String getUserId() {
-        return userId;
-    }
 
-    public static String getUserName() {
-        return userName;
-    }
+
 
     @FXML
     private void initialize(){
@@ -53,7 +46,7 @@ public class Login {
 
     @FXML
     protected void onLoginButtonClick(ActionEvent actionEvent){
-        String usernameField = username.getText();
+        String usernameField = username.getText().toLowerCase();
         String passwordField = password.getText();
         String selectedRole = (String) userSelect.getValue();
         //error login option here since the controller for login is in startpage.fxml
@@ -63,22 +56,19 @@ public class Login {
         else{
             loginError.setText("");
             Connection connection = databaseConnector.dbConnector();
-            UserDetails userDetails = SacmsDatabaseConnector.getUserDetails( usernameField, connection);
+            UserDetails userDetails = SacmsDatabaseConnector.getUserDetails( usernameField.toLowerCase(), connection);
             String role = (selectedRole.equalsIgnoreCase("student"))? "student" : "clubadvisor";
-            boolean accountExists = SacmsDatabaseConnector.authenticateUser(role, usernameField, passwordField, connection);
-            String userId = userDetails.getId();
-            String userName = userDetails.getName();
-            userId = userDetails.getId();
-            userName = userDetails.getName();
-            JoinClub.setUserDetails(userId,userName);
+            boolean accountExists = SacmsDatabaseConnector.authenticateUser(role, usernameField.toLowerCase(), passwordField, connection);
+
+
             if (accountExists) {
+                //getting the id and name of the user to store seperaretly and use in the join club class
+                //inside the if so it will work only if a valid username is entered.
+                String userId = userDetails.getId();
+                String userName = userDetails.getName();
+                JoinClub.setUserDetails(userId,userName); //setting the name and id to use in the join club class.
                 sacms.openMenu(selectedRole);
-                if (userDetails != null) {
-                    System.out.println("User ID: " + userDetails.getId());
-                    System.out.println("User Name: " + userDetails.getName());
-                } else {
-                    System.out.println("User details are null");
-                }
+
             } else {
                 loginError.setText("Invalid username or password");
             }

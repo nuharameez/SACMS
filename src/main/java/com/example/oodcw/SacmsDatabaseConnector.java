@@ -71,8 +71,8 @@ public class SacmsDatabaseConnector {
     }
 
     //method to add new registry to the database
-    public static void addNewUser(String role, String id, String username, String password, String name, Connection connection) {
-        String sql = "INSERT INTO " + role + " (" + role + "Id, " + role + "Username, " + role + "Password, " + role + "Name) VALUES (?, ?, ?)";
+    public static void addNewUser(String role, String id, String name, String username, String password, Connection connection) {
+        String sql = "INSERT INTO " + role + " (" + role + "Id, " + role + "Name, " + role + "Username, " + role + "Password) VALUES (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, id);
             preparedStatement.setString(2, name);
@@ -80,7 +80,7 @@ public class SacmsDatabaseConnector {
             preparedStatement.setString(4, password);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Failed to connect to database");
+            System.out.println("Failed to add user to database");
         }
     }
 
@@ -125,6 +125,17 @@ public class SacmsDatabaseConnector {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Failed to add to club table");
+            String createTableSQL = "CREATE TABLE " + clubName + " (studentId VARCHAR(255), studentName VARCHAR(255))";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(createTableSQL)) {
+                preparedStatement.executeUpdate();
+            }
+            sql = "INSERT INTO " + clubName + "(studentId, studentName) VALUES (?,?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, id);
+                preparedStatement.setString(2, name);
+
+                preparedStatement.executeUpdate();
+            }
         }
     }
 
