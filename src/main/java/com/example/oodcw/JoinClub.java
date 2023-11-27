@@ -28,9 +28,12 @@ public class JoinClub {
     private SacmsDatabaseConnector databaseConnector;
     private static String userId;
     private static String userName;
-
     public JoinClub(){
+        this.databaseConnector = new SacmsDatabaseConnector();
     }
+
+
+
 
 
     public static void setUserDetails(String userId, String userName){
@@ -51,7 +54,7 @@ public class JoinClub {
     @FXML
     protected void initialize() {
 
-        SacmsDatabaseConnector.clubOptions(clubOption);
+        databaseConnector.clubOptions(clubOption);
         selectClub.setItems(clubOption);
     }
     @FXML
@@ -60,8 +63,8 @@ public class JoinClub {
         setUserDetails(userId, userName);
         String clubName = (String) selectClub.getValue();
         System.out.println(clubName.toLowerCase());
-        Connection connection = SacmsDatabaseConnector.dbConnector();
-        boolean checkId = SacmsDatabaseConnector.authenticateJoinClub(clubName, getUserId(), connection);
+        Connection connection = databaseConnector.dbConnector();
+        boolean checkId = databaseConnector.authenticateJoinClub(clubName, getUserId(), connection);
         if (checkId){
             joinMessage.setText("");
             errorMessage.setText("You have already erolled in this club");

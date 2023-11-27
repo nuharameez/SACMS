@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DataTruncation;
 
 
 public class Login {
@@ -19,9 +20,7 @@ public class Login {
     //composition used here
     private SacmsDatabaseConnector databaseConnector;
 
-    public Login(){
-        this.databaseConnector = new SacmsDatabaseConnector();
-    }
+
     Sacms sacms = new Sacms();
     ObservableList<String> userOption = FXCollections.observableArrayList( "Student","Club Advisor");
     @FXML
@@ -32,6 +31,9 @@ public class Login {
     private TextField username;
     @FXML
     private PasswordField password;
+    public Login(){
+        this.databaseConnector = new SacmsDatabaseConnector();
+    }
 
 
 
@@ -56,9 +58,9 @@ public class Login {
         else{
             loginError.setText("");
             Connection connection = databaseConnector.dbConnector();
-            UserDetails userDetails = SacmsDatabaseConnector.getUserDetails( usernameField.toLowerCase(), connection);
+            UserDetails userDetails = databaseConnector.getUserDetails( usernameField.toLowerCase(), connection);
             String role = (selectedRole.equalsIgnoreCase("student"))? "student" : "clubadvisor";
-            boolean accountExists = SacmsDatabaseConnector.authenticateUser(role, usernameField.toLowerCase(), passwordField, connection);
+            boolean accountExists = databaseConnector.authenticateUser(role, usernameField.toLowerCase(), passwordField, connection);
 
 
             if (accountExists) {

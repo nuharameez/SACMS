@@ -29,11 +29,15 @@ public class Register {
     private Label registerError;
 
     //composition used here
-    private SacmsDatabaseConnector databaseConnector;
+    private DatabaseConnector databaseConnector;
 
 
     ObservableList<String> roleOption = FXCollections.observableArrayList( "Student","Club Advisor");
     Sacms sacms = new Sacms();
+
+    public Register(){
+        this.databaseConnector = new SacmsDatabaseConnector();
+    }
 
     @FXML
     private void initialize(){
