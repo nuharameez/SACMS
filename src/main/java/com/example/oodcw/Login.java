@@ -64,10 +64,14 @@ public class Login {
             if (accountExists) {
                 //getting the id and name of the user to store seperaretly and use in the join club class
                 //inside the if so it will work only if a valid username is entered.
-                String userId = userDetails.getId();
-                String userName = userDetails.getName();
-                JoinClub.setUserDetails(userId,userName); //setting the name and id to use in the join club class.
-                sacms.openMenu(selectedRole);
+                if(role.equalsIgnoreCase("student")) {
+                    String userId = userDetails.getId();
+                    String userName = userDetails.getName();
+                    JoinClub.setUserDetails(userId, userName); //setting the name and id to use in the join club class.
+                    sacms.openMenu(selectedRole);
+                }else{
+                    sacms.openMenu(selectedRole);
+                }
 
             } else {
                 loginError.setText("Invalid username or password");

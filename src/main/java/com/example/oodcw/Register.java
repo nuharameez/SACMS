@@ -74,10 +74,10 @@ public class Register {
 
 
             if (accountExists) {
-                registerError.setText("This user has an account, Please login");
+                registerError.setText("This user id has an account");
             }
             else if(userExists){
-                registerError.setText("This username exists");
+                registerError.setText("This username is not available");
             }
             else {
                 //checks if the ID is in database

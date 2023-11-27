@@ -22,6 +22,8 @@ public class JoinClub {
     private ChoiceBox selectClub;
     @FXML
     private Label joinMessage;
+    @FXML
+    private Label errorMessage;
     ObservableList<String> clubOption = FXCollections.observableArrayList();
     private SacmsDatabaseConnector databaseConnector;
     private static String userId;
@@ -61,9 +63,11 @@ public class JoinClub {
         Connection connection = SacmsDatabaseConnector.dbConnector();
         boolean checkId = SacmsDatabaseConnector.authenticateJoinClub(clubName, getUserId(), connection);
         if (checkId){
-            joinMessage.setText("You have already erolled in this club");
+            joinMessage.setText("");
+            errorMessage.setText("You have already erolled in this club");
         }
         else {
+            errorMessage.setText("");
             joinMessage.setText("You have joined the club successfully");
             databaseConnector.addStudentToClubTable(getUserId(), getUserName(), clubName.toLowerCase(), connection);
         }
