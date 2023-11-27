@@ -71,15 +71,16 @@ public class SacmsDatabaseConnector {
     }
 
     //method to add new registry to the database
-    public static void addNewUser(String role, String id, String username, String password, Connection connection) {
-        String sql = "INSERT INTO " + role + " (" + role + "Id, " + role + "Username, " + role + "Password) VALUES (?, ?, ?)";
+    public static void addNewUser(String role, String id, String name, String username, String password, Connection connection) {
+        String sql = "INSERT INTO " + role + " (" + role + "Id, " + role + "Name, " + role + "Username, " + role + "Password) VALUES (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, id);
-            preparedStatement.setString(2, username);
-            preparedStatement.setString(3, password);
+            preparedStatement.setString(2, name);
+            preparedStatement.setString(3, username);
+            preparedStatement.setString(4, password);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Failed to connect to database");
+            System.out.println("Failed to add user to database");
         }
     }
 
@@ -97,4 +98,59 @@ public class SacmsDatabaseConnector {
         }
 
     }
+
+    public static UserDetails getUserDetails(String username, Connection connection) {
+        String query = "SELECT studentId, studentName FROM student WHERE  studentUsername = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String id = resultSet.getString("studentId");
+                String name = resultSet.getString("studentName");
+                return new UserDetails(id, name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static void addStudentToClubTable(String id, String name, String clubName, Connection connection) throws SQLException {
+        String sql = "INSERT INTO " + clubName + "(studentId, studentName) VALUES (?,?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, id);
+            preparedStatement.setString(2, name);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Failed to add to club table");
+            String createTableSQL = "CREATE TABLE " + clubName + " (studentId VARCHAR(255), studentName VARCHAR(255))";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(createTableSQL)) {
+                preparedStatement.executeUpdate();
+            }
+            sql = "INSERT INTO " + clubName + "(studentId, studentName) VALUES (?,?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+                preparedStatement.setString(1, id);
+                preparedStatement.setString(2, name);
+
+                preparedStatement.executeUpdate();
+            }
+        }
+    }
+
+    public static boolean authenticateJoinClub(String clubName, String id, Connection connection) {
+
+        String sql = "SELECT * FROM " + clubName + " WHERE studentId = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            return resultSet.next();
+        } catch (SQLException e) {
+            System.out.println("Failed to connect to database");
+        }
+        return false;
+    }
+
 }
