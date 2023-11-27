@@ -43,7 +43,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="41.0" layoutY="39.0" mnemonicParsing="false" onAction="#backToMenuClick" style="-fx-background-color: #214469;" text="&lt;----" textFill="WHITE">
+            <Button layoutX="41.0" layoutY="39.0" mnemonicParsing="false" onAction="#backToMenuClick" style="-fx-background-color: #214469;" text="MENU" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

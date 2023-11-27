@@ -29,41 +29,44 @@
                 <TableColumn fx:id="mottoColumn" prefWidth="106.0" text="clubMotto" />
             </columns>
         </TableView>
-          <Button fx:id="updateButton" layoutX="592.0" layoutY="227.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="30.0" prefWidth="90.0" text="UPDATE">
+          <Button fx:id="updateButton" layoutX="585.0" layoutY="221.0" mnemonicParsing="false" onAction="#updateButton" prefHeight="30.0" prefWidth="101.0" style="-fx-background-color: #e76f51;" text="UPDATE" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
-         </font></Button>
-          <TextField fx:id="clubAdvisor" layoutX="350.0" layoutY="444.0" />
-          <TextField fx:id="clubCategory" layoutX="179.0" layoutY="444.0" />
-          <TextField fx:id="clubMotto" layoutX="517.0" layoutY="444.0" />
-      <TextField fx:id="newClubName" layoutX="14.0" layoutY="444.0" />
-      <Label layoutX="56.0" layoutY="420.0" text="CLUB NAME">
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
+          <TextField fx:id="clubAdvisor" layoutX="350.0" layoutY="444.0" promptText="Name of Club Advisor" />
+          <TextField fx:id="clubCategory" layoutX="179.0" layoutY="444.0" promptText="Physical, Non Physical" />
+          <TextField fx:id="clubMotto" layoutX="517.0" layoutY="444.0" promptText="Ex: Just play!" />
+      <TextField fx:id="newClubName" layoutX="14.0" layoutY="444.0" promptText="Name of Club" />
+      <Label layoutX="56.0" layoutY="420.0" text="CLUB NAME" textFill="#214469">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="208.0" layoutY="420.0" text="CLUB CATEGORY">
+      <Label layoutX="208.0" layoutY="420.0" text="CLUB CATEGORY" textFill="#214469">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="384.0" layoutY="420.0" text="CLUB ADVISOR">
+      <Label layoutX="384.0" layoutY="420.0" text="CLUB ADVISOR" textFill="#214469">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="555.0" layoutY="420.0" text="CLUB MOTTO">
+      <Label layoutX="555.0" layoutY="420.0" text="CLUB MOTTO" textFill="#214469">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <Label layoutX="152.0" layoutY="33.0" text="CLUB ID">
+      <Label layoutX="152.0" layoutY="33.0" text="CLUB ID" textFill="#214469">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="clubId" layoutX="253.0" layoutY="31.0" />
-      <Button layoutX="38.0" layoutY="29.0" mnemonicParsing="false" onAction="#backToMenuClick" style="-fx-background-color: #214469;" text="&lt;----" textFill="WHITE">
+      <TextField fx:id="clubId" layoutX="253.0" layoutY="31.0" promptText="ClubID " />
+      <Button layoutX="38.0" layoutY="29.0" mnemonicParsing="false" onAction="#backToMenuClick" style="-fx-background-color: #214469;" text="MENU" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -73,7 +76,7 @@
       </Button>
       <Label fx:id="incompleteFields" layoutX="211.0" layoutY="59.0" prefHeight="17.0" prefWidth="327.0" textFill="#f86a6a">
          <font>
-            <Font name="System Italic" size="12.0" />
+            <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
     </children>
