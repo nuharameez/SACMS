@@ -48,6 +48,16 @@ public class ClubAdvisorMenu {
         newStage.show();
     }
 
+    @FXML
+    void signOutClick(ActionEvent event) throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("startpage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Main menu");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     private void openFXML(String fxmlFileName, String stageTitle) throws IOException {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));

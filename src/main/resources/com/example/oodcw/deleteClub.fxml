@@ -12,7 +12,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.DeleteClub">
    <children>
       <AnchorPane prefHeight="400.0" prefWidth="600.0">
@@ -54,7 +53,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </Button>
-                  <Button layoutX="41.0" layoutY="39.0" mnemonicParsing="false" onAction="#backToMenuClick" style="-fx-background-color: #214469;" text="&lt;----" textFill="WHITE">
+                  <Button layoutX="41.0" layoutY="39.0" mnemonicParsing="false" onAction="#backToMenuClick" style="-fx-background-color: #214469;" text="MENU" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

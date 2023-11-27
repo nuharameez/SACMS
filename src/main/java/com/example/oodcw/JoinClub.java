@@ -5,8 +5,12 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.stage.Stage;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -77,13 +81,18 @@ public class JoinClub {
         //System.out.println("checking..." + getUserId() + getUserName());
 
 
-
-
-
-
         //getUserInfo method comes here
     }
 
+    @FXML
+    void signOutClick(ActionEvent event) throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("studentmenu.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Main menu");
+        stage.setScene(scene);
+        stage.show();
+    }
 
 
 
