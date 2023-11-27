@@ -33,7 +33,7 @@ public class ScheduleController {
     @FXML
     private TableColumn<Schedule, String> typeColumn;
     @FXML
-    private TableColumn<Schedule, String> dateColumn;
+    private TableColumn<Schedule, LocalDate> dateColumn;
 
 
     @FXML
