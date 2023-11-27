@@ -13,13 +13,16 @@ import java.io.IOException;
 import java.sql.Connection;
 
 
-public class Login extends Sacms {
+public class Login {
+
 
     //composition used here
     private SacmsDatabaseConnector databaseConnector;
+
     public Login(){
         this.databaseConnector = new SacmsDatabaseConnector();
     }
+    Sacms sacms = new Sacms();
     ObservableList<String> userOption = FXCollections.observableArrayList( "Student","Club Advisor");
     @FXML
     private ChoiceBox userSelect;
@@ -30,6 +33,10 @@ public class Login extends Sacms {
     @FXML
     private PasswordField password;
 
+
+
+
+
     @FXML
     private void initialize(){
 
@@ -39,7 +46,7 @@ public class Login extends Sacms {
 
     @FXML
     protected void onLoginButtonClick(ActionEvent actionEvent){
-        String usernameField = username.getText();
+        String usernameField = username.getText().toLowerCase();
         String passwordField = password.getText();
         String selectedRole = (String) userSelect.getValue();
         //error login option here since the controller for login is in startpage.fxml
@@ -49,10 +56,19 @@ public class Login extends Sacms {
         else{
             loginError.setText("");
             Connection connection = databaseConnector.dbConnector();
+            UserDetails userDetails = SacmsDatabaseConnector.getUserDetails( usernameField.toLowerCase(), connection);
             String role = (selectedRole.equalsIgnoreCase("student"))? "student" : "clubadvisor";
-            boolean accountExists = SacmsDatabaseConnector.authenticateUser(role, usernameField, passwordField, connection);
+            boolean accountExists = SacmsDatabaseConnector.authenticateUser(role, usernameField.toLowerCase(), passwordField, connection);
+
+
             if (accountExists) {
-                openMenu(selectedRole);
+                //getting the id and name of the user to store seperaretly and use in the join club class
+                //inside the if so it will work only if a valid username is entered.
+                String userId = userDetails.getId();
+                String userName = userDetails.getName();
+                JoinClub.setUserDetails(userId,userName); //setting the name and id to use in the join club class.
+                sacms.openMenu(selectedRole);
+
             } else {
                 loginError.setText("Invalid username or password");
             }
@@ -70,6 +86,8 @@ public class Login extends Sacms {
         newStage.setScene(new Scene(root, 600, 400));
         newStage.show();
     }
+
+
 
 
 

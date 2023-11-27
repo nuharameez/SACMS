@@ -11,7 +11,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 
-public class Register extends Sacms {
+public class Register {
 
     @FXML
     private TextField name;
@@ -28,8 +28,12 @@ public class Register extends Sacms {
     @FXML
     private Label registerError;
 
+    //composition used here
+    private SacmsDatabaseConnector databaseConnector;
+
 
     ObservableList<String> roleOption = FXCollections.observableArrayList( "Student","Club Advisor");
+    Sacms sacms = new Sacms();
 
     @FXML
     private void initialize(){
@@ -45,7 +49,7 @@ public class Register extends Sacms {
         String nameField = name.getText();
         String idField = id.getText();
         String roleField = (String) role.getValue();
-        String usernameField = username.getText();
+        String usernameField = username.getText().toLowerCase();
         String passwordField = password.getText();
         String repasswordField = repassword.getText();
 
@@ -62,11 +66,13 @@ public class Register extends Sacms {
         else{
             registerError.setText("");
 
-            Connection connection = SacmsDatabaseConnector.dbConnector();
+            Connection connection = databaseConnector.dbConnector();
             //since it is read as Club Advisor from the drop down but the table name is clubadvisor
             String role = (roleField.equalsIgnoreCase("student"))? "student" : "clubadvisor";
-            boolean accountExists = SacmsDatabaseConnector.authenticateRegistration(role, idField, connection);
-            boolean userExists = SacmsDatabaseConnector.authenticateUsername(role, usernameField, connection);
+            boolean accountExists = databaseConnector.authenticateRegistration(role, idField, connection);
+            boolean userExists = databaseConnector.authenticateUsername(role, usernameField.toLowerCase(), connection);
+
+
             if (accountExists) {
                 registerError.setText("This user has an account, Please login");
             }
@@ -75,15 +81,17 @@ public class Register extends Sacms {
             }
             else {
                 //checks if the ID is in database
-                boolean checkId = SacmsDatabaseConnector.authenticateRegistration(role, idField, connection);
+                /*boolean checkId = SacmsDatabaseConnector.authenticateRegistration(role, idField, connection);
                 if(checkId){
                     registerError.setText("");
                     registerError.setText("This user ID already exists");
 
                 }
-                else {
-                    SacmsDatabaseConnector.addNewUser(role, idField, usernameField, passwordField, connection);
-                    openMenu(roleField);
+                else {*/
+                    databaseConnector.addNewUser(role, idField, nameField, usernameField.toLowerCase(), passwordField, connection);
+                    JoinClub.setUserDetails(idField,usernameField.toLowerCase());
+                    sacms.openMenu(roleField);
+
                 }
             }
 
@@ -93,8 +101,5 @@ public class Register extends Sacms {
     }
 
 
-
-
-}
 
 
