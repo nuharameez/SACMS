@@ -14,26 +14,34 @@
             <Image url="@SCAMS_Final_MAin.png" />
          </image>
       </ImageView>
-      <Button layoutX="72.0" layoutY="166.0" mnemonicParsing="false" onAction="#handleCreateClubs" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #214469;" text="CREATE CLUBS" textFill="WHITE">
+      <Button layoutX="86.0" layoutY="157.0" mnemonicParsing="false" onAction="#handleCreateClubs" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #214469;" text="CREATE CLUBS" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button layoutX="327.0" layoutY="166.0" mnemonicParsing="false" onAction="#handleManageClubs" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #214469;" text="MANAGE CLUBS" textFill="WHITE">
+      <Button layoutX="327.0" layoutY="157.0" mnemonicParsing="false" onAction="#handleManageClubs" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #214469;" text="MANAGE CLUBS" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <Button fx:id="Schedule" layoutX="203.0" layoutY="233.0" mnemonicParsing="false" onAction="#handleSchedule" prefHeight="34.0" prefWidth="214.0" style="-fx-background-color: #214469;" text="SCHEDULE EVENTS" textFill="WHITE">
+      <Button fx:id="Schedule" layoutX="327.0" layoutY="221.0" mnemonicParsing="false" onAction="#handleSchedule" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #214469;" text="SCHEDULE EVENTS" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
+      <Button layoutX="86.0" layoutY="221.0" mnemonicParsing="false" onAction="#onViewReportsClick" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #214469;" text="VIEW REPORTS" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
    </children>
 </AnchorPane>
