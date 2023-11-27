@@ -17,15 +17,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class editClubsController implements Initializable {
 
-    private SacmsDatabaseConnector databaseConnector;
+    private DatabaseConnectorNew databaseConnector;
 
     @FXML
     private TextField clubId;
@@ -63,6 +60,10 @@ public class editClubsController implements Initializable {
     @FXML
     private TableColumn<Clubs, String> mottoColumn;
 
+    public editClubsController(){
+        this.databaseConnector = new ScamsDatabaseConnectorNew();
+    }
+
     @FXML
     void backToMenuClick(ActionEvent event) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clubadvisormenu.fxml"));
@@ -90,15 +91,21 @@ public class editClubsController implements Initializable {
         // Parse clubId only if it's not empty
         int clubID = Integer.parseInt(clubId.getText());
 
-        Connection connection = databaseConnector.dbConnector();
+        Connection connection = databaseConnector.dbConnectorNew();
 
         // Checking if all the fields are filled
         if (updatedName.isEmpty() || updatedCategory.isEmpty() || updatedClubAdvisor.isEmpty() || updatedMotto.isEmpty() || clubID==0) {
             incompleteFields.setText("Please complete all the fields.");
             return; // Exit the method if validation fails
 
-            // Checking if club advisor contains only strings
-        } else if (!updatedClubAdvisor.matches("[a-zA-Z ]+")) {
+        }
+        // Checking if the clubID exists in the database
+        if (!clubIDExists(clubID, connection)) {
+            incompleteFields.setText("ClubID " + clubID + " does not exist!");
+            return;
+        }
+        // Checking if club advisor contains only strings
+        else if (!updatedClubAdvisor.matches("[a-zA-Z ]+")) {
             incompleteFields.setText("Please enter a valid name for club advisor");
             return;
 
@@ -126,7 +133,7 @@ public class editClubsController implements Initializable {
             // Get the clubs from the database
             ObservableList<Clubs> listOfClubs = FXCollections.observableArrayList();
 
-            Connection connection = databaseConnector.dbConnector();
+            Connection connection =databaseConnector.dbConnectorNew();
 
             // get all clubs in the clubs table
             String allClubs = "SELECT * FROM clubsTable";
@@ -152,6 +159,21 @@ public class editClubsController implements Initializable {
             connection.close();
         } catch (SQLException exception) {
             exception.printStackTrace();
+        }
+    }
+
+    //check if clubID already exists
+    private boolean clubIDExists(int clubID, Connection connection) throws SQLException {
+        String checkClubExistenceQuery = "SELECT * FROM clubsTable WHERE clubID = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(checkClubExistenceQuery)) {
+            preparedStatement.setInt(1, clubID);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next(); // If there is a result, the club exists
+            }
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

@@ -11,14 +11,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.sql.Statement;
-
 
 public class ClubCreation {
 
+        private DatabaseConnectorNew databaseConnector;
         @FXML
         private TextField Category;
 
@@ -36,6 +32,10 @@ public class ClubCreation {
 
         @FXML
         private Label incompleteFields;
+
+        public ClubCreation(){
+                this.databaseConnector = new ScamsDatabaseConnectorNew();
+        }
         @FXML
         void backToMenuClick(ActionEvent event) throws Exception {
                 FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clubadvisormenu.fxml"));
@@ -53,47 +53,24 @@ public class ClubCreation {
                 String clubAdvisor = nameOfClubAdvisor.getText();
                 String clubMotto = Motto.getText();
 
+                Connection connection = databaseConnector.dbConnectorNew();
+
                 // Checking if all the field are filled
                 if (clubName.isEmpty() || clubCategory.isEmpty() || clubAdvisor.isEmpty() || clubMotto.isEmpty()) {
                         incompleteFields.setText("Please complete all the fields.");
                         return; // Exit the method if validation fails
+
+                } else if (!clubAdvisor.matches("[a-zA-Z ]+")) {
+                        incompleteFields.setText("Please enter a valid name for Club Advisor");
+                } else if (databaseConnector.clubExists(clubName, connection)) {
+                        incompleteFields.setText("Club already exists!");
+                        System.out.println("Club could not be created!");
+                } else{
+                        databaseConnector.createClub(clubName, clubCategory,clubAdvisor, clubMotto, connection);
+                        System.out.println("Club created successfully!");
+                        backToMenuClick(event);
                 }
 
-                // Inserting data to the clubs table
-                checkDetailsEvent(clubName, clubCategory, clubAdvisor, clubMotto);
-        }
-
-        public void checkDetailsEvent(String Name, String Category, String Advisor, String Motto) {
-                try {
-                        // Load the JDBC driver
-                        Class.forName("com.mysql.cj.jdbc.Driver");
-
-                        // connecting to the database
-                        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/scams", "root", "strawberry@2002");
-
-
-
-                        // SQL statement
-                        String sql = "INSERT INTO clubsTable (clubName, clubCategory, clubAdvisor, clubMotto) VALUES (?, ?, ?, ?)";
-                        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-                                preparedStatement.setString(1, Name);
-                                preparedStatement.setString(2, Category);
-                                preparedStatement.setString(3, Advisor);
-                                preparedStatement.setString(4, Motto);
-
-                                // Execute the update statement
-                                preparedStatement.executeUpdate();
-
-
-                        }
-
-                        // Close the connection
-                        connection.close();
-
-                        System.out.println("Club saved to the CLUBS database!");
-                } catch (ClassNotFoundException | SQLException e) {
-                        e.printStackTrace();
-                }
         }
 
 }
