@@ -35,6 +35,19 @@ public class ClubAdvisorMenu {
         System.out.println("Schedule button clicked");
     }
 
+    @FXML
+    private void onViewReportsClick() {
+        Stage newStage = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(getClass().getResource("viewReports.fxml"));
+        } catch (IOException e) {
+            System.out.println("Failed to open register page");
+        }
+        newStage.setScene(new Scene(root, 600, 400));
+        newStage.show();
+    }
+
     private void openFXML(String fxmlFileName, String stageTitle) throws IOException {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));

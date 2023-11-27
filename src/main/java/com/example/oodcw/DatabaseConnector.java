@@ -16,4 +16,13 @@ public interface DatabaseConnector {
     UserDetails getUserDetails(String username, Connection connection);
     void addStudentToClubTable(String id, String name, String clubName, Connection connection) throws SQLException;
     boolean authenticateJoinClub(String clubName, String id, Connection connection);
+
+    void createClub(String Name, String Category, String Advisor, String Motto, Connection connection) throws SQLException;
+
+    boolean clubExists(String clubName, Connection connection);
+
+    void deleteClub(String Name, Connection connection) throws SQLException;
+
+    void updateClub(String newClubName, String clubCategory, String clubAdvisor, String clubMotto, int clubID, Connection connection) throws SQLException;
+
 }

@@ -93,7 +93,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     public void clubOptions(ObservableList<String> clubOption)  {
         try {
             Statement statement = dbConnector().createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT clubName FROM club");
+            ResultSet resultSet = statement.executeQuery("SELECT clubName FROM clubstable");
             while (resultSet.next()) {
                 String clubName = resultSet.getString("clubName");
                 clubOption.add(clubName);
@@ -131,8 +131,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("Failed to add to club table");
+            System.out.println("Club table does not exist. Creating new table ... ");
             String createTableSQL = "CREATE TABLE " + clubName + " (studentId VARCHAR(255), studentName VARCHAR(255))";
             try (PreparedStatement preparedStatement = connection.prepareStatement(createTableSQL)) {
                 preparedStatement.executeUpdate();
@@ -161,6 +160,103 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
             System.out.println("Failed to connect to database");
         }
         return false;
+    }
+
+    @Override
+    public void createClub(String Name, String Category, String Advisor, String Motto, Connection connection) throws SQLException {
+        // if club is not in database, create and insert
+        String createClubSqlQuery = "INSERT INTO clubsTable (clubName, clubCategory, clubAdvisor, clubMotto) VALUES (?, ?, ?, ?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(createClubSqlQuery)) {
+            preparedStatement.setString(1, Name);
+            preparedStatement.setString(2, Category);
+            preparedStatement.setString(3, Advisor);
+            preparedStatement.setString(4, Motto);
+            // Execute query to create new club
+            preparedStatement.executeUpdate();
+
+
+        } catch (SQLException e) {
+            String sql = "CREATE TABLE IF NOT EXISTS " + "clubstable" + " (" +
+                    "clubID INT AUTO_INCREMENT PRIMARY KEY," +
+                    "clubName VARCHAR(50)," +
+                    "clubCategory VARCHAR(50)," +
+                    "clubAdvisor VARCHAR(50)," +
+                    "clubMotto VARCHAR(200)" + ")";
+            try (Statement statement = connection.createStatement()) {
+                statement.executeUpdate(sql);
+            }
+            createClubSqlQuery = "INSERT INTO clubsTable (clubName, clubCategory, clubAdvisor, clubMotto) VALUES (?, ?, ?, ?)";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(createClubSqlQuery)) {
+                preparedStatement.setString(1, Name);
+                preparedStatement.setString(2, Category);
+                preparedStatement.setString(3, Advisor);
+                preparedStatement.setString(4, Motto);
+                // Execute query to create new club
+                preparedStatement.executeUpdate();
+
+            }
+        }
+    }
+
+    @Override
+    public void deleteClub(String Name, Connection connection) throws SQLException {
+        String deleteClubSqlQuery = "DELETE FROM clubsTable WHERE clubName = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(deleteClubSqlQuery)) {
+            preparedStatement.setString(1, Name);
+
+            //execute the delete query
+            preparedStatement.executeUpdate();
+
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void updateClub(String newClubName, String clubCategory, String clubAdvisor, String clubMotto, int clubID, Connection connection) throws SQLException {
+        // create and insert
+        String updateQuery = "UPDATE clubstable SET " +
+                "clubName=?, " +
+                "clubCategory=?, " +
+                "clubAdvisor=?, " +
+                "clubMotto=? " +
+                "WHERE clubId=?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(updateQuery)) {
+            preparedStatement.setString(1, newClubName);
+            preparedStatement.setString(2, clubCategory);
+            preparedStatement.setString(3, clubAdvisor);
+            preparedStatement.setString(4, clubMotto);
+            preparedStatement.setInt(5, clubID);
+
+            // Execute the update statement
+            preparedStatement.executeUpdate();
+            System.out.println("Club updated successfully!");
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Couldn't update club!");
+        }
+
+    }
+
+
+    @Override
+    public boolean clubExists(String clubName, Connection connection) {
+
+        // Check if the club exists
+        String checkClubExistsQuery = "SELECT * FROM clubstable WHERE clubName = ?";
+        try (PreparedStatement checkStatement = connection.prepareStatement(checkClubExistsQuery)) {
+            checkStatement.setString(1, clubName);
+            try (ResultSet resultSet = checkStatement.executeQuery()) {
+                return resultSet.next(); // if the club name exists returns true if not false
+            }
+        }
+        catch (SQLException e) {
+            //e.printStackTrace();
+            return false;
+        }
     }
 
 }

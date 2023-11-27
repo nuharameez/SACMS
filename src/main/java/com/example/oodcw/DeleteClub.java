@@ -14,7 +14,7 @@ import java.sql.Connection;
 
 public class DeleteClub {
 
-    private DatabaseConnectorNew databaseConnector;
+    private DatabaseConnector databaseConnector;
 
     @FXML
     private TextField clubName;
@@ -26,7 +26,7 @@ public class DeleteClub {
     private Label invalidName;
 
     public DeleteClub(){
-        this.databaseConnector = new ScamsDatabaseConnectorNew();
+        this.databaseConnector = new SacmsDatabaseConnector();
     }
 
     @FXML
@@ -43,7 +43,7 @@ public class DeleteClub {
     void deleteClubClick(ActionEvent event) throws Exception{
         String clubToDelete = clubName.getText();
 
-        Connection connection = databaseConnector.dbConnectorNew();
+        Connection connection = databaseConnector.dbConnector();
 
         if (clubToDelete.isEmpty()){
             invalidName.setText("Please fill the fields!");

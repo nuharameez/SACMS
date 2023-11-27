@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class editClubsController implements Initializable {
 
-    private DatabaseConnectorNew databaseConnector;
+    private DatabaseConnector databaseConnector;
 
     @FXML
     private TextField clubId;
@@ -61,7 +61,7 @@ public class editClubsController implements Initializable {
     private TableColumn<Clubs, String> mottoColumn;
 
     public editClubsController(){
-        this.databaseConnector = new ScamsDatabaseConnectorNew();
+        this.databaseConnector = new SacmsDatabaseConnector();
     }
 
     @FXML
@@ -91,7 +91,7 @@ public class editClubsController implements Initializable {
         // Parse clubId only if it's not empty
         int clubID = Integer.parseInt(clubId.getText());
 
-        Connection connection = databaseConnector.dbConnectorNew();
+        Connection connection = databaseConnector.dbConnector();
 
         // Checking if all the fields are filled
         if (updatedName.isEmpty() || updatedCategory.isEmpty() || updatedClubAdvisor.isEmpty() || updatedMotto.isEmpty() || clubID==0) {
@@ -133,7 +133,7 @@ public class editClubsController implements Initializable {
             // Get the clubs from the database
             ObservableList<Clubs> listOfClubs = FXCollections.observableArrayList();
 
-            Connection connection =databaseConnector.dbConnectorNew();
+            Connection connection =databaseConnector.dbConnector();
 
             // get all clubs in the clubs table
             String allClubs = "SELECT * FROM clubsTable";

@@ -14,7 +14,7 @@ import java.sql.Connection;
 
 public class ClubCreation {
 
-        private DatabaseConnectorNew databaseConnector;
+        private DatabaseConnector databaseConnector;
         @FXML
         private TextField Category;
 
@@ -34,7 +34,7 @@ public class ClubCreation {
         private Label incompleteFields;
 
         public ClubCreation(){
-                this.databaseConnector = new ScamsDatabaseConnectorNew();
+                this.databaseConnector = new SacmsDatabaseConnector();
         }
         @FXML
         void backToMenuClick(ActionEvent event) throws Exception {
@@ -53,7 +53,7 @@ public class ClubCreation {
                 String clubAdvisor = nameOfClubAdvisor.getText();
                 String clubMotto = Motto.getText();
 
-                Connection connection = databaseConnector.dbConnectorNew();
+                Connection connection = databaseConnector.dbConnector();
 
                 // Checking if all the field are filled
                 if (clubName.isEmpty() || clubCategory.isEmpty() || clubAdvisor.isEmpty() || clubMotto.isEmpty()) {
