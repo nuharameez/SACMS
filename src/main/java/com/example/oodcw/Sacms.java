@@ -1,7 +1,6 @@
 package com.example.oodcw;
 
 import javafx.application.Application;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -10,13 +9,15 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Sacms extends Application {
+    @Override
     public void start(Stage primaryStage){
         Stage newStage = new Stage();
         Parent root = null;
         try {
             root = FXMLLoader.load(getClass().getResource("startpage.fxml"));
         } catch (IOException e) {
-            System.out.println("Cannot start application");;
+            System.out.println("Cannot start application");
+            e.printStackTrace();
         }
         newStage.setScene(new Scene(root, 600, 400));
         newStage.show();

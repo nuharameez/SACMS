@@ -36,5 +36,10 @@
             <Font size="14.0" />
          </font>
       </Label>
+      <Label fx:id="errorMessage" alignment="CENTER" contentDisplay="CENTER" layoutX="195.0" layoutY="86.0" textAlignment="CENTER" textFill="#cf1c1c">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

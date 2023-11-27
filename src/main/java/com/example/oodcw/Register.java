@@ -29,11 +29,15 @@ public class Register {
     private Label registerError;
 
     //composition used here
-    private SacmsDatabaseConnector databaseConnector;
+    private DatabaseConnector databaseConnector;
 
 
     ObservableList<String> roleOption = FXCollections.observableArrayList( "Student","Club Advisor");
     Sacms sacms = new Sacms();
+
+    public Register(){
+        this.databaseConnector = new SacmsDatabaseConnector();
+    }
 
     @FXML
     private void initialize(){
@@ -74,10 +78,10 @@ public class Register {
 
 
             if (accountExists) {
-                registerError.setText("This user has an account, Please login");
+                registerError.setText("This user id has an account");
             }
             else if(userExists){
-                registerError.setText("This username exists");
+                registerError.setText("This username is not available");
             }
             else {
                 //checks if the ID is in database

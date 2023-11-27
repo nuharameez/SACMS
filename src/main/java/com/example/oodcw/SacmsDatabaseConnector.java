@@ -4,10 +4,10 @@ import javafx.collections.ObservableList;
 
 import java.sql.*;
 
-public class SacmsDatabaseConnector {
+public class SacmsDatabaseConnector implements DatabaseConnector {
 
     //creating a database connector
-    public static Connection dbConnector() {
+    public Connection dbConnector() {
         try {
             return DriverManager.getConnection(
                     "jdbc:mysql://localhost:3306/sacms",
@@ -25,7 +25,8 @@ public class SacmsDatabaseConnector {
     // we need to check only the id
 
     //authenticating the user for login
-    public static boolean authenticateUser(String role, String username, String password, Connection connection)  {
+    @Override
+    public  boolean authenticateUser(String role, String username, String password, Connection connection)  {
 
         String sql = "SELECT * FROM " + role + " WHERE " + role + "Username = ? AND " + role + "Password = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -42,7 +43,8 @@ public class SacmsDatabaseConnector {
 
     //checking if the id already exists.
     //if id exists the user already has an account.
-    public static boolean authenticateRegistration(String role, String id, Connection connection) {
+    @Override
+    public  boolean authenticateRegistration(String role, String id, Connection connection) {
 
         String sql = "SELECT * FROM " + role + " WHERE " + role + "Id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -57,7 +59,8 @@ public class SacmsDatabaseConnector {
     }
 
     //checking if the username is unique
-    public static boolean authenticateUsername(String role, String username, Connection connection){
+    @Override
+    public  boolean authenticateUsername(String role, String username, Connection connection){
 
         String sql = "SELECT * FROM " + role + " WHERE " + role + "Username = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -71,7 +74,8 @@ public class SacmsDatabaseConnector {
     }
 
     //method to add new registry to the database
-    public static void addNewUser(String role, String id, String name, String username, String password, Connection connection) {
+    @Override
+    public  void addNewUser(String role, String id, String name, String username, String password, Connection connection) {
         String sql = "INSERT INTO " + role + " (" + role + "Id, " + role + "Name, " + role + "Username, " + role + "Password) VALUES (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, id);
@@ -85,7 +89,8 @@ public class SacmsDatabaseConnector {
     }
 
     //to populate observable arraylist with the club options.
-    static void clubOptions(ObservableList<String> clubOption)  {
+    @Override
+    public void clubOptions(ObservableList<String> clubOption)  {
         try {
             Statement statement = dbConnector().createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT clubName FROM club");
@@ -99,7 +104,8 @@ public class SacmsDatabaseConnector {
 
     }
 
-    public static UserDetails getUserDetails(String username, Connection connection) {
+    @Override
+    public  UserDetails getUserDetails(String username, Connection connection) {
         String query = "SELECT studentId, studentName FROM student WHERE  studentUsername = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, username);
@@ -115,7 +121,9 @@ public class SacmsDatabaseConnector {
         return null;
     }
 
-    public static void addStudentToClubTable(String id, String name, String clubName, Connection connection) throws SQLException {
+
+    @Override
+    public  void addStudentToClubTable(String id, String name, String clubName, Connection connection) throws SQLException {
         String sql = "INSERT INTO " + clubName + "(studentId, studentName) VALUES (?,?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, id);
@@ -139,7 +147,9 @@ public class SacmsDatabaseConnector {
         }
     }
 
-    public static boolean authenticateJoinClub(String clubName, String id, Connection connection) {
+
+    @Override
+    public  boolean authenticateJoinClub(String clubName, String id, Connection connection) {
 
         String sql = "SELECT * FROM " + clubName + " WHERE studentId = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {

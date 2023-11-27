@@ -1,6 +1,8 @@
 package com.example.oodcw;
 
 public class UserDetails {
+
+    //encapsulation used here.
     private String id;
     private String name;
 

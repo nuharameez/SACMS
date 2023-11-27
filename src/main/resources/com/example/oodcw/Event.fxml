@@ -57,6 +57,13 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <Button fx:id="eventSubmitButton" layoutX="509.0" layoutY="29.0" mnemonicParsing="false" text="Submit" />
+      <Button fx:id="eventSubmitButton" layoutX="509.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleEventSubmit" text="Submit" />
+      <Button fx:id="returnToview" layoutX="39.0" layoutY="29.0" mnemonicParsing="false" onAction="#handleReturnToView" text="Return to View" />
+      <Text layoutX="397.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ID" wrappingWidth="52.693359375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="eventID" layoutX="424.0" layoutY="84.0" prefHeight="26.0" prefWidth="59.0" />
     </children>
 </AnchorPane>
