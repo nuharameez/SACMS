@@ -1,5 +1,4 @@
 package com.example.oodcw;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,11 +6,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
-import java.io.IOException;
-import java.time.LocalDate;
-
-import static javafx.application.Application.launch;
 
 public class Main extends Application {
 
@@ -27,5 +21,3 @@ public class Main extends Application {
         launch(args);
     }
 }
-
-

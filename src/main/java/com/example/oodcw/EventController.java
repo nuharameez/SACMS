@@ -75,13 +75,13 @@ public class EventController {
 
     private void showAlert(String message) {
         // Display an alert with the given message
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning");
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Alert");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
     }
-    private boolean isDateAlreadyScheduled(LocalDate date) {
+    public boolean isDateAlreadyScheduled(LocalDate date) {
         try (Connection connection = DatabaseController.getConnection()) {
             String query = "SELECT COUNT(*) FROM schedule WHERE Date = ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -100,7 +100,7 @@ public class EventController {
         }
         return false;
     }
-    private boolean IDExists(int meetingID) {
+    public boolean IDExists(int meetingID) {
         try (Connection connection = DatabaseController.getConnection()) {
             String query = "SELECT COUNT(*) FROM schedule WHERE ScheduleID = ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
@@ -152,9 +152,9 @@ public class EventController {
             // Check for duplicate meeting ID
             try {
                 if (IDExists(ID)) {
-                    throw new DuplicateMeetingIDException("Event ID already exists. Please enter a different ID.");
+                    throw new DuplicateIDException("Event ID already exists. Please enter a different ID.");
                 }
-            } catch (DuplicateMeetingIDException e) {
+            } catch (DuplicateIDException e) {
                 showAlert(e.getMessage());
                 return;
             }

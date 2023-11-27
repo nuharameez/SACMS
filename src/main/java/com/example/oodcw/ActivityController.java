@@ -143,9 +143,9 @@ public class ActivityController {
             // Check for duplicate meeting ID
             try {
                 if (IDExists(ID)) {
-                    throw new DuplicateMeetingIDException("Activity ID already exists. Please enter a different ID.");
+                    throw new DuplicateIDException("Activity ID already exists. Please enter a different ID.");
                 }
-            } catch (DuplicateMeetingIDException e) {
+            } catch (DuplicateIDException e) {
                 showAlert(e.getMessage());
                 return;
             }

@@ -37,6 +37,9 @@ public class MeetingController {
     private Button returnToView;
     @FXML
     private TextField meetingID;
+
+
+
     @FXML
     private void initialize() {
         // Add listeners to check if all required fields are filled
@@ -92,11 +95,11 @@ public class MeetingController {
     }
 
 
-    private boolean IDExists(int meetingID) {
+    public boolean IDExists(int ID) {
         try (Connection connection = DatabaseController.getConnection()) {
             String query = "SELECT COUNT(*) FROM schedule WHERE ScheduleID = ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setInt(1, meetingID);
+                statement.setInt(1, ID);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
                         int count = resultSet.getInt(1);
@@ -137,9 +140,9 @@ public class MeetingController {
             // Check for duplicate meeting ID
             try {
                 if (IDExists(ID)) {
-                    throw new DuplicateMeetingIDException("Meeting ID already exists. Please enter a different ID.");
+                    throw new DuplicateIDException("Meeting ID already exists. Please enter a different ID.");
                 }
-            } catch (DuplicateMeetingIDException e) {
+            } catch (DuplicateIDException e) {
                 showAlert(e.getMessage());
                 return;
             }
