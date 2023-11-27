@@ -52,11 +52,17 @@
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button fx:id="editClub" layoutX="112.0" layoutY="276.0" mnemonicParsing="false" onAction="#editClubClick" prefHeight="30.0" prefWidth="171.0" style="-fx-background-color: #214469;" text="EDIT CLUB DETAILS" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
             <Button layoutX="41.0" layoutY="39.0" mnemonicParsing="false" onAction="#backToMenuClick" style="-fx-background-color: #214469;" text="&lt;----" textFill="WHITE">
                <font>
