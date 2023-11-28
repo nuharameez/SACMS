@@ -56,11 +56,12 @@ public class ActivityController {
         loadAdvisorClubs();
     }
     private SacmsDatabaseConnector databaseConnector;
-    Connection connection = databaseConnector.dbConnector();
+
 
     // Setter method for loggedInUser
 
     private void loadAdvisorClubs() throws SQLException {
+        Connection connection = databaseConnector.dbConnector();
         List<String> advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(connection);
         activityClub.getItems().addAll(advisorClubs);
     }
