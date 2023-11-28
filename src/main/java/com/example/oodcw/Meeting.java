@@ -27,6 +27,7 @@ public class Meeting extends Schedule{
     public void setDescription(String description) {
         this.description = description;
     }
+    @Override
     public void saveToDatabase() {
         try (Connection connection = DatabaseController.getConnection()) {
             // Insert into 'schedule' table

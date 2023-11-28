@@ -44,8 +44,8 @@ public class Activity extends Schedule {
 
         this.description = description;
     }
-
-    public void ActivitysaveToDatabase() {
+    @Override
+    public void saveToDatabase() {
         try (Connection connection = DatabaseController.getConnection()) {
             // Insert into 'schedule' table
             String scheduleQuery = "INSERT INTO schedule (ScheduleID, Name, Date, Venue, Type) VALUES (?, ?, ?, ?, ?)";

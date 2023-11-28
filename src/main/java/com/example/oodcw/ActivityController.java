@@ -7,14 +7,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class ActivityController {
 
@@ -80,44 +75,6 @@ public class ActivityController {
         stage.setScene(new Scene(root));
         stage.show();
     }
-    private boolean isDateAlreadyScheduled(LocalDate date) {
-        try (Connection connection = DatabaseController.getConnection()) {
-            String query = "SELECT COUNT(*) FROM schedule WHERE Date = ?";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setObject(1, date);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    if (resultSet.next()) {
-                        int count = resultSet.getInt(1);
-                        return count > 0;
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-    private boolean IDExists(int meetingID) {
-        try (Connection connection = DatabaseController.getConnection()) {
-            String query = "SELECT COUNT(*) FROM schedule WHERE ScheduleID = ?";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setInt(1, meetingID);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    if (resultSet.next()) {
-                        int count = resultSet.getInt(1);
-                        return count > 0;
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
     @FXML
     private void handleReturnToView(ActionEvent event) throws IOException {
         openFXML("Schedule.fxml", "Add Meeting");
@@ -130,7 +87,6 @@ public class ActivityController {
                 showAlert("Please fill out all required fields.");
                 return;
             }
-
             // Get values from the fields
             int ID;
             try {
@@ -140,31 +96,32 @@ public class ActivityController {
                 return;
             }
 
-            // Check for duplicate meeting ID
+            String name = activityName.getText();
+            LocalDate date= activityDate.getValue();
+            String venue = activityVenue.getText();
+            int participants;
             try {
-                if (IDExists(ID)) {
+                participants = Integer.parseInt(activityMaxParticipants.getText());
+            } catch (NumberFormatException e) {
+                showAlert("Please enter a valid number for Max Participants.");
+                return;
+            }
+            String description = activityDescription.getText();
+            Activity activity = new Activity(ID, name, date, venue, participants, description);
+            try {
+                if (activity.IDExists(ID)) {
                     throw new DuplicateIDException("Activity ID already exists. Please enter a different ID.");
                 }
             } catch (DuplicateIDException e) {
                 showAlert(e.getMessage());
                 return;
             }
-            String name = activityName.getText();
-            LocalDate date = activityDate.getValue();
-
-            // Check for existing schedules on the selected date
-            if (isDateAlreadyScheduled(date)) {
+            if (activity.isDateAlreadyScheduled(date)) {
                 showAlert("There is already something scheduled on the selected date. Please choose a different date.");
                 return;
             }
 
-            String venue = activityVenue.getText();
-            int participants = Integer.parseInt(activityMaxParticipants.getText());
-            String description = activityDescription.getText();
-
-            // Create an Activity object and save to the database
-            Activity activity = new Activity(ID, name, date, venue, participants, description);
-            activity.ActivitysaveToDatabase();
+            activity.saveToDatabase();
             showAlert("Activity Scheduled");
         } catch (NumberFormatException e) {
             showAlert("Please enter a valid number for Max Participants or Activity ID.");

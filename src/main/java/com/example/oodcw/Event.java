@@ -64,7 +64,8 @@ public class Event extends Schedule{
 
         this.membersOnly = membersOnly;
     }
-    public void EventsaveToDatabase() {
+    @Override
+    public void saveToDatabase() {
         try (Connection connection = DatabaseController.getConnection()) {
             // Insert into 'schedule' table
             String scheduleQuery = "INSERT INTO schedule (ScheduleID, Name, Date, Venue, Type) VALUES (?, ?, ?, ?, ?)";
@@ -93,7 +94,4 @@ public class Event extends Schedule{
             e.printStackTrace();
         }
     }
-
-
-
 }

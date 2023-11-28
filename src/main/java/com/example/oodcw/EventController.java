@@ -14,12 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.DateTimeException;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 
 public class EventController {
 
@@ -67,57 +63,18 @@ public class EventController {
     private boolean checkFields() {
         // Enable the submit button only if all required fields are filled
         if (!nameEvent.getText().isEmpty() && eventDate.getValue() != null &&
-                !eventVenue.getText().isEmpty() && !maxParticipants.getText().isEmpty() && !eventID.getText().isEmpty())
+                !eventVenue.getText().isEmpty() && !maxParticipants.getText().isEmpty() && !eventID.getText().isEmpty()&& !MemOnly.getValue().isEmpty())
             return true;
         else
             return false;
     }
 
     private void showAlert(String message) {
-        // Display an alert with the given message
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Alert");
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-    public boolean isDateAlreadyScheduled(LocalDate date) {
-        try (Connection connection = DatabaseController.getConnection()) {
-            String query = "SELECT COUNT(*) FROM schedule WHERE Date = ?";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setObject(1, date);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    if (resultSet.next()) {
-                        int count = resultSet.getInt(1);
-                        return count > 0;
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-    public boolean IDExists(int meetingID) {
-        try (Connection connection = DatabaseController.getConnection()) {
-            String query = "SELECT COUNT(*) FROM schedule WHERE ScheduleID = ?";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setInt(1, meetingID);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    if (resultSet.next()) {
-                        int count = resultSet.getInt(1);
-                        return count > 0;
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
     }
 
     private void openFXML(String fxmlFileName, String stageTitle) throws IOException {
@@ -131,17 +88,17 @@ public class EventController {
 
     @FXML
     private void handleReturnToView(ActionEvent event) throws IOException {
-        openFXML("Schedule.fxml", "Add Meeting");
+        openFXML("Schedule.fxml", "Schedule");
     }
 
     @FXML
-    private void handleEventSubmit() throws SQLException {
+    private void handleEventSubmit(){
             if (!checkFields()) {
                showAlert("Please fill out all required fields.");
                 return;
             }
-            // Get values from the fields
             int ID;
+
             try {
                 ID = Integer.parseInt(eventID.getText());
             } catch (NumberFormatException e) {
@@ -149,35 +106,36 @@ public class EventController {
                 return;
             }
 
-            // Check for duplicate meeting ID
+            String name = nameEvent.getText();
+            LocalDate date=eventDate.getValue();
+
+            String venue = eventVenue.getText();
+            int participants;
             try {
-                if (IDExists(ID)) {
+                participants = Integer.parseInt(maxParticipants.getText());
+            } catch (NumberFormatException e) {
+                showAlert("Please enter a valid number for Max Participants.");
+                return;
+            }
+            String sponsorDetails = sponsors.getText();
+            String details = eventDetails.getText();
+            String memberOnlyString = MemOnly.getValue();
+            boolean isMemberOnly = "Yes".equals(memberOnlyString);
+            Event event = new Event(ID, name, date, venue, participants, sponsorDetails, details, isMemberOnly);
+
+            if (event.isDateAlreadyScheduled(date)) {
+                showAlert("There is already something scheduled on the selected date. Please choose a different date.");
+                return;
+            }
+            try {
+                if (event.IDExists(ID)) {
                     throw new DuplicateIDException("Event ID already exists. Please enter a different ID.");
                 }
             } catch (DuplicateIDException e) {
                 showAlert(e.getMessage());
                 return;
             }
-
-            String name = nameEvent.getText();
-
-            LocalDate date = eventDate.getValue();
-
-            // Check for existing schedules on the selected date
-            if (isDateAlreadyScheduled(date)) {
-                showAlert("There is already something scheduled on the selected date. Please choose a different date.");
-                return;
-            }
-
-            String venue = eventVenue.getText();
-            int participants = Integer.parseInt(maxParticipants.getText());
-            String sponsorDetails = sponsors.getText();
-            String details = eventDetails.getText();
-            String memberOnlyString = MemOnly.getValue();
-            boolean isMemberOnly = "Yes".equals(memberOnlyString);
-
-            Event event = new Event(ID, name, date, venue, participants, sponsorDetails, details, isMemberOnly);
-            event.EventsaveToDatabase();
+            event.saveToDatabase();
             showAlert("Event Scheduled");
 
         }

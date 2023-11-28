@@ -1,5 +1,4 @@
 package com.example.oodcw;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -7,15 +6,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.Date;
+import java.time.format.DateTimeParseException;
 
 public class MeetingController {
     @FXML
@@ -37,8 +30,6 @@ public class MeetingController {
     private Button returnToView;
     @FXML
     private TextField meetingID;
-
-
 
     @FXML
     private void initialize() {
@@ -74,48 +65,6 @@ public class MeetingController {
         stage.setScene(new Scene(root));
         stage.show();
     }
-    private boolean isDateAlreadyScheduled(LocalDate date) {
-        try (Connection connection = DatabaseController.getConnection()) {
-            String query = "SELECT COUNT(*) FROM schedule WHERE Date = ?";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setObject(1, date);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    if (resultSet.next()) {
-                        int count = resultSet.getInt(1);
-                        return count > 0;
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-
-    public boolean IDExists(int ID) {
-        try (Connection connection = DatabaseController.getConnection()) {
-            String query = "SELECT COUNT(*) FROM schedule WHERE ScheduleID = ?";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setInt(1, ID);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    if (resultSet.next()) {
-                        int count = resultSet.getInt(1);
-                        return count > 0;
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-
     @FXML
     private void handleReturnToView (ActionEvent event) throws IOException {
         openFXML("Schedule.fxml", "Schedule App");
@@ -136,27 +85,23 @@ public class MeetingController {
                 showAlert("Please enter a valid number for Meeting ID.");
                 return;
             }
-
-            // Check for duplicate meeting ID
+            String name = meetingName.getText();
+            String venue = meetingVenue.getText();
+            String description = meetingDescription.getText();
+            LocalDate date = meetingDate.getValue();
+            Meeting meeting = new Meeting(ID,name,date,venue,description);
             try {
-                if (IDExists(ID)) {
+                if (meeting.IDExists(ID)) {
                     throw new DuplicateIDException("Meeting ID already exists. Please enter a different ID.");
                 }
             } catch (DuplicateIDException e) {
                 showAlert(e.getMessage());
                 return;
             }
-            String name = meetingName.getText();
-            String venue = meetingVenue.getText();
-            String description = meetingDescription.getText();
-            LocalDate date = meetingDate.getValue();
-
-            // Check for existing schedules on the selected date
-            if (isDateAlreadyScheduled(date)) {
+            if (meeting.isDateAlreadyScheduled(date)) {
                 showAlert("There is already something scheduled on the selected date. Please choose a different date.");
                 return;
             }
-            Meeting meeting = new Meeting(ID,name,date,venue,description);
             meeting.saveToDatabase();
             showAlert("Meeting Scheduled");
         } catch (Exception e) {
