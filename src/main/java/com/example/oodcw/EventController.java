@@ -134,7 +134,6 @@ public class EventController {
                 showAlert("There is already something scheduled on the selected date. Please choose a different date.");
                 return;
             }
-
             event.saveToDatabase();
             showAlert("Event Scheduled");
 
