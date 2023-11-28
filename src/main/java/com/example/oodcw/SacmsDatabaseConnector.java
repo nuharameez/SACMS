@@ -25,7 +25,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     // we need to check only the id
 
     //authenticating the user for login
-    @Override
+
     public  boolean authenticateUser(String role, String username, String password, Connection connection)  {
 
         String sql = "SELECT * FROM " + role + " WHERE " + role + "Username = ? AND " + role + "Password = ?";
@@ -36,45 +36,38 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
             return resultSet.next();
         } catch (SQLException e) {
-            System.out.println("Failed to connect to database");
+            System.out.println(role + "table does not exist in the system.");
+
         }
         return false;
     }
 
     //checking if the id already exists.
     //if id exists the user already has an account.
-    @Override
-    public  boolean authenticateRegistration(String role, String id, Connection connection) {
 
-        String sql = "SELECT * FROM " + role + " WHERE " + role + "Id = ?";
+
+    //checking if the id already exists.
+    //if id exists the user already has an account.
+    //check if username is unique
+    @Override
+    public  boolean authenticateRegistration(String role, String authenticator, String columnName, Connection connection) {
+
+        String sql = "SELECT * FROM " + role + " WHERE " + role + columnName + " = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, id);
+            preparedStatement.setString(1, authenticator);
             ResultSet resultSet = preparedStatement.executeQuery();
 
             return resultSet.next();
         } catch (SQLException e) {
-            System.out.println("Failed to connect to database");
+            System.out.println(role + "table does not exist in the system.");
         }
         return false;
     }
 
-    //checking if the username is unique
-    @Override
-    public  boolean authenticateUsername(String role, String username, Connection connection){
 
-        String sql = "SELECT * FROM " + role + " WHERE " + role + "Username = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, username);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            return resultSet.next();
-        } catch (SQLException e) {
-            System.out.println("Failed to connect to database");
-        }
-        return false;
-    }
 
     //method to add new registry to the database
-    @Override
+
     public  void addNewUser(String role, String id, String name, String username, String password, Connection connection) {
         String sql = "INSERT INTO " + role + " (" + role + "Id, " + role + "Name, " + role + "Username, " + role + "Password) VALUES (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -84,12 +77,12 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
             preparedStatement.setString(4, password);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            System.out.println("Failed to add user to database");
+            System.out.println(role + "table does not exist in the system.");
         }
     }
 
     //to populate observable arraylist with the club options.
-    @Override
+
     public void clubOptions(ObservableList<String> clubOption)  {
         try {
             Statement statement = dbConnector().createStatement();
@@ -104,7 +97,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
     }
 
-    @Override
+
     public  UserDetails getUserDetails(String username, Connection connection) {
         String query = "SELECT studentId, studentName FROM student WHERE  studentUsername = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
@@ -122,7 +115,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     }
 
 
-    @Override
+
     public  void addStudentToClubTable(String id, String name, String clubName, Connection connection) throws SQLException {
         String sql = "INSERT INTO " + clubName + "(studentId, studentName) VALUES (?,?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -147,7 +140,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     }
 
 
-    @Override
+
     public  boolean authenticateJoinClub(String clubName, String id, Connection connection) {
 
         String sql = "SELECT * FROM " + clubName + " WHERE studentId = ?";
@@ -162,7 +155,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
         return false;
     }
 
-    @Override
+
     public void createClub(String Name, String Category, String Advisor, String Motto, Connection connection) throws SQLException {
         // if club is not in database, create and insert
         String createClubSqlQuery = "INSERT INTO clubsTable (clubName, clubCategory, clubAdvisor, clubMotto) VALUES (?, ?, ?, ?)";
@@ -198,7 +191,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
         }
     }
 
-    @Override
+
     public void deleteClub(String Name, Connection connection) throws SQLException {
         String deleteClubSqlQuery = "DELETE FROM clubsTable WHERE clubName = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(deleteClubSqlQuery)) {
@@ -213,7 +206,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
         }
     }
 
-    @Override
+
     public void updateClub(String newClubName, String clubCategory, String clubAdvisor, String clubMotto, int clubID, Connection connection) throws SQLException {
         // create and insert
         String updateQuery = "UPDATE clubstable SET " +
@@ -241,8 +234,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
     }
 
-
-    @Override
+    
     public boolean clubExists(String clubName, Connection connection) {
 
         // Check if the club exists

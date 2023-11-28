@@ -29,7 +29,7 @@ public class Register {
     private Label registerError;
 
     //composition used here
-    private DatabaseConnector databaseConnector;
+    private SacmsDatabaseConnector databaseConnector;
 
 
     ObservableList<String> roleOption = FXCollections.observableArrayList( "Student","Club Advisor");
@@ -73,8 +73,10 @@ public class Register {
             Connection connection = databaseConnector.dbConnector();
             //since it is read as Club Advisor from the drop down but the table name is clubadvisor
             String role = (roleField.equalsIgnoreCase("student"))? "student" : "clubadvisor";
-            boolean accountExists = databaseConnector.authenticateRegistration(role, idField, connection);
-            boolean userExists = databaseConnector.authenticateUsername(role, usernameField.toLowerCase(), connection);
+            String id = "Id";
+            String username = "Username";
+            boolean accountExists = databaseConnector.authenticateRegistration(role, idField, id, connection);
+            boolean userExists = databaseConnector.authenticateRegistration(role, usernameField.toLowerCase(), username, connection);
 
 
             if (accountExists) {

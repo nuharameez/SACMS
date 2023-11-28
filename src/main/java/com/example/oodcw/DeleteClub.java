@@ -14,7 +14,7 @@ import java.sql.Connection;
 
 public class DeleteClub {
 
-    private DatabaseConnector databaseConnector;
+    private SacmsDatabaseConnector databaseConnector;
 
     @FXML
     private TextField clubName;

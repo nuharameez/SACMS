@@ -7,22 +7,6 @@ import java.sql.SQLException;
 
 //creating an interface
 public interface DatabaseConnector {
-    Connection dbConnector();
-    boolean authenticateUser(String role, String username, String password, Connection connection);
-    boolean authenticateRegistration(String role, String id, Connection connection);
-    boolean authenticateUsername(String role, String username, Connection connection);
-    void addNewUser(String role, String id, String name, String username, String password, Connection connection);
-    void clubOptions(ObservableList<String> clubOption);
-    UserDetails getUserDetails(String username, Connection connection);
-    void addStudentToClubTable(String id, String name, String clubName, Connection connection) throws SQLException;
-    boolean authenticateJoinClub(String clubName, String id, Connection connection);
-
-    void createClub(String Name, String Category, String Advisor, String Motto, Connection connection) throws SQLException;
-
-    boolean clubExists(String clubName, Connection connection);
-
-    void deleteClub(String Name, Connection connection) throws SQLException;
-
-    void updateClub(String newClubName, String clubCategory, String clubAdvisor, String clubMotto, int clubID, Connection connection) throws SQLException;
+    boolean authenticateRegistration(String role, String authenticatorA, String columnName, Connection connection);
 
 }

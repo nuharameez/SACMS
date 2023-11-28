@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class editClubsController implements Initializable {
 
-    private DatabaseConnector databaseConnector;
+    private SacmsDatabaseConnector databaseConnector;
 
     @FXML
     private TextField clubId;
