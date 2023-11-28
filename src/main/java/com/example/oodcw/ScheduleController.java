@@ -48,15 +48,11 @@ public class ScheduleController {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
-        try {
-            Connection connection = databaseConnector.dbConnector();
-            List<Schedule> scheduleList = SacmsDatabaseConnector.getDataFromDatabase(connection);
-            ObservableList<Schedule> observableList = FXCollections.observableArrayList(scheduleList);
-            tableView.setItems(observableList);
+        Connection connection = databaseConnector.dbConnector();
+        List<Schedule> scheduleList = SacmsDatabaseConnector.getDataFromDatabase(connection);
+        ObservableList<Schedule> observableList = FXCollections.observableArrayList(scheduleList);
+        tableView.setItems(observableList);
 
-        } catch (SQLException e) {
-            showAlert("Database error");
-        }
     }
 
     @FXML
@@ -94,7 +90,7 @@ public class ScheduleController {
 
     @FXML
     private void handleMenuButton(ActionEvent event) throws IOException{
-        openFXML("ClubAdvisorMenu", "Add Activity");
+        openFXML("ClubAdvisorMenu.fxml", "Add Activity");
     }
     @FXML
     private void handleDeleteButton(ActionEvent event) {
@@ -109,18 +105,20 @@ public class ScheduleController {
             try {
                 int id = Integer.parseInt(scheduleId);
                 Connection connection = databaseConnector.dbConnector();
-                if (SacmsDatabaseConnector.deleteSchedule(id,connection)) {
+
+                if (SacmsDatabaseConnector.deleteSchedule(id, connection)) {
+                    showAlert("Schedule with ID " + id + " deleted successfully.");
                     List<Schedule> scheduleList = SacmsDatabaseConnector.getDataFromDatabase(connection);
                     ObservableList<Schedule> observableList = FXCollections.observableArrayList(scheduleList);
                     tableView.setItems(observableList);
                 } else {
-                    // Handle case where Schedule ID does not exist
                     showAlert("Schedule with ID " + id + " does not exist.");
                 }
-            } catch (NumberFormatException | SQLException e) {
-                showAlert("Please enter valid ID");
+            } catch (NumberFormatException e) {
+                showAlert("Please enter a valid ID");
                 e.printStackTrace();
             }
         });
     }
+
 }

@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DataTruncation;
+import java.sql.SQLException;
 
 
 public class Login {
@@ -73,7 +74,9 @@ public class Login {
                 else if (role.equalsIgnoreCase("clubadvisor")) {
                     String userId = userDetails.getId();
                     String userName = userDetails.getName();
-                    //JoinClub.setUserDetails(userId, userName); //setting the name and id to use in the join club class.
+                    ActivityController.setUserDetails(userId,userName);
+                    EventController.setUserDetails(userId,userName);
+                    MeetingController.setUserDetails(userId,userName);
                     sacms.openMenu(selectedRole);
                 }
                 Stage previousStage= (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();

@@ -6,6 +6,10 @@ public class UserDetails {
     private String id;
     private String name;
 
+    public UserDetails(){
+
+    }
+
     public UserDetails(String id, String name) {
         this.id = id;
         this.name = name;

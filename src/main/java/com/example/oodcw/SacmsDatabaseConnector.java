@@ -1,7 +1,6 @@
 package com.example.oodcw;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 
 
 import java.sql.*;
@@ -11,7 +10,6 @@ import java.util.List;
 
 public class SacmsDatabaseConnector implements DatabaseConnector {
 
-    //creating a database connector
     public Connection dbConnector() {
         try {
             return DriverManager.getConnection(
@@ -28,8 +26,88 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
         return null;
     }
 
-    public static List<Schedule> getDataFromDatabase(Connection connection) throws SQLException {
+    public List<Event> getEventsForClub(String clubName, Connection connection) throws SQLException {
+        List<Event> events = new ArrayList<>();
+        String query = "SELECT * FROM schedule JOIN event ON schedule.ScheduleID = event.ScheduleID WHERE schedule.Club = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, clubName);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Event event = new Event(resultSet);
+                    events.add(event);
+                }
+            }
+        }
+        return events;
+    }
+
+    // Method to get activities for a specific club
+    public List<Activity> getActivitiesForClub(String clubName, Connection connection) throws SQLException {
+        List<Activity> activities = new ArrayList<>();
+        String query = "SELECT * FROM schedule JOIN activity ON schedule.ScheduleID = activity.ScheduleID WHERE schedule.Club = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, clubName);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Activity activity = new Activity(resultSet);
+                    activities.add(activity);
+                }
+            }
+        }
+        return activities;
+    }
+
+
+    public List<String> getClubNames(Connection connection) throws SQLException {
+        List<String> clubs = new ArrayList<>();
+        String query = "SELECT clubname FROM clubs";
+
+        try (Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
+                clubs.add(resultSet.getString("clubname"));
+            }
+        }
+
+        return clubs;
+    }
+
+    public List<Meeting> getMeetingsByClub(String clubName, Connection connection) throws SQLException {
+        List<Meeting> meetings = new ArrayList<>();
+        String query = "SELECT * FROM schedule JOIN meeting ON schedule.ScheduleID = meeting.ScheduleID WHERE Club = ?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, clubName);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    Meeting meeting = new Meeting(resultSet);
+                    meetings.add(meeting);
+                }
+            }
+        }
+
+        return meetings;
+    }
+
+    public List<String> getClubNames() throws SQLException {
+        List<String> clubs = new ArrayList<>();
+        String query = "SELECT clubname FROM clubs";
+
+        try (Connection connection = dbConnector();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery(query)) {
+            while (resultSet.next()) {
+                clubs.add(resultSet.getString("clubname"));
+            }
+        }
+
+        return clubs;
+    }
+
+    public static List<Schedule> getDataFromDatabase(Connection connection)  {
         List<Schedule> scheduleList = new ArrayList<>();
+        try {
         String query = "SELECT s.ScheduleID, s.Name, s.Venue, s.Date, s.Type, s.Club," +
                 "m.Description AS MeetingDescription, " +
                 "e.Sponsors, e.Details, e.MemberOnly, e.MaxParticipants AS EventMaxParticipants, " +
@@ -38,7 +116,10 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
                 "LEFT JOIN meeting m ON s.ScheduleID = m.ScheduleID " +
                 "LEFT JOIN event e ON s.ScheduleID = e.ScheduleID " +
                 "LEFT JOIN activity a ON s.ScheduleID = a.ScheduleID";
-        PreparedStatement preparedStatement = connection.prepareStatement(query);
+        PreparedStatement preparedStatement = null;
+
+            preparedStatement = connection.prepareStatement(query);
+
         ResultSet resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
@@ -74,8 +155,12 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
                 scheduleList.add(schedule);
             }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         return scheduleList;
+
     }
 
     public static void saveScheduleToDatabase(Schedule schedule, Connection connection) {
@@ -109,7 +194,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
             }
         }
 
-    private static void saveMeetingToDatabase(Meeting meeting, Connection connection) throws SQLException {
+    private static void saveMeetingToDatabase(Meeting meeting, Connection connection)  {
         String meetingQuery = "INSERT INTO meeting (ScheduleID, Description) VALUES (?, ?)";
         try (PreparedStatement meetingStatement = connection.prepareStatement(meetingQuery)) {
             meetingStatement.setInt(1, meeting.getScheduleID());
@@ -122,12 +207,14 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
             String createTableSQL = "CREATE TABLE " + "meeting" + " (ScheduleID int PK, Description longtext)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(createTableSQL)) {
                 preparedStatement.executeUpdate();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
             saveMeetingToDatabase(meeting, connection);
         }
     }
 
-    private static void saveEventToDatabase(Event event, Connection connection) throws SQLException {
+    private static void saveEventToDatabase(Event event, Connection connection)  {
         String eventQuery = "INSERT INTO event (ScheduleID, MaxParticipants, sponsors, details, MemberOnly) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement eventStatement = connection.prepareStatement(eventQuery)) {
             eventStatement.setInt(1, event.getScheduleID());
@@ -143,13 +230,15 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
             String createTableSQL = "CREATE TABLE " + "event" + " (ScheduleID int PK, Sponsors VARCHAR(60),Details varchar(45),MemberOnly enum('Yes','No'), MaxParticipants int)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(createTableSQL)) {
                 preparedStatement.executeUpdate();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
             saveEventToDatabase(event, connection);
         }
 
     }
 
-    private static void saveActivityToDatabase(Activity activity, Connection connection) throws SQLException {
+    private static void saveActivityToDatabase(Activity activity, Connection connection)  {
         String activityQuery = "INSERT INTO activity (ScheduleID, MaxParticipants, Description) VALUES (?, ?, ?)";
         try (PreparedStatement activityStatement = connection.prepareStatement(activityQuery)) {
             activityStatement.setInt(1, activity.getScheduleID());
@@ -163,46 +252,52 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
             String createTableSQL = "CREATE TABLE " + "activity" + " (ScheduleId int, MaxParticipants int, Description longtext)";
             try (PreparedStatement preparedStatement = connection.prepareStatement(createTableSQL)) {
                 preparedStatement.executeUpdate();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
             saveActivityToDatabase(activity, connection);
         }
         }
 
-    public static boolean IDExists(int ID, Connection connection) throws SQLException {
-            String query = "SELECT COUNT(*) FROM schedule WHERE ScheduleID = ?";
-                PreparedStatement statement = connection.prepareStatement(query);
-                ResultSet resultSet = statement.executeQuery();
-                statement.setInt(1, ID);
-                resultSet = statement.executeQuery(); {
-                    if (resultSet.next()) {
-                        int count = resultSet.getInt(1);
-                        return count > 0;
-                    }
-                }
-                    return false;
-                }
+    public static boolean IDExists(int ID, Connection connection)  {
+        String query = "SELECT COUNT(*) FROM schedule WHERE ScheduleID = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, ID);  // Set the parameter value for the placeholder
+            ResultSet resultSet = statement.executeQuery();
 
+            if (resultSet.next()) {
+                int count = resultSet.getInt(1);
+                return count > 0;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;
+    }
 
-
-    public static boolean deleteSchedule(int ID, Connection connection) throws SQLException {
+    public static boolean deleteSchedule(int ID, Connection connection)  {
         if (IDExists(ID, connection)) {
-             {
-                String deleteQuery = "DELETE FROM schedule WHERE ScheduleID = ?";
-                try (PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery)) {
-                    deleteStatement.setInt(1, ID);
-                    int affectedRows = deleteStatement.executeUpdate();
-                    return affectedRows > 0;
-                }
+            String deleteQuery = "DELETE FROM schedule WHERE ScheduleID = ?";
+            try (PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery)) {
+                deleteStatement.setInt(1, ID);
+                int affectedRows = deleteStatement.executeUpdate();
+                return affectedRows > 0;
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
             }
         }
         return false; // Schedule with given ID does not exist
     }
 
-    public static boolean isDateAlreadyScheduled(LocalDate date, Connection connection) throws SQLException {
-            String query = "SELECT COUNT(*) FROM schedule WHERE Date = ?";
 
-            PreparedStatement statement = connection.prepareStatement(query);
-                statement.setObject(1, date);
+    public static boolean isDateAlreadyScheduled(LocalDate date, Connection connection)  {
+        try { String query = "SELECT COUNT(*) FROM schedule WHERE Date = ?";
+
+        PreparedStatement statement = null;
+
+            statement = connection.prepareStatement(query);
+
+        statement.setObject(1, date);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
                         int count = resultSet.getInt(1);
@@ -210,15 +305,17 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
                     }
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
-                }
+                } } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return false;
     }
-    public static List<String> getAdvisorClubsFromDatabase(Connection connection) throws SQLException {
+    public static List<String> getAdvisorClubsFromDatabase(String name, Connection connection) throws SQLException {
         List<String> advisorClubs = new ArrayList<>();
-        String advisorName = "James";
+        String userName = name;
         String query = "SELECT clubname FROM clubs WHERE clubAdvisor = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, advisorName);
+                preparedStatement.setString(1, userName);
 
                 try (ResultSet resultSet = preparedStatement.executeQuery()) {
                     while (resultSet.next()) {
@@ -461,7 +558,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
 
     public void deleteClub(String Name, Connection connection) throws SQLException {
-        String deleteClubSqlQuery = "DELETE FROM clubsTable WHERE clubName = ?";
+        String deleteClubSqlQuery = "DELETE FROM clubTable WHERE clubname = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(deleteClubSqlQuery)) {
             preparedStatement.setString(1, Name);
 
