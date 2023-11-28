@@ -68,7 +68,7 @@ public class JoinClub {
         String clubName = (String) selectClub.getValue();
         System.out.println(clubName.toLowerCase());
         Connection connection = databaseConnector.dbConnector();
-        boolean checkId = databaseConnector.authenticateJoinClub(clubName, getUserId(), connection);
+        boolean checkId = databaseConnector.authenticateJoinClub(clubName.replaceAll("\\s", "").toLowerCase(), getUserId(), connection);
         //1.1.1.1.4.2 & 1.1.1.1.4.3 ----> join club sequence
         if (checkId){
             joinMessage.setText("");

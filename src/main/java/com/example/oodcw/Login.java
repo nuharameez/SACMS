@@ -70,10 +70,10 @@ public class Login {
                     JoinClub.setUserDetails(userId, userName); //setting the name and id to use in the join club class.
                     sacms.openMenu(selectedRole);
                 }
-                else {
+                else if (role.equalsIgnoreCase("clubadvisor")) {
                     String userId = userDetails.getId();
                     String userName = userDetails.getName();
-                    JoinClub.setUserDetails(userId, userName); //setting the name and id to use in the join club class.
+                    //JoinClub.setUserDetails(userId, userName); //setting the name and id to use in the join club class.
                     sacms.openMenu(selectedRole);
                 }
                 Stage previousStage= (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();

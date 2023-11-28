@@ -46,13 +46,13 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
     //1.1.2.3 ----> login sequence
     public UserDetails getUserDetails(String role, String username, Connection connection) {
-        String query = "SELECT " + role + "Id," + role + "Name FROM " + role + "student WHERE" + role+ "Username = ?";
+        String query = "SELECT " + role + "Id, " + role + "Name FROM " + role + " WHERE " + role+ "Username = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                String id = resultSet.getString("studentId");
-                String name = resultSet.getString("studentName");
+                String id = resultSet.getString(role + "Id");
+                String name = resultSet.getString(role + "Name");
                 return new UserDetails(id, name);
             }
         } catch (SQLException e) {
@@ -150,7 +150,6 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
     //1.1.1.1 ----> join club sequence
     public boolean authenticateJoinClub(String clubName, String id, Connection connection) {
-
         String sql = "SELECT * FROM " + clubName + " WHERE studentId = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, id);
