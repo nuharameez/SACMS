@@ -15,24 +15,5 @@ public class Clubs {
         this.clubAdvisor = clubAdvisor;
         this.clubMotto = clubMotto;
     }
-
-    public int getClubID() {
-        return clubID;
-    }
-
-    public String getClubName() {
-        return clubName;
-    }
-
-    public String getClubCategory() {
-        return clubCategory;
-    }
-
-    public String getClubAdvisor() {
-        return clubAdvisor;
-    }
-
-    public String getClubMotto() {
-        return clubMotto;
-    }
+    
 }
