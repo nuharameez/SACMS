@@ -122,11 +122,6 @@ public class EventController {
             String memberOnlyString = MemOnly.getValue();
             boolean isMemberOnly = "Yes".equals(memberOnlyString);
             Event event = new Event(ID, name, date, venue, participants, sponsorDetails, details, isMemberOnly);
-
-            if (event.isDateAlreadyScheduled(date)) {
-                showAlert("There is already something scheduled on the selected date. Please choose a different date.");
-                return;
-            }
             try {
                 if (event.IDExists(ID)) {
                     throw new DuplicateIDException("Event ID already exists. Please enter a different ID.");
@@ -135,6 +130,11 @@ public class EventController {
                 showAlert(e.getMessage());
                 return;
             }
+            if (event.isDateAlreadyScheduled(date)) {
+                showAlert("There is already something scheduled on the selected date. Please choose a different date.");
+                return;
+            }
+
             event.saveToDatabase();
             showAlert("Event Scheduled");
 
