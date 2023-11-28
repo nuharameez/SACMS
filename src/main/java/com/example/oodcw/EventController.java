@@ -14,8 +14,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+import java.util.List;
+
 
 public class EventController {
 
@@ -50,7 +53,12 @@ public class EventController {
     private TextField eventID;
 
     @FXML
-    private void initialize() {
+    private ChoiceBox<String> eventClub;
+    private SacmsDatabaseConnector databaseConnector;
+    Connection connection = databaseConnector.dbConnector();
+
+    @FXML
+    private void initialize() throws SQLException {
         // Add listeners to check if all required fields are filled
         nameEvent.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         eventDate.valueProperty().addListener((observable, oldValue, newValue) -> checkFields());
@@ -58,6 +66,13 @@ public class EventController {
         maxParticipants.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         eventID.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         MemOnly.getItems().addAll("Yes", "No");
+        loadAdvisorClubs();
+    }
+
+
+    private void loadAdvisorClubs() throws SQLException {
+        List<String> advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(connection);
+        eventClub.getItems().addAll(advisorClubs);
     }
 
     private boolean checkFields() {
@@ -92,7 +107,7 @@ public class EventController {
     }
 
     @FXML
-    private void handleEventSubmit(){
+    private void handleEventSubmit() throws SQLException {
             if (!checkFields()) {
                showAlert("Please fill out all required fields.");
                 return;
@@ -121,7 +136,8 @@ public class EventController {
             String details = eventDetails.getText();
             String memberOnlyString = MemOnly.getValue();
             boolean isMemberOnly = "Yes".equals(memberOnlyString);
-            Event event = new Event(ID, name, date, venue, participants, sponsorDetails, details, isMemberOnly);
+            String selectedClub = eventClub.getValue();
+            Event event = new Event(ID, name, date, venue, participants, sponsorDetails, details, isMemberOnly,selectedClub);
             try {
                 if (event.checkID(ID)) {
                     throw new DuplicateIDException("Event ID already exists. Please enter a different ID.");

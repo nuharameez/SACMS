@@ -8,8 +8,8 @@ public class Event extends Schedule{
     private String type;
     private boolean membersOnly;
 
-    public Event(int ScheduleID, String name, LocalDate date, String venue, int maxParticipants, String sponsors, String details, boolean membersOnly) {
-        super( ScheduleID, name, date, venue);
+    public Event(int ScheduleID, String name, LocalDate date, String venue, int maxParticipants, String sponsors, String details, boolean membersOnly, String club) {
+        super( ScheduleID, name, date, venue, club);
         this.maxParticipants = maxParticipants;
         this.sponsors = sponsors;
         this.details = details;

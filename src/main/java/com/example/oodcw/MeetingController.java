@@ -7,8 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+import java.util.List;
 
 public class MeetingController {
     @FXML
@@ -30,14 +32,27 @@ public class MeetingController {
     private Button returnToView;
     @FXML
     private TextField meetingID;
+    @FXML
+    private ChoiceBox<String> meetingClub;
+    private SacmsDatabaseConnector databaseConnector;
+    Connection connection = databaseConnector.dbConnector();
 
     @FXML
-    private void initialize() {
+    private void initialize() throws SQLException {
         // Add listeners to check if all required fields are filled
         meetingName.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         meetingDate.valueProperty().addListener((observable, oldValue, newValue) -> checkFields());
         meetingVenue.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         meetingID.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
+        loadAdvisorClubs();
+    }
+
+
+    // Setter method for loggedInUser
+
+    private void loadAdvisorClubs() throws SQLException {
+        List<String> advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(connection);
+        meetingClub.getItems().addAll(advisorClubs);
     }
 
     private boolean checkFields() {
@@ -89,7 +104,8 @@ public class MeetingController {
             String venue = meetingVenue.getText();
             String description = meetingDescription.getText();
             LocalDate date = meetingDate.getValue();
-            Meeting meeting = new Meeting(ID,name,date,venue,description);
+            String club= meetingClub.getValue();
+            Meeting meeting = new Meeting(ID,name,date,venue,description,club);
             try {
                 if (meeting.checkID(ID)) {
                     throw new DuplicateIDException("Meeting ID already exists. Please enter a different ID.");

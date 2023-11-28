@@ -16,11 +16,13 @@
           <TableColumn fx:id="typeColumn" minWidth="0.0" prefWidth="100.79999542236328" text="Type" />
             <TableColumn fx:id="dateColumn" minWidth="0.0" prefWidth="86.4000244140625" text="Date" />
             <TableColumn fx:id="nameColumn" prefWidth="155.4000244140625" text="Name " />
-            <TableColumn fx:id="venueColumn" prefWidth="129.60001220703123" text="Venue" />
+            <TableColumn fx:id="clubColumn" prefWidth="129.60001220703123" text="Club" />
         </columns>
       </TableView>
       <Button fx:id="addEvent" layoutX="58.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddEvent" prefHeight="26.0" prefWidth="116.0" text="Add Event" />
       <Button fx:id="addMeeting" layoutX="261.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddMeeting" prefHeight="26.0" prefWidth="116.0" text="Add Meeting" />
       <Button fx:id="addActivity" layoutX="442.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddActivity" prefHeight="26.0" prefWidth="116.0" text="Add Activity" />
+      <Button fx:id="menuButton" layoutX="45.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleMenuButton" text="Back to Menu" />
+      <Button fx:id="deleteButton" layoutX="500.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete" />
    </children>
 </AnchorPane>
