@@ -1,8 +1,4 @@
 package com.example.oodcw;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class Event extends Schedule{
@@ -64,34 +60,5 @@ public class Event extends Schedule{
 
         this.membersOnly = membersOnly;
     }
-    @Override
-    public void saveToDatabase() {
-        try (Connection connection = DatabaseController.getConnection()) {
-            // Insert into 'schedule' table
-            String scheduleQuery = "INSERT INTO schedule (ScheduleID, Name, Date, Venue, Type) VALUES (?, ?, ?, ?, ?)";
-            try (PreparedStatement scheduleStatement = connection.prepareStatement(scheduleQuery)) {
-                scheduleStatement.setInt(1, getScheduleID());
-                scheduleStatement.setString(2, getName());
-                scheduleStatement.setObject(3, getDate());
-                scheduleStatement.setString(4, getVenue());
-                scheduleStatement.setString(5, "Event");
 
-                scheduleStatement.executeUpdate();
-            }
-
-            // Insert into 'event' table
-            String eventQuery = "INSERT INTO event (ScheduleID, MaxParticipants, sponsors, details, MemberOnly) VALUES (?, ?, ?, ?, ?)";
-            try (PreparedStatement eventStatement = connection.prepareStatement(eventQuery)) {
-                eventStatement.setInt(1, getScheduleID());
-                eventStatement.setInt(2, getMaxParticipants());
-                eventStatement.setString(3, getSponsors());
-                eventStatement.setString(4, getDetails());
-                eventStatement.setString(5, isMembersOnly() ? "Yes" : "No");
-
-                eventStatement.executeUpdate();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

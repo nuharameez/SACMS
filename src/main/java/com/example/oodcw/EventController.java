@@ -123,14 +123,14 @@ public class EventController {
             boolean isMemberOnly = "Yes".equals(memberOnlyString);
             Event event = new Event(ID, name, date, venue, participants, sponsorDetails, details, isMemberOnly);
             try {
-                if (event.IDExists(ID)) {
+                if (event.checkID(ID)) {
                     throw new DuplicateIDException("Event ID already exists. Please enter a different ID.");
                 }
             } catch (DuplicateIDException e) {
                 showAlert(e.getMessage());
                 return;
             }
-            if (event.isDateAlreadyScheduled(date)) {
+            if (event.checkDate(date)) {
                 showAlert("There is already something scheduled on the selected date. Please choose a different date.");
                 return;
             }

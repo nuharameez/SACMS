@@ -91,14 +91,14 @@ public class MeetingController {
             LocalDate date = meetingDate.getValue();
             Meeting meeting = new Meeting(ID,name,date,venue,description);
             try {
-                if (meeting.IDExists(ID)) {
+                if (meeting.checkID(ID)) {
                     throw new DuplicateIDException("Meeting ID already exists. Please enter a different ID.");
                 }
             } catch (DuplicateIDException e) {
                 showAlert(e.getMessage());
                 return;
             }
-            if (meeting.isDateAlreadyScheduled(date)) {
+            if (meeting.checkDate(date)) {
                 showAlert("There is already something scheduled on the selected date. Please choose a different date.");
                 return;
             }

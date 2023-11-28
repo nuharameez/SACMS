@@ -1,8 +1,4 @@
 package com.example.oodcw;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class Activity extends Schedule {
@@ -44,32 +40,6 @@ public class Activity extends Schedule {
 
         this.description = description;
     }
-    @Override
-    public void saveToDatabase() {
-        try (Connection connection = DatabaseController.getConnection()) {
-            // Insert into 'schedule' table
-            String scheduleQuery = "INSERT INTO schedule (ScheduleID, Name, Date, Venue, Type) VALUES (?, ?, ?, ?, ?)";
-            try (PreparedStatement scheduleStatement = connection.prepareStatement(scheduleQuery)) {
-                scheduleStatement.setInt(1, getScheduleID());
-                scheduleStatement.setString(2, getName());
-                scheduleStatement.setObject(3, getDate());
-                scheduleStatement.setString(4, getVenue());
-                scheduleStatement.setString(5, "Activity"); // Set type to 'Activity'
 
-                scheduleStatement.executeUpdate();
-            }
 
-            // Insert into 'activity' table
-            String activityQuery = "INSERT INTO activity (ScheduleID, MaxParticipants, Description) VALUES (?, ?, ?)";
-            try (PreparedStatement activityStatement = ((Connection) connection).prepareStatement(activityQuery)) {
-                activityStatement.setInt(1, getScheduleID());
-                activityStatement.setInt(2, getMaxParticipants());
-                activityStatement.setString(3, getDescription());
-
-                activityStatement.executeUpdate();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 }

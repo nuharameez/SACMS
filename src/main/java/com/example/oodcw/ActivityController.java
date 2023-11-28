@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+
 
 public class ActivityController {
 
@@ -109,14 +109,14 @@ public class ActivityController {
             String description = activityDescription.getText();
             Activity activity = new Activity(ID, name, date, venue, participants, description);
             try {
-                if (activity.IDExists(ID)) {
+                if (activity.checkID(ID)) {
                     throw new DuplicateIDException("Activity ID already exists. Please enter a different ID.");
                 }
             } catch (DuplicateIDException e) {
                 showAlert(e.getMessage());
                 return;
             }
-            if (activity.isDateAlreadyScheduled(date)) {
+            if (activity.checkDate(date)) {
                 showAlert("There is already something scheduled on the selected date. Please choose a different date.");
                 return;
             }

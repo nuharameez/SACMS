@@ -1,9 +1,4 @@
 package com.example.oodcw;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.time.LocalDate;
 
 public abstract class Schedule implements DatabaseConnectorN {
@@ -71,45 +66,16 @@ public abstract class Schedule implements DatabaseConnectorN {
 
         this.venue = venue;
     }
-    @Override
-    public boolean IDExists(int ID) {
-        try (Connection connection = DatabaseController.getConnection()) {
-            String query = "SELECT COUNT(*) FROM schedule WHERE ScheduleID = ?";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setInt(1, ID);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    if (resultSet.next()) {
-                        int count = resultSet.getInt(1);
-                        return count > 0;
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public boolean checkDate(LocalDate date){
+        DatabaseOperations.isDateAlreadyScheduled(date);
         return false;
     }
-    @Override
-    public boolean isDateAlreadyScheduled(LocalDate date) {
-        try (Connection connection = DatabaseController.getConnection()) {
-            String query = "SELECT COUNT(*) FROM schedule WHERE Date = ?";
-            try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setObject(1, date);
-                try (ResultSet resultSet = statement.executeQuery()) {
-                    if (resultSet.next()) {
-                        int count = resultSet.getInt(1);
-                        return count > 0;
-                    }
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+
+    public boolean checkID (int ID){
+        DatabaseOperations.IDExists(ID);
         return false;
     }
-    public abstract void saveToDatabase();
+    public void saveToDatabase() {
+        DatabaseOperations.saveScheduleToDatabase(this);
+    }
 }

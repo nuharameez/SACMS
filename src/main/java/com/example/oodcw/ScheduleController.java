@@ -12,13 +12,8 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.time.LocalDate;
-
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ScheduleController {
@@ -47,7 +42,7 @@ public class ScheduleController {
 
         try {
             // Initialize data
-            List<Schedule> scheduleList = getDataFromDatabase();
+            List<Schedule> scheduleList = DatabaseOperations.getDataFromDatabase();
             ObservableList<Schedule> observableList = FXCollections.observableArrayList(scheduleList);
             tableView.setItems(observableList);
 
@@ -55,8 +50,6 @@ public class ScheduleController {
             e.printStackTrace(); // Handle exception appropriately
         }
     }
-
-
     @FXML
     private void handleAddEvent(ActionEvent event) throws IOException {
         openFXML("Event.fxml", "Add Event");
@@ -81,56 +74,6 @@ public class ScheduleController {
         stage.setScene(new Scene(root));
         stage.show();
     }
-    public static List<Schedule> getDataFromDatabase() throws SQLException {
-        List<Schedule> scheduleList = new ArrayList<>();
-        String query = "SELECT s.ScheduleID, s.Name, s.Venue, s.Date, s.Type, " +
-                "m.Description AS MeetingDescription, " +
-                "e.Sponsors, e.Details, e.MemberOnly, e.MaxParticipants AS EventMaxParticipants, " +
-                "a.MaxParticipants AS ActivityMaxParticipants, a.Description AS ActivityDescription " +
-                "FROM schedule s " +
-                "LEFT JOIN meeting m ON s.ScheduleID = m.ScheduleID " +
-                "LEFT JOIN event e ON s.ScheduleID = e.ScheduleID " +
-                "LEFT JOIN activity a ON s.ScheduleID = a.ScheduleID";
 
-        try (Connection connection = DatabaseController.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-
-            while (resultSet.next()) {
-                int scheduleID = resultSet.getInt("ScheduleID");
-                String name = resultSet.getString("Name");
-                LocalDate date = resultSet.getDate("Date").toLocalDate();
-                String venue = resultSet.getString("Venue");
-                String type = resultSet.getString("Type");
-
-                Schedule schedule;
-
-                switch (type) {
-                    case "Meeting":
-                        String meetingDescription = resultSet.getString("MeetingDescription");
-                        schedule = new Meeting(scheduleID, name, date, venue, meetingDescription);
-                        break;
-                    case "Event":
-                        String sponsors = resultSet.getString("Sponsors");
-                        String details = resultSet.getString("Details");
-                        boolean memberOnly = "Yes".equals(resultSet.getString("MemberOnly"));
-                        int eventMaxParticipants = resultSet.getInt("EventMaxParticipants");
-                        schedule = new Event(scheduleID, name, date, venue, eventMaxParticipants, sponsors, details, memberOnly);
-                        break;
-                    case "Activity":
-                        int activityMaxParticipants = resultSet.getInt("ActivityMaxParticipants");
-                        String activityDescription = resultSet.getString("ActivityDescription");
-                        schedule = new Activity(scheduleID, name, date, venue, activityMaxParticipants, activityDescription);
-                        break;
-                    default:
-                        throw new IllegalArgumentException("Unknown schedule type: " + type);
-                }
-
-                scheduleList.add(schedule);
-            }
-        }
-
-        return scheduleList;
-    }
 
 }
