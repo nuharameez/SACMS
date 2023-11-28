@@ -39,16 +39,16 @@ public class JoinClub {
 
 
 
-
+    //1.1.1 ----> join club sequence
     public static void setUserDetails(String userId, String userName){
         JoinClub.userId = userId;
         JoinClub.userName = userName;
     }
-
+    //1.1.1.1.2 ----> join club sequence
     public static String getUserId() {
         return userId;
     }
-
+    //1.1.1.1.3 ----> join club sequence
     public static String getUserName() {
         return userName;
     }
@@ -68,16 +68,19 @@ public class JoinClub {
         String clubName = (String) selectClub.getValue();
         System.out.println(clubName.toLowerCase());
         Connection connection = databaseConnector.dbConnector();
-        boolean checkId = databaseConnector.authenticateJoinClub(clubName, getUserId(), connection);
+        boolean checkId = databaseConnector.authenticateJoinClub(clubName.replaceAll("\\s", "").toLowerCase(), getUserId(), connection);
+        //1.1.1.1.4.2 & 1.1.1.1.4.3 ----> join club sequence
         if (checkId){
             joinMessage.setText("");
             errorMessage.setText("You have already erolled in this club");
         }
+        //1.1.1.1.1 ----> join club sequence
         else {
             errorMessage.setText("");
-            joinMessage.setText("You have joined the club successfully");
             databaseConnector.addStudentToClubTable(getUserId(), getUserName(), clubName.replaceAll("\\s", "").toLowerCase(), connection);
             //spaces removed from club name to make creating club table easier.
+            joinMessage.setText("You have joined the club successfully"); //1.1.1.1.4.1 ----> join club sequence
+
         }
         //System.out.println("checking..." + getUserId() + getUserName());
 

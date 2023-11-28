@@ -65,5 +65,11 @@
          </font>
       </Text>
       <TextField fx:id="eventID" layoutX="424.0" layoutY="84.0" prefHeight="26.0" prefWidth="59.0" />
+      <Text layoutX="370.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club" wrappingWidth="52.693359375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <ChoiceBox fx:id="eventClub" layoutX="416.0" layoutY="174.0" prefHeight="26.0" prefWidth="81.0" />
     </children>
 </AnchorPane>

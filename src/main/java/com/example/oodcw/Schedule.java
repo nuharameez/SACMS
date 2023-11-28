@@ -1,7 +1,9 @@
 package com.example.oodcw;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
-public abstract class Schedule implements DatabaseConnectorN {
+public abstract class Schedule {
     private int ScheduleID;
     private String name;
     private LocalDate date;
@@ -9,14 +11,29 @@ public abstract class Schedule implements DatabaseConnectorN {
 
     private String type;
 
+    private String club;
+
+
+    private SacmsDatabaseConnector databaseConnector;
+
+
     public Schedule() {
     }
 
-    public Schedule(int ScheduleID,String name, LocalDate date, String venue) {
+    public Schedule(int ScheduleID,String name, LocalDate date, String venue, String club) {
         this.ScheduleID=ScheduleID;
         this.name = name;
         this.date = date;
         this.venue = venue;
+        this.club=club;
+    }
+
+    public String getClub() {
+        return club;
+    }
+
+    public void setClub(String club) {
+        this.club = club;
     }
 
     public String getType() {
@@ -66,16 +83,20 @@ public abstract class Schedule implements DatabaseConnectorN {
 
         this.venue = venue;
     }
-    public boolean checkDate(LocalDate date){
-        DatabaseOperations.isDateAlreadyScheduled(date);
+    public boolean checkDate(LocalDate date) throws SQLException {
+        Connection connection = databaseConnector.dbConnector();
+        SacmsDatabaseConnector.isDateAlreadyScheduled(date, connection);
         return false;
     }
 
-    public boolean checkID (int ID){
-        DatabaseOperations.IDExists(ID);
+    public boolean checkID (int ID) throws SQLException {
+        Connection connection = databaseConnector.dbConnector();
+
+        SacmsDatabaseConnector.IDExists(ID, connection);
         return false;
     }
-    public void saveToDatabase() {
-        DatabaseOperations.saveScheduleToDatabase(this);
+    public void saveToDatabase() throws SQLException {
+        Connection connection = databaseConnector.dbConnector();
+        SacmsDatabaseConnector.saveScheduleToDatabase(this, connection);
     }
 }

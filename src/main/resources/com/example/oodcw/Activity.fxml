@@ -48,5 +48,11 @@
       </Text>
       <TextField fx:id="activityID" layoutX="417.0" layoutY="85.0" prefHeight="26.0" prefWidth="53.0" />
       <Button fx:id="returnToView" layoutX="33.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleReturnToView" text="Return to view" />
+      <Text layoutX="371.0" layoutY="193.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club" wrappingWidth="52.693359375">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <ChoiceBox fx:id="activityClub" layoutX="424.0" layoutY="174.0" prefHeight="26.0" prefWidth="93.0" />
     </children>
 </AnchorPane>

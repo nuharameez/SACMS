@@ -35,6 +35,7 @@ public class ClubAdvisorMenu {
         System.out.println("Schedule button clicked");
     }
 
+    //1 & 1.1 ----> reporting sequence
     @FXML
     private void onViewReportsClick() {
         Stage newStage = new Stage();

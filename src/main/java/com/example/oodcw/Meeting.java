@@ -9,8 +9,8 @@ public class Meeting extends Schedule{
     private String description;
     private String type;
 
-    public Meeting(int ScheduleID, String name, LocalDate date, String venue, String description) {
-        super(ScheduleID,name, date, venue);
+    public Meeting(int ScheduleID, String name, LocalDate date, String venue, String description, String club) {
+        super(ScheduleID,name, date, venue, club);
         this.description=description;
         this.type="Meeting";
     }

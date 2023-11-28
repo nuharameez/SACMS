@@ -8,7 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.List;
 
 
 public class ActivityController {
@@ -35,10 +38,14 @@ public class ActivityController {
     private Button returnToView;
 
     @FXML
-    private TextField activityID;
+    private ChoiceBox<String> activityClub;
 
     @FXML
-    private void initialize() {
+    private TextField activityID;
+
+
+    @FXML
+    private void initialize() throws SQLException {
         // Add listeners to check if all required fields are filled
         activityName.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         activityDate.valueProperty().addListener((observable, oldValue, newValue) -> checkFields());
@@ -46,8 +53,17 @@ public class ActivityController {
         activityMaxParticipants.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         activityDescription.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         activityID.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
+        loadAdvisorClubs();
     }
+    private SacmsDatabaseConnector databaseConnector;
+    Connection connection = databaseConnector.dbConnector();
 
+    // Setter method for loggedInUser
+
+    private void loadAdvisorClubs() throws SQLException {
+        List<String> advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(connection);
+        activityClub.getItems().addAll(advisorClubs);
+    }
     private boolean checkFields() {
         // Enable the submit button only if all required fields are filled
         if (!activityName.getText().isEmpty() && activityDate.getValue() != null &&
@@ -59,7 +75,6 @@ public class ActivityController {
     }
 
     private void showAlert(String message) {
-        // Display an alert with the given message
         Alert alert = new Alert(Alert.AlertType.WARNING);
         alert.setTitle("Warning");
         alert.setHeaderText(null);
@@ -99,6 +114,7 @@ public class ActivityController {
             String name = activityName.getText();
             LocalDate date= activityDate.getValue();
             String venue = activityVenue.getText();
+            String club = activityClub.getValue();
             int participants;
             try {
                 participants = Integer.parseInt(activityMaxParticipants.getText());
@@ -107,7 +123,7 @@ public class ActivityController {
                 return;
             }
             String description = activityDescription.getText();
-            Activity activity = new Activity(ID, name, date, venue, participants, description);
+            Activity activity = new Activity(ID, name, date, venue, participants, description,club);
             try {
                 if (activity.checkID(ID)) {
                     throw new DuplicateIDException("Activity ID already exists. Please enter a different ID.");

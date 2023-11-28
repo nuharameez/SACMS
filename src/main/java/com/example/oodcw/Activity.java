@@ -8,8 +8,8 @@ public class Activity extends Schedule {
     private String type;
 
 
-    public Activity(int ScheduleID, String name, LocalDate date, String venue, int maxParticipants, String description) {
-        super( ScheduleID,name, date, venue);
+    public Activity(int ScheduleID, String name, LocalDate date, String venue, int maxParticipants, String description, String club) {
+        super( ScheduleID,name, date, venue, club);
         this.maxParticipants = maxParticipants;
         this.description = description;
         this.type= "Activity";

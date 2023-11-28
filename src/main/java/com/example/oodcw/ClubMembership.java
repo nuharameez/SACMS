@@ -46,9 +46,12 @@ public class ClubMembership {
     @FXML
     protected void onViewReportClick(ActionEvent actionEvent){
         //search club table for selectedClub and get club advisor name.
+        //1.1.1 & 1.1.2 ----> reporting sequence
         String selectedClub = (String) selectClub.getValue();
         Connection connection = databaseConnector.dbConnector();
         String clubAdvisorName = databaseConnector.getClubAdvisorName(selectedClub, connection);
+
+        //1.1.3 ----> reporting sequence (includes club advisor name, number of students, student table with studen id and name of all students in the club)
         clubAdvisor.setText(clubAdvisorName);
         //convert club name to one word without spaces
         //set clubAdvisor to club advisor name
@@ -57,6 +60,7 @@ public class ClubMembership {
         int stuCount = databaseConnector.getStudentCount(selectedClub.replaceAll("\\s", "").toLowerCase(),connection);
         String noOfStudent = String.valueOf(stuCount);
         studentCount.setText(noOfStudent);
+
         //display student in table
         ObservableList<Student> studentData = databaseConnector.getStudents(selectedClub.replaceAll("\\s", "").toLowerCase(),connection);
         studentID.setCellValueFactory(new PropertyValueFactory<>("studentId"));
