@@ -136,7 +136,6 @@ public class EventController {
             }
             event.saveToDatabase();
             showAlert("Event Scheduled");
-
         }
     }
 
