@@ -55,11 +55,9 @@ public class ScheduleController {
             tableView.setItems(observableList);
 
         } catch (SQLException e) {
-            e.printStackTrace(); // Handle exception appropriately
+            showAlert("Database error");
         }
     }
-
-
 
     @FXML
     private void handleAddEvent(ActionEvent event) throws IOException {

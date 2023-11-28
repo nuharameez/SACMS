@@ -55,7 +55,6 @@ public class EventController {
     @FXML
     private ChoiceBox<String> eventClub;
     private SacmsDatabaseConnector databaseConnector;
-    Connection connection = databaseConnector.dbConnector();
 
     @FXML
     private void initialize() throws SQLException {
@@ -71,6 +70,7 @@ public class EventController {
 
 
     private void loadAdvisorClubs() throws SQLException {
+        Connection connection = databaseConnector.dbConnector();
         List<String> advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(connection);
         eventClub.getItems().addAll(advisorClubs);
     }

@@ -16,7 +16,6 @@ public abstract class Schedule {
 
     private SacmsDatabaseConnector databaseConnector;
 
-
     public Schedule() {
     }
 
@@ -91,7 +90,6 @@ public abstract class Schedule {
 
     public boolean checkID (int ID) throws SQLException {
         Connection connection = databaseConnector.dbConnector();
-
         SacmsDatabaseConnector.IDExists(ID, connection);
         return false;
     }

@@ -35,7 +35,7 @@ public class MeetingController {
     @FXML
     private ChoiceBox<String> meetingClub;
     private SacmsDatabaseConnector databaseConnector;
-    Connection connection = databaseConnector.dbConnector();
+
 
     @FXML
     private void initialize() throws SQLException {
@@ -50,8 +50,14 @@ public class MeetingController {
 
     // Setter method for loggedInUser
 
-    private void loadAdvisorClubs() throws SQLException {
-        List<String> advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(connection);
+    private void loadAdvisorClubs() {
+        List<String> advisorClubs = null;
+        try {
+            Connection connection = databaseConnector.dbConnector();
+            advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(connection);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         meetingClub.getItems().addAll(advisorClubs);
     }
 

@@ -45,7 +45,7 @@
                         <TextField fx:id="clubName" promptText="Name of Club" GridPane.columnIndex="1" />
                      </children>
                   </GridPane>
-                  <Button fx:id="deleteClub" layoutX="205.0" layoutY="269.0" mnemonicParsing="false" onAction="#deleteClubClick" prefHeight="30.0" prefWidth="171.0" style="-fx-background-color: #e76f51;" text="DELETE CLUB" textFill="#eeeeee">
+                  <Button fx:id="deleteClub" layoutX="205.0" layoutY="269.0" mnemonicParsing="false" onAction="#onDeleteClubClick" prefHeight="30.0" prefWidth="171.0" style="-fx-background-color: #e76f51;" text="DELETE CLUB" textFill="#eeeeee">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>

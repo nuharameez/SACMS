@@ -102,6 +102,4 @@ public class Login {
         Stage previousStage= (Stage) ((Node)event.getSource()).getScene().getWindow();
         previousStage.close();
     }
-
-
 }

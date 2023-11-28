@@ -40,7 +40,7 @@ public class DeleteClub {
     }
 
     @FXML
-    void deleteClubClick(ActionEvent event) throws Exception{
+    void onDeleteClubClick(ActionEvent event) throws Exception{
         String clubToDelete = clubName.getText();
 
         Connection connection = databaseConnector.dbConnector();
