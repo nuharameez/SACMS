@@ -116,7 +116,7 @@ public class Register {
         stage.setTitle("Main menu");
         stage.setScene(scene);
         stage.show();
-        
+
     }
 
 

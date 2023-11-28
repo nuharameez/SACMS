@@ -1,14 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.oodcw.ClubMembershipReport"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.ClubMembership">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0">
+         <image>
+            <Image url="@SCAMS_NewBG.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="110.0" layoutY="82.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Club">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <ChoiceBox fx:id="selectClub" layoutX="247.0" layoutY="63.0" prefHeight="26.0" prefWidth="102.0" />
+      <Text layoutX="110.0" layoutY="169.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of students:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="studentCount" layoutX="247.0" layoutY="151.0" prefHeight="26.0" prefWidth="34.0" />
+      <Text layoutX="110.0" layoutY="127.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Club advisor:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <TextField fx:id="clubAdvisor" layoutX="247.0" layoutY="109.0" prefHeight="26.0" prefWidth="230.0" />
+      <TableView fx:id="viewStudentsInClub" layoutX="108.0" layoutY="186.0" prefHeight="200.0" prefWidth="250.0">
+        <columns>
+          <TableColumn fx:id="studentID" prefWidth="74.39996337890625" text="Student ID" />
+          <TableColumn fx:id="studentName" prefWidth="176.800048828125" text="Student Name" />
+        </columns>
+      </TableView>
+      <Label layoutX="84.0" layoutY="14.0" text="CLUB MEMBERSHIP REPORT" textFill="#214469">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Label>
+      <Button fx:id="viewReport" layoutX="355.0" layoutY="63.0" mnemonicParsing="false" onAction="#onViewReportClick" prefHeight="26.0" prefWidth="102.0" text="View Report" />
+      <Button layoutX="376.0" layoutY="354.0" mnemonicParsing="false" onAction="#menuClick" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #e76f51;" text="Back to Menu" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+   </children>
 </AnchorPane>

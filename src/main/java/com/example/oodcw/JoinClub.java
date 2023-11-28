@@ -76,7 +76,8 @@ public class JoinClub {
         else {
             errorMessage.setText("");
             joinMessage.setText("You have joined the club successfully");
-            databaseConnector.addStudentToClubTable(getUserId(), getUserName(), clubName.toLowerCase(), connection);
+            databaseConnector.addStudentToClubTable(getUserId(), getUserName(), clubName.replaceAll("\\s", "").toLowerCase(), connection);
+            //spaces removed from club name to make creating club table easier.
         }
         //System.out.println("checking..." + getUserId() + getUserName());
 
