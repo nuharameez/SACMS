@@ -9,12 +9,14 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Sacms extends Application {
+
+    //1.1 ----> login sequence diagram
     @Override
     public void start(Stage primaryStage){
         Stage newStage = new Stage();
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("startpage.fxml"));
+            root = FXMLLoader.load(getClass().getResource("startpage.fxml")); //1.1.1 ----> login sequence
         } catch (IOException e) {
             System.out.println("Cannot start application");
             e.printStackTrace();
@@ -25,7 +27,8 @@ public class Sacms extends Application {
     }
 
 
-
+    //1.1.2.5 & 1.1.2.6 ----> login sequence
+    //1.1.5.2 & 1.1.5.3 ----> register sequence
     protected void openMenu(String selectedRole) {
         Stage newStage = new Stage();
         if(selectedRole.equals("Student")){
@@ -50,6 +53,7 @@ public class Sacms extends Application {
         newStage.show();
     }
 
+    //1. ----> login sequence
     public static void main(String[] args) {
         launch(args);
     }

@@ -27,6 +27,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
     //authenticating the user for login
 
+    //1.1.2.2 ----> login sequence
     public boolean authenticateUser(String role, String username, String password, Connection connection) {
 
         String sql = "SELECT * FROM " + role + " WHERE " + role + "Username = ? AND " + role + "Password = ?";
@@ -43,6 +44,23 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
         return false;
     }
 
+    //1.1.2.3 ----> login sequence
+    public UserDetails getUserDetails(String role, String username, Connection connection) {
+        String query = "SELECT " + role + "Id," + role + "Name FROM " + role + "student WHERE" + role+ "Username = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String id = resultSet.getString("studentId");
+                String name = resultSet.getString("studentName");
+                return new UserDetails(id, name);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     //checking if the id already exists.
     //if id exists the user already has an account.
 
@@ -50,6 +68,8 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     //checking if the id already exists.
     //if id exists the user already has an account.
     //check if username is unique
+
+    //1.1.1& 1.1.3 ----> register sequence
     @Override
     public boolean authenticateRegistration(String role, String authenticator, String columnName, Connection connection) {
 
@@ -68,6 +88,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
     //method to add new registry to the database
 
+    //1.1.5 ----> register sequence
     public void addNewUser(String role, String id, String name, String username, String password, Connection connection) {
         String sql = "INSERT INTO " + role + " (" + role + "Id, " + role + "Name, " + role + "Username, " + role + "Password) VALUES (?, ?, ?, ?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -106,6 +127,43 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
     }
 
+    //1.1.1.1.4 ----> join club sequence
+    //adding student id and name to the relevant club table when they want to join a particular club
+    public void addStudentToClubTable(String id, String name, String clubName, Connection connection) throws SQLException {
+        String sql = "INSERT INTO " + clubName + "(studentId, studentName) VALUES (?,?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, id);
+            preparedStatement.setString(2, name);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            //creating table if club table not created
+            //usually necessary when adding the first student to the database
+            System.out.println("Club table does not exist. Creating new table ... ");
+            String createTableSQL = "CREATE TABLE " + clubName + " (studentId VARCHAR(45), studentName VARCHAR(50))";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(createTableSQL)) {
+                preparedStatement.executeUpdate();
+            }
+            addStudentToClubTable(id, name, clubName, connection);
+        }
+    }
+
+    //1.1.1.1 ----> join club sequence
+    public boolean authenticateJoinClub(String clubName, String id, Connection connection) {
+
+        String sql = "SELECT * FROM " + clubName + " WHERE studentId = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setString(1, id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            return resultSet.next();
+        } catch (SQLException e) {
+            System.out.println("Failed to connect to database");
+        }
+        return false;
+    }
+
+    //1.1.2.1 & 1.1.2.2 ----> reporting sequence
     public String getClubAdvisorName(String clubName, Connection connection) {
         String sql = "SELECT clubAdvisor FROM clubstable WHERE  clubName = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -120,6 +178,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
         return null;
     }
 
+    //1.1.2.3 & 1.1.2.4 ----> reporting sequence
     public int getStudentCount(String clubTable, Connection connection) {
         String sql = "SELECT COUNT(*) AS studentCount FROM " + clubTable;
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -134,6 +193,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
         return 0;
     }
 
+    //1.1.2.5 & 1.1.2.6 ----> reporting sequence
     public ObservableList<Student> getStudents(String clubTable, Connection connection) {
         ObservableList<Student> studentData = FXCollections.observableArrayList();
         String sql = "SELECT studentId, studentName FROM " + clubTable;
@@ -152,54 +212,8 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     }
 
 
-    public UserDetails getUserDetails(String role, String username, Connection connection) {
-        String query = "SELECT " + role + "Id," + role + "Name FROM " + role + "student WHERE" + role+ "Username = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, username);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                String id = resultSet.getString("studentId");
-                String name = resultSet.getString("studentName");
-                return new UserDetails(id, name);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
 
-    public void addStudentToClubTable(String id, String name, String clubName, Connection connection) throws SQLException {
-        String sql = "INSERT INTO " + clubName + "(studentId, studentName) VALUES (?,?)";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, id);
-            preparedStatement.setString(2, name);
-
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println("Club table does not exist. Creating new table ... ");
-            String createTableSQL = "CREATE TABLE " + clubName + " (studentId VARCHAR(45), studentName VARCHAR(50))";
-            try (PreparedStatement preparedStatement = connection.prepareStatement(createTableSQL)) {
-                preparedStatement.executeUpdate();
-            }
-            addStudentToClubTable(id, name, clubName, connection);
-        }
-    }
-
-
-    public boolean authenticateJoinClub(String clubName, String id, Connection connection) {
-
-        String sql = "SELECT * FROM " + clubName + " WHERE studentId = ?";
-        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
-            preparedStatement.setString(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            return resultSet.next();
-        } catch (SQLException e) {
-            System.out.println("Failed to connect to database");
-        }
-        return false;
-    }
 
 
     public void createClub(String Name, String Category, String Advisor, String Motto, Connection connection) throws SQLException {

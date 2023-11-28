@@ -42,9 +42,10 @@ public class Login {
         userSelect.setItems(userOption);
     }
 
-    //1.1.2.1
+    //1.1.2.1 ----> login sequence
     @FXML
     protected void onLoginButtonClick(ActionEvent actionEvent){
+        //1.1.2 ----> login sequence
         String usernameField = username.getText().toLowerCase();
         String passwordField = password.getText();
         String selectedRole = (String) userSelect.getValue();
@@ -56,10 +57,10 @@ public class Login {
             loginError.setText("");
             Connection connection = databaseConnector.dbConnector();
             String role = (selectedRole.equalsIgnoreCase("student"))? "student" : "clubadvisor";
-            UserDetails userDetails = databaseConnector.getUserDetails(role, usernameField.toLowerCase(), connection);
+            UserDetails userDetails = databaseConnector.getUserDetails(role, usernameField.toLowerCase(), connection); //to store current user
             boolean accountExists = databaseConnector.authenticateUser(role, usernameField.toLowerCase(), passwordField, connection);
 
-
+            //1.1.2.4 ----> login sequence
             if (accountExists) {
                 //getting the id and name of the user to store seperaretly and use in the join club class
                 //inside the if so it will work only if a valid username is entered.
@@ -78,18 +79,21 @@ public class Login {
                 Stage previousStage= (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
                 previousStage.close();
 
+                //1.1.2.6 & 1.1.2.7 ----> login sequence
             } else {
                 loginError.setText("Invalid username or password");
             }
 
         }
     }
+
+    //1.1.3 & 1.1.3.1 ----> login sequence
     @FXML
     private void handleRegisterLink(ActionEvent event) {
         Stage newStage = new Stage();
         Parent root = null;
         try {
-            root = FXMLLoader.load(getClass().getResource("register.fxml"));
+            root = FXMLLoader.load(getClass().getResource("register.fxml")); //1.1.3.2 ----> login sequence
         } catch (IOException e) {
             System.out.println("Failed to open register page");
         }

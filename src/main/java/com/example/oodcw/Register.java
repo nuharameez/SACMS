@@ -43,6 +43,7 @@ public class Register {
         this.databaseConnector = new SacmsDatabaseConnector();
     }
 
+    //populating the choice box
     @FXML
     private void initialize(){
         role.setItems(roleOption);
@@ -52,8 +53,11 @@ public class Register {
     //1. checks if all fields filled
     //2. checks if the 2 passwords match
     //3. opens menu according to the role of the user
+
+    //1.1 ----> register sequence
     @FXML
     protected void onRegisterButtonClick(ActionEvent actionEvent) {
+        //1. Enter register details ----> register sequence
         String nameField = name.getText();
         String idField = id.getText();
         String roleField = (String) role.getValue();
@@ -82,25 +86,19 @@ public class Register {
             boolean accountExists = databaseConnector.authenticateRegistration(role, idField, id, connection);
             boolean userExists = databaseConnector.authenticateRegistration(role, usernameField.toLowerCase(), username, connection);
 
-
+            //1.1.5.6 & 1.1.5.7 ----> register sequence
             if (accountExists) {
                 registerError.setText("This user id has an account");
             }
+            //1.1.5.4 & 1.1.5.5 ----> register sequence
             else if(userExists){
                 registerError.setText("This username is not available");
             }
             else {
-                //checks if the ID is in database
-                /*boolean checkId = SacmsDatabaseConnector.authenticateRegistration(role, idField, connection);
-                if(checkId){
-                    registerError.setText("");
-                    registerError.setText("This user ID already exists");
-
-                }
-                else {*/
-                    databaseConnector.addNewUser(role, idField, nameField, usernameField.toLowerCase(), passwordField, connection);
-                    JoinClub.setUserDetails(idField,usernameField.toLowerCase());
-                    sacms.openMenu(roleField);
+                //1.1.2 & 1.1.4 & 1.1.5.1 ----> register sequence
+                databaseConnector.addNewUser(role, idField, nameField, usernameField.toLowerCase(), passwordField, connection);
+                JoinClub.setUserDetails(idField,usernameField.toLowerCase());
+                sacms.openMenu(roleField); //1.1.5.2 ----> register sequence
                 Stage previousStage= (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
                 previousStage.close();
 

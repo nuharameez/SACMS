@@ -25,6 +25,8 @@ public class StudentMenu {
     }
 
     //method to open the join club page
+
+    //1 & 1.1 ----> join club sequence
     @FXML
     protected void onJoinClick(ActionEvent actionEvent) throws IOException{
         Stage newStage = new Stage();
