@@ -152,8 +152,8 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     }
 
 
-    public UserDetails getUserDetails(String username, Connection connection) {
-        String query = "SELECT studentId, studentName FROM student WHERE  studentUsername = ?";
+    public UserDetails getUserDetails(String role, String username, Connection connection) {
+        String query = "SELECT " + role + "Id," + role + "Name FROM " + role + "student WHERE" + role+ "Username = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, username);
             ResultSet resultSet = preparedStatement.executeQuery();

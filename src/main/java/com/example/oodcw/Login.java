@@ -55,8 +55,8 @@ public class Login {
         else{
             loginError.setText("");
             Connection connection = databaseConnector.dbConnector();
-            UserDetails userDetails = databaseConnector.getUserDetails( usernameField.toLowerCase(), connection);
             String role = (selectedRole.equalsIgnoreCase("student"))? "student" : "clubadvisor";
+            UserDetails userDetails = databaseConnector.getUserDetails(role, usernameField.toLowerCase(), connection);
             boolean accountExists = databaseConnector.authenticateUser(role, usernameField.toLowerCase(), passwordField, connection);
 
 
@@ -68,12 +68,11 @@ public class Login {
                     String userName = userDetails.getName();
                     JoinClub.setUserDetails(userId, userName); //setting the name and id to use in the join club class.
                     sacms.openMenu(selectedRole);
-                }else if (role.equalsIgnoreCase("advisor")) {
+                }
+                else {
                     String userId = userDetails.getId();
                     String userName = userDetails.getName();
                     JoinClub.setUserDetails(userId, userName); //setting the name and id to use in the join club class.
-                    sacms.openMenu(selectedRole);
-                }else{
                     sacms.openMenu(selectedRole);
                 }
                 Stage previousStage= (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();

@@ -37,6 +37,7 @@ public class ActivityController {
     @FXML
     private TextField activityID;
 
+
     @FXML
     private void initialize() {
         // Add listeners to check if all required fields are filled
