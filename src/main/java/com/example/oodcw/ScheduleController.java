@@ -37,7 +37,7 @@ public class ScheduleController {
     @FXML
     private TableColumn<Schedule, LocalDate> dateColumn;
     private SacmsDatabaseConnector databaseConnector;
-    Connection connection = databaseConnector.dbConnector();
+
     public ScheduleController() {this.databaseConnector = new SacmsDatabaseConnector();}
 
     @FXML
@@ -110,6 +110,7 @@ public class ScheduleController {
         result.ifPresent(scheduleId -> {
             try {
                 int id = Integer.parseInt(scheduleId);
+                Connection connection = databaseConnector.dbConnector();
                 if (SacmsDatabaseConnector.deleteSchedule(id,connection)) {
                     List<Schedule> scheduleList = SacmsDatabaseConnector.getDataFromDatabase(connection);
                     ObservableList<Schedule> observableList = FXCollections.observableArrayList(scheduleList);

@@ -15,12 +15,12 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     public Connection dbConnector() {
         try {
             return DriverManager.getConnection(
-                    /*"jdbc:mysql://localhost:3306/sacms",
+                    "jdbc:mysql://localhost:3306/sacms",
                     "root",
-                    "z518@gh34abde158"*/
-                    "jdbc:mysql://127.0.0.1:3306/scams_schedule",
+                    "z518@gh34abde158"
+                    /*"jdbc:mysql://127.0.0.1:3306/scams_schedule",
                     "root",
-                    "1234"
+                    "1234"*/
             );
         } catch (SQLException e) {
             System.out.println("Failed to connect to database");
