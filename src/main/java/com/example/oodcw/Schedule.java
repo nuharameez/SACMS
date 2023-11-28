@@ -15,7 +15,7 @@ public abstract class Schedule {
 
 
     private SacmsDatabaseConnector databaseConnector;
-    Connection connection = databaseConnector.dbConnector();
+
 
     public Schedule() {
     }
@@ -84,16 +84,19 @@ public abstract class Schedule {
         this.venue = venue;
     }
     public boolean checkDate(LocalDate date) throws SQLException {
+        Connection connection = databaseConnector.dbConnector();
         SacmsDatabaseConnector.isDateAlreadyScheduled(date, connection);
         return false;
     }
 
     public boolean checkID (int ID) throws SQLException {
+        Connection connection = databaseConnector.dbConnector();
 
         SacmsDatabaseConnector.IDExists(ID, connection);
         return false;
     }
     public void saveToDatabase() throws SQLException {
+        Connection connection = databaseConnector.dbConnector();
         SacmsDatabaseConnector.saveScheduleToDatabase(this, connection);
     }
 }
