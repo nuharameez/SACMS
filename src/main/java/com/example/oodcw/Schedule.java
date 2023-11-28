@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public abstract class Schedule {
+public abstract class Schedule implements DatabaseConnectorN {
     private int ScheduleID;
     private String name;
     private LocalDate date;
@@ -71,11 +71,12 @@ public abstract class Schedule {
 
         this.venue = venue;
     }
-    public boolean IDExists(int meetingID) {
+    @Override
+    public boolean IDExists(int ID) {
         try (Connection connection = DatabaseController.getConnection()) {
             String query = "SELECT COUNT(*) FROM schedule WHERE ScheduleID = ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
-                statement.setInt(1, meetingID);
+                statement.setInt(1, ID);
                 try (ResultSet resultSet = statement.executeQuery()) {
                     if (resultSet.next()) {
                         int count = resultSet.getInt(1);
@@ -90,7 +91,7 @@ public abstract class Schedule {
         }
         return false;
     }
-
+    @Override
     public boolean isDateAlreadyScheduled(LocalDate date) {
         try (Connection connection = DatabaseController.getConnection()) {
             String query = "SELECT COUNT(*) FROM schedule WHERE Date = ?";
