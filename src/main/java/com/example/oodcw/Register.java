@@ -4,7 +4,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -97,11 +101,23 @@ public class Register {
                     databaseConnector.addNewUser(role, idField, nameField, usernameField.toLowerCase(), passwordField, connection);
                     JoinClub.setUserDetails(idField,usernameField.toLowerCase());
                     sacms.openMenu(roleField);
+                Stage previousStage= (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+                previousStage.close();
 
                 }
             }
 
         }
+    @FXML
+    void backToLoginClick(ActionEvent actionEvent) throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("startpage.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setTitle("Main menu");
+        stage.setScene(scene);
+        stage.show();
+        
+    }
 
 
     }

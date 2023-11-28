@@ -31,6 +31,8 @@ public class StudentMenu {
         Parent root = FXMLLoader.load(getClass().getResource("joinclub.fxml"));
         newStage.setScene(new Scene(root, 600, 400));
         newStage.show();
+        Stage previousStage= (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        previousStage.close();
 
     }
 }

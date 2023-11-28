@@ -7,6 +7,6 @@ import java.sql.SQLException;
 
 //creating an interface
 public interface DatabaseConnector {
-    boolean authenticateRegistration(String role, String authenticatorA, String columnName, Connection connection);
+    boolean authenticateRegistration(String role, String authenticator, String columnName, Connection connection);
 
 }

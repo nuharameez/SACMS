@@ -234,7 +234,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
     }
 
-    
+
     public boolean clubExists(String clubName, Connection connection) {
 
         // Check if the club exists
