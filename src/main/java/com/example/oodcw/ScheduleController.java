@@ -41,7 +41,6 @@ public class ScheduleController {
         dateColumn.setCellValueFactory(new PropertyValueFactory<>("date"));
 
         try {
-            // Initialize data
             List<Schedule> scheduleList = DatabaseOperations.getDataFromDatabase();
             ObservableList<Schedule> observableList = FXCollections.observableArrayList(scheduleList);
             tableView.setItems(observableList);
@@ -52,7 +51,7 @@ public class ScheduleController {
     }
     @FXML
     private void handleAddEvent(ActionEvent event) throws IOException {
-        openFXML("Event.fxml", "Add Event");
+        openFXML("Event.fxml" ,"Add Event");
     }
 
     @FXML
@@ -65,14 +64,18 @@ public class ScheduleController {
         openFXML("Activity.fxml", "Add Activity");
     }
 
-    private void openFXML(String fxmlFileName, String stageTitle) throws IOException {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-        Parent root = loader.load();
-        Stage stage = new Stage();
-        stage.setTitle(stageTitle);
-        stage.setScene(new Scene(root));
-        stage.show();
+    private void openFXML(String fxmlFileName, String stageTitle) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            stage.setTitle(stageTitle);
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("this is weird");
+        }
     }
 
 
