@@ -20,7 +20,7 @@ import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
 
-public class editClubsController implements Initializable {
+public class EditClub implements Initializable {
 
     private SacmsDatabaseConnector databaseConnector;
 
@@ -60,7 +60,7 @@ public class editClubsController implements Initializable {
     @FXML
     private TableColumn<Clubs, String> mottoColumn;
 
-    public editClubsController(){
+    public EditClub(){
         this.databaseConnector = new SacmsDatabaseConnector();
     }
 
