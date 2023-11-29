@@ -37,7 +37,7 @@ public class ClubAdvisorMenu {
 
     //1 & 1.1 ----> reporting sequence
     @FXML
-    private void onViewReportsClick() {
+    private void onViewReportsClick(ActionEvent actionEvent) {
         Stage newStage = new Stage();
         Parent root = null;
         try {
@@ -47,6 +47,8 @@ public class ClubAdvisorMenu {
         }
         newStage.setScene(new Scene(root, 600, 400));
         newStage.show();
+        Stage previousStage= (Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        previousStage.close();
     }
 
     @FXML
