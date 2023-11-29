@@ -75,30 +75,32 @@ public class EditClub implements Initializable {
     }
 
     @FXML
-    public void updateButton(ActionEvent event) throws Exception {
+    public void onEditClubClick(ActionEvent event) throws Exception {
         String updatedName = newClubName.getText();
         String updatedCategory = clubCategory.getText();
         String updatedClubAdvisor = clubAdvisor.getText();
         String updatedMotto = clubMotto.getText();
 
+        updatedCategory = updatedCategory.toLowerCase();
+        updatedName = updatedName.toLowerCase();
         // Check if clubId is empty
-        if (clubId.getText().isEmpty()) {
-            System.out.println("Club ID cannot be empty!");
-            incompleteFields.setText("Club ID cannot be empty!");
-            return;
-        }
+//        if (clubId.getText().isEmpty()) {
+//            System.out.println("Club ID cannot be empty!");
+//            incompleteFields.setText("Club ID cannot be empty!");
+//            return;
+//        }
 
+        // Checking if all the fields are filled
+        if (updatedName.isEmpty() || updatedCategory.isEmpty() || updatedClubAdvisor.isEmpty() || updatedMotto.isEmpty() || clubId.getText().isEmpty()) {
+            incompleteFields.setText("Please complete all the fields.");
+            return; // Exit the method if validation fails
+
+        }
         // Parse clubId only if it's not empty
         int clubID = Integer.parseInt(clubId.getText());
 
         Connection connection = databaseConnector.dbConnector();
 
-        // Checking if all the fields are filled
-        if (updatedName.isEmpty() || updatedCategory.isEmpty() || updatedClubAdvisor.isEmpty() || updatedMotto.isEmpty() || clubID==0) {
-            incompleteFields.setText("Please complete all the fields.");
-            return; // Exit the method if validation fails
-
-        }
         // Checking if the clubID exists in the database
         if (!clubIDExists(clubID, connection)) {
             incompleteFields.setText("ClubID " + clubID + " does not exist!");
@@ -111,7 +113,7 @@ public class EditClub implements Initializable {
 
         }
 
-        databaseConnector.updateClub(updatedName, updatedCategory, updatedClubAdvisor, updatedMotto, clubID, connection);
+        databaseConnector.editClub(updatedName, updatedCategory, updatedClubAdvisor, updatedMotto, clubID, connection);
         backToMenuClick(event);
 
         displayClubs();

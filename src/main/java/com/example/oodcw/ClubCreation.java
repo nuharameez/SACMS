@@ -53,6 +53,9 @@ public class ClubCreation {
                 String clubAdvisor = nameOfClubAdvisor.getText();
                 String clubMotto = Motto.getText();
 
+                clubName = clubName.toLowerCase();
+                clubCategory = clubCategory.toLowerCase();
+
                 Connection connection = databaseConnector.dbConnector();
 
                 // Checking if all the field are filled

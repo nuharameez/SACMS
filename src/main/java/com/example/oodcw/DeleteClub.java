@@ -42,11 +42,12 @@ public class DeleteClub {
     @FXML
     void onDeleteClubClick(ActionEvent event) throws Exception{
         String clubToDelete = clubName.getText();
+        clubToDelete = clubToDelete.toLowerCase();
 
         Connection connection = databaseConnector.dbConnector();
 
         if (clubToDelete.isEmpty()){
-            invalidName.setText("Please fill the fields!");
+            invalidName.setText("Please enter the name of the club to delete!");
             return;
         } else if (databaseConnector.clubExists(clubToDelete, connection)){
             // deleteClub method is called

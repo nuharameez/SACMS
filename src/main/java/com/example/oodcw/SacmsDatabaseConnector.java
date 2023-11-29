@@ -1,7 +1,6 @@
 package com.example.oodcw;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Alert;
 
 
 import java.sql.*;
@@ -18,9 +17,10 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
                     /*"jdbc:mysql://localhost:3306/sacms",
                     "root",
                     "z518@gh34abde158"*/
-                    "jdbc:mysql://127.0.0.1:3306/scams_schedule",
+                     /*"jdbc:mysql://127.0.0.1:3306/scams",
                     "root",
-                    "1234"
+                    "1234" */
+                    "jdbc:mysql://localhost:3306/scams", "root", "strawberry@2002"
             );
         } catch (SQLException e) {
             System.out.println("Failed to connect to database");
@@ -474,7 +474,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     }
 
 
-    public void updateClub(String newClubName, String clubCategory, String clubAdvisor, String clubMotto, int clubID, Connection connection) throws SQLException {
+    public void editClub(String newClubName, String clubCategory, String clubAdvisor, String clubMotto, int clubID, Connection connection) throws SQLException {
         // create and insert
         String updateQuery = "UPDATE clubstable SET " +
                 "clubName=?, " +
@@ -492,7 +492,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
             // Execute the update statement
             preparedStatement.executeUpdate();
-            System.out.println("Club updated successfully!");
+            System.out.println("Club edited successfully!");
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Couldn't update club!");
