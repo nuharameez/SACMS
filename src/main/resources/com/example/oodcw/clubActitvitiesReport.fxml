@@ -38,35 +38,32 @@
             <Font size="18.0" />
          </font>
       </Text>
-      <TableView layoutX="15.0" layoutY="98.0" prefHeight="95.0" prefWidth="558.0">
+      <TableView fx:id="meetingTable" layoutX="15.0" layoutY="98.0" prefHeight="95.0" prefWidth="558.0">
         <columns>
-          <TableColumn fx:id="meetingID" prefWidth="75.0" text="ID" />
           <TableColumn fx:id="meetingName" prefWidth="75.0" text="Name " />
             <TableColumn fx:id="meetingVenue" prefWidth="75.0" text="Venue" />
             <TableColumn fx:id="meetingDate" prefWidth="75.0" text="Date" />
-            <TableColumn fx:id="meetingDescription" prefWidth="256.8000244140625" text="Description" />
+            <TableColumn fx:id="meetingDescription" prefWidth="332.0000061035156" text="Description" />
         </columns>
       </TableView>
-      <TableView layoutX="21.0" layoutY="227.0" prefHeight="95.0" prefWidth="558.0">
+      <TableView fx:id="eventTable" layoutX="21.0" layoutY="227.0" prefHeight="95.0" prefWidth="558.0">
          <columns>
-            <TableColumn fx:id="eventID" prefWidth="51.200016021728516" text="ID" />
             <TableColumn fx:id="eventName" prefWidth="79.20001220703125" text="Name" />
             <TableColumn fx:id="eventVenue" prefWidth="64.0" text="Venue" />
             <TableColumn fx:id="eventDate" prefWidth="63.19999694824219" text="Date" />
             <TableColumn fx:id="eventMax" prefWidth="68.0" text="Max Participants" />
             <TableColumn fx:id="eventSponsors" prefWidth="79.0" text="Sponsors" />
             <TableColumn fx:id="eventMemOnly" prefWidth="75.0" text="MemberOnly" />
-            <TableColumn fx:id="eventDetails" prefWidth="75.0" text="Details" />
+            <TableColumn fx:id="eventDetails" prefWidth="128.0000061035156" text="Details" />
          </columns>
       </TableView>
-      <TableView layoutX="21.0" layoutY="350.0" prefHeight="95.0" prefWidth="558.0">
+      <TableView fx:id="activityTable" layoutX="21.0" layoutY="350.0" prefHeight="95.0" prefWidth="558.0">
          <columns>
-            <TableColumn fx:id="activityID" prefWidth="75.0" text="ID" />
             <TableColumn fx:id="activityName" prefWidth="75.0" text="Name" />
             <TableColumn fx:id="activityVenue" prefWidth="75.0" text="Venue" />
             <TableColumn fx:id="activityDate" prefWidth="75.0" text="Date" />
-            <TableColumn fx:id="activityMax" prefWidth="75.0" text="max Participants" />
-            <TableColumn fx:id="activityDescription" prefWidth="181.60001220703123" text="Description" />
+            <TableColumn fx:id="activityMax" prefWidth="120.20001220703125" text="max Participants" />
+            <TableColumn fx:id="activityDescription" prefWidth="210.60000610351562" text="Description" />
          </columns>
       </TableView>
    </children>
