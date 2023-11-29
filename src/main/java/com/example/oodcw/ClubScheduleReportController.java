@@ -88,38 +88,54 @@ public class ClubScheduleReportController {
 
     @FXML
     private void initialize() {
-        // Initialize database connector
         this.databaseConnector = new SacmsDatabaseConnector();
+        Connection connection=databaseConnector.dbConnector();
 
         try {
-            List<String> clubNames = databaseConnector.getClubNames();
+            List<String> clubNames = SacmsDatabaseConnector.getClubNames(databaseConnector.dbConnector());
             ObservableList<String> clubList = FXCollections.observableArrayList(clubNames);
             club.setItems(clubList);
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle SQLException appropriately
         }
 
-        initMeetingTable();
-        initEventTable();
-        initActivityTable();
         // Add a listener to the ChoiceBox for selection changes
         club.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 // Load data for the selected club
-                try (Connection connection = databaseConnector.dbConnector()) {
-                    loadMeetingData(newValue, connection);
-                    loadEventData(newValue, connection);
-                    loadActivityData(newValue, connection);
+                List<Meeting> meetings = null;
+                try {
+                    meetings = databaseConnector.getMeetingsByClub(newValue, connection);
                 } catch (SQLException e) {
-                    e.printStackTrace();
+                    throw new RuntimeException(e);
+                }
+                meetingTable.setItems(FXCollections.observableArrayList(meetings));
+                List<Event> events = null;
+                try {
+                    events = databaseConnector.getEventsForClub(newValue, connection);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                eventTable.setItems(FXCollections.observableArrayList(events));
+                List<Activity> activities = null;
+                try {
+                    activities = databaseConnector.getActivitiesForClub(newValue, connection);
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                activityTable.setItems(FXCollections.observableArrayList(activities));
+
                     // Handle SQLException appropriately
                 }
-            } else {
+             else {
                 // Clear the tables if no club is selected
                 clearTables();
             }
         });
+
+        initMeetingTable();
+        initEventTable();
+        initActivityTable();
     }
 
     private void clearTables() {
@@ -129,18 +145,14 @@ public class ClubScheduleReportController {
     }
 
     private void initMeetingTable() {
-        Connection connection = databaseConnector.dbConnector();
-        meetingID.setCellValueFactory(new PropertyValueFactory<>("id"));
         meetingName.setCellValueFactory(new PropertyValueFactory<>("name"));
         meetingVenue.setCellValueFactory(new PropertyValueFactory<>("venue"));
         meetingDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         meetingDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        loadMeetingData(club.getValue(), connection);
+
     }
 
     private void initEventTable() {
-        Connection connection = databaseConnector.dbConnector();
-        eventID.setCellValueFactory(new PropertyValueFactory<>("id"));
         eventName.setCellValueFactory(new PropertyValueFactory<>("name"));
         eventVenue.setCellValueFactory(new PropertyValueFactory<>("venue"));
         eventDate.setCellValueFactory(new PropertyValueFactory<>("date"));
@@ -148,20 +160,16 @@ public class ClubScheduleReportController {
         eventSponsors.setCellValueFactory(new PropertyValueFactory<>("sponsors"));
         eventMemOnly.setCellValueFactory(new PropertyValueFactory<>("memberOnly"));
         eventDetails.setCellValueFactory(new PropertyValueFactory<>("details"));
-        loadEventData(club.getValue(),connection);
     }
 
     private void initActivityTable() {
-        Connection connection = databaseConnector.dbConnector();
-        activityID.setCellValueFactory(new PropertyValueFactory<>("id"));
         activityName.setCellValueFactory(new PropertyValueFactory<>("name"));
         activityVenue.setCellValueFactory(new PropertyValueFactory<>("venue"));
         activityDate.setCellValueFactory(new PropertyValueFactory<>("date"));
         activityMax.setCellValueFactory(new PropertyValueFactory<>("maxParticipants"));
         activityDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        loadActivityData(club.getValue(),connection);
     }
-    private void loadMeetingData(String clubName, Connection connection) {
+   /* private void loadMeetingData(String clubName, Connection connection) {
         try {
             List<Meeting> meetings = databaseConnector.getMeetingsByClub(clubName, connection);
             meetingTable.setItems(FXCollections.observableArrayList(meetings));
@@ -188,6 +196,6 @@ public class ClubScheduleReportController {
             e.printStackTrace();
             // Handle SQLException appropriately
         }
-    }
+    }*/
 
 }
