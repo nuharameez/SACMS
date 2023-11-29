@@ -36,4 +36,9 @@ public class Clubs {
         this.clubMotto = clubMotto;
     }
 
+    public Clubs(String clubName, String clubCategory, String clubMotto) {
+        this.clubName = clubName;
+        this.clubCategory = clubCategory;
+        this.clubMotto = clubMotto;
+    }
 }

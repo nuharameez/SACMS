@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.ReportController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.ReportController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0">
          <image>
             <Image url="@SCAMS_NewBG.png" />
          </image>
       </ImageView>
-      <Button layoutX="187.0" layoutY="208.0" mnemonicParsing="false" onAction="#onEventAttendanceClick" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #214469;" text="EVENT ATTENDANCE" textFill="WHITE">
+      <Button layoutX="187.0" layoutY="218.0" mnemonicParsing="false" onAction="#onEventAttendanceClick" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #214469;" text="EVENT ATTENDANCE" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -23,7 +23,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Button layoutX="187.0" layoutY="144.0" mnemonicParsing="false" onAction="#onClubMembershipClick" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #214469;" text="CLUB MEMBERSHIP" textFill="WHITE">
+      <Button layoutX="187.0" layoutY="109.0" mnemonicParsing="false" onAction="#onClubMembershipClick" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #214469;" text="CLUB MEMBERSHIP" textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
@@ -45,6 +45,14 @@
          </font>
       </Label>
       <Button layoutX="225.0" layoutY="338.0" mnemonicParsing="false" onAction="#menuClick" prefHeight="31.0" prefWidth="132.0" style="-fx-background-color: #e76f51;" text="Back to Menu" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button layoutX="187.0" layoutY="159.0" mnemonicParsing="false" onAction="#onClubClick" prefHeight="34.0" prefWidth="208.0" style="-fx-background-color: #214469;" text="CLUBS " textFill="WHITE">
          <font>
             <Font name="System Bold" size="14.0" />
          </font>
