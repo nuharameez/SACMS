@@ -41,7 +41,7 @@ public class ReportController {
 
     @FXML
     private void onClubActivitiesClick(ActionEvent event) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clubActivitiesReport.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clubActitvitiesReport.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Main menu");
@@ -49,7 +49,17 @@ public class ReportController {
         stage.show();}
 
     @FXML
-    protected void menuClick(ActionEvent event) throws Exception {
+    private void onClubClick(ActionEvent event) throws Exception{
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clubReportNew.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Main menu");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    void menuClick(ActionEvent event) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clubadvisormenu.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

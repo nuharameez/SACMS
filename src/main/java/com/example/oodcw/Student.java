@@ -9,5 +9,19 @@ public class Student {
         this.studentName = studentName;
     }
 
+    public String getStudentId() {
+        return studentId;
+    }
 
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public void setStudentName(String studentName) {
+        this.studentName = studentName;
+    }
 }

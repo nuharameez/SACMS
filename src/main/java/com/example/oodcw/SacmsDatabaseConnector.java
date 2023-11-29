@@ -16,9 +16,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
                     "jdbc:mysql://localhost:3306/sacms",
                     "root",
                     "z518@gh34abde158"
-                    /*"jdbc:mysql://127.0.0.1:3306/scams_schedule",
-                    "root",
-                    "1234"*/
+
             );
         } catch (SQLException e) {
             System.out.println("Failed to connect to database");
@@ -58,9 +56,9 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     }
 
 
-    public List<String> getClubNames(Connection connection) throws SQLException {
+    public static List<String> getClubNames(Connection connection) throws SQLException {
         List<String> clubs = new ArrayList<>();
-        String query = "SELECT clubname FROM clubs";
+        String query = "SELECT clubname FROM clubstable";
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
@@ -92,7 +90,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
     public List<String> getClubNames() throws SQLException {
         List<String> clubs = new ArrayList<>();
-        String query = "SELECT clubname FROM clubs";
+        String query = "SELECT clubname FROM clubstable";
 
         try (Connection connection = dbConnector();
              Statement statement = connection.createStatement();
@@ -313,7 +311,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     public static List<String> getAdvisorClubsFromDatabase(String name, Connection connection) throws SQLException {
         List<String> advisorClubs = new ArrayList<>();
         String userName = name;
-        String query = "SELECT clubname FROM clubs WHERE clubAdvisor = ?";
+        String query = "SELECT clubname FROM clubstable WHERE clubAdvisor = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, userName);
 
@@ -571,7 +569,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     }
 
 
-    public void updateClub(String newClubName, String clubCategory, String clubAdvisor, String clubMotto, int clubID, Connection connection) throws SQLException {
+    public void editClub(String newClubName, String clubCategory, String clubAdvisor, String clubMotto, int clubID, Connection connection) throws SQLException {
         // create and insert
         String updateQuery = "UPDATE clubstable SET " +
                 "clubName=?, " +
