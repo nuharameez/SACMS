@@ -169,33 +169,5 @@ public class ClubScheduleReportController {
         activityMax.setCellValueFactory(new PropertyValueFactory<>("maxParticipants"));
         activityDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
     }
-   /* private void loadMeetingData(String clubName, Connection connection) {
-        try {
-            List<Meeting> meetings = databaseConnector.getMeetingsByClub(clubName, connection);
-            meetingTable.setItems(FXCollections.observableArrayList(meetings));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void loadEventData(String clubName, Connection connection) {
-        try {
-            List<Event> events = databaseConnector.getEventsForClub(clubName, connection);
-            eventTable.setItems(FXCollections.observableArrayList(events));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle SQLException appropriately
-        }
-    }
-
-    private void loadActivityData(String clubName, Connection connection) {
-        try {
-            List<Activity> activities = databaseConnector.getActivitiesForClub(clubName, connection);
-            activityTable.setItems(FXCollections.observableArrayList(activities));
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle SQLException appropriately
-        }
-    }*/
 
 }

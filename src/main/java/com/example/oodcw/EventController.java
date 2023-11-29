@@ -86,9 +86,6 @@ public class EventController {
         this.advisorDetails = advisorDetails;
     }
 
-
-    // Setter method for loggedInUser
-
     private void loadAdvisorClubs() throws SQLException {
         Connection connection = databaseConnector.dbConnector();
         List<String> advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(getUserName(), connection);

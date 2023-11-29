@@ -134,7 +134,7 @@ public class EditClub implements Initializable {
             return;
         }
 
-        databaseConnector.updateClub(updatedName, updatedCategory, updatedClubAdvisor, updatedMotto, clubID, connection);
+        databaseConnector.editClub(updatedName, updatedCategory, updatedClubAdvisor, updatedMotto, clubID, connection);
         backToMenuClick(event);
         displayClubs();
     }

@@ -60,7 +60,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
     public static List<String> getClubNames(Connection connection) throws SQLException {
         List<String> clubs = new ArrayList<>();
-        String query = "SELECT clubname FROM clubstables";
+        String query = "SELECT clubname FROM clubstable";
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {
@@ -92,7 +92,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
     public List<String> getClubNames() throws SQLException {
         List<String> clubs = new ArrayList<>();
-        String query = "SELECT clubname FROM clubs";
+        String query = "SELECT clubname FROM clubstable";
 
         try (Connection connection = dbConnector();
              Statement statement = connection.createStatement();
@@ -313,7 +313,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     public static List<String> getAdvisorClubsFromDatabase(String name, Connection connection) throws SQLException {
         List<String> advisorClubs = new ArrayList<>();
         String userName = name;
-        String query = "SELECT clubname FROM clubs WHERE clubAdvisor = ?";
+        String query = "SELECT clubname FROM clubstable WHERE clubAdvisor = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, userName);
 
