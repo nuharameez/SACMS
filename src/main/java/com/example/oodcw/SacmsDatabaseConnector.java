@@ -571,7 +571,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
     }
 
 
-    public void updateClub(String newClubName, String clubCategory, String clubAdvisor, String clubMotto, int clubID, Connection connection) throws SQLException {
+    public void editClub(String newClubName, String clubCategory, String clubAdvisor, String clubMotto, int clubID, Connection connection) throws SQLException {
         // create and insert
         String updateQuery = "UPDATE clubstable SET " +
                 "clubName=?, " +
