@@ -72,7 +72,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-            <Button layoutX="42.0" layoutY="39.0" mnemonicParsing="false" onAction="#backToMenuClick" style="-fx-background-color: #214469;" text="MENU" textFill="WHITE">
+            <Button layoutX="29.0" layoutY="39.0" mnemonicParsing="false" onAction="#backToMenuClick" style="-fx-background-color: #214469;" text="BACK TO MENU" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -82,7 +82,7 @@
             </Button>
             <Label fx:id="incompleteFields" layoutX="122.0" layoutY="80.0" prefHeight="17.0" prefWidth="359.0" textFill="#ff5454">
                <font>
-                  <Font name="System Bold Italic" size="12.0" />
+                  <Font name="System Bold" size="12.0" />
                </font>
             </Label>
          </children>

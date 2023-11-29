@@ -8,6 +8,26 @@ public class Clubs {
 
     private String clubMotto;
 
+    public int getClubID() {
+        return clubID;
+    }
+
+    public String getClubName() {
+        return clubName;
+    }
+
+    public String getClubCategory() {
+        return clubCategory;
+    }
+
+    public String getClubAdvisor() {
+        return clubAdvisor;
+    }
+
+    public String getClubMotto() {
+        return clubMotto;
+    }
+
     public Clubs(int clubID, String clubName, String clubCategory, String clubAdvisor, String clubMotto) {
         this.clubID = clubID;
         this.clubName = clubName;
@@ -15,5 +35,5 @@ public class Clubs {
         this.clubAdvisor = clubAdvisor;
         this.clubMotto = clubMotto;
     }
-    
+
 }
