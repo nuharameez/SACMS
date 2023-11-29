@@ -60,7 +60,7 @@ public class SacmsDatabaseConnector implements DatabaseConnector {
 
     public static List<String> getClubNames(Connection connection) throws SQLException {
         List<String> clubs = new ArrayList<>();
-        String query = "SELECT clubname FROM clubs";
+        String query = "SELECT clubname FROM clubstables";
 
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(query)) {

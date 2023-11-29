@@ -98,7 +98,7 @@ public class EventController {
     private boolean checkFields() {
         // Enable the submit button only if all required fields are filled
         if (!nameEvent.getText().isEmpty() && eventDate.getValue() != null &&
-                !eventVenue.getText().isEmpty() && !maxParticipants.getText().isEmpty() && !eventID.getText().isEmpty()&& !MemOnly.getValue().isEmpty())
+                !eventVenue.getText().isEmpty() && !maxParticipants.getText().isEmpty() && !eventID.getText().isEmpty()&& MemOnly.getValue()!=null &&!MemOnly.getValue().isEmpty())
             return true;
         else
             return false;
