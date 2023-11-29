@@ -15,7 +15,7 @@ import java.sql.Connection;
 public class StudentMenu {
 
     @FXML
-    void signOutClick(ActionEvent event) throws Exception{
+    protected void signOutClick(ActionEvent event) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("startpage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

@@ -62,7 +62,7 @@ public class JoinClub {
         selectClub.setItems(clubOption);
     }
     @FXML
-    protected void onJoinButtonClick(ActionEvent actionEvent) throws SQLException {
+    protected void onJoinButtonClick() throws SQLException {
         //when join button clicked, the relevant table needs to add the student name in it.
         setUserDetails(userId, userName);
         String clubName = (String) selectClub.getValue();
@@ -89,7 +89,7 @@ public class JoinClub {
     }
 
     @FXML
-    void signOutClick(ActionEvent event) throws Exception{
+    protected void signOutClick(ActionEvent event) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("studentmenu.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

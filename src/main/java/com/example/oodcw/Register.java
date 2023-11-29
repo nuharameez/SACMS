@@ -107,7 +107,7 @@ public class Register {
 
         }
     @FXML
-    void backToLoginClick(ActionEvent actionEvent) throws Exception{
+    protected void backToLoginClick(ActionEvent actionEvent) throws Exception{
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("startpage.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
