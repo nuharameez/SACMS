@@ -36,9 +36,9 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-          <TextField fx:id="clubAdvisor" layoutX="350.0" layoutY="444.0" promptText="Name of Club Advisor" />
-          <TextField fx:id="clubCategory" layoutX="179.0" layoutY="444.0" promptText="Physical, Non Physical" />
-          <TextField fx:id="clubMotto" layoutX="517.0" layoutY="444.0" promptText="Ex: Just play!" />
+          <TextField fx:id="newClubAdvisor" layoutX="350.0" layoutY="444.0" promptText="Name of Club Advisor" />
+          <TextField fx:id="newClubCategory" layoutX="179.0" layoutY="444.0" promptText="Physical, Non Physical" />
+          <TextField fx:id="newClubMotto" layoutX="517.0" layoutY="444.0" promptText="Ex: Just play!" />
       <TextField fx:id="newClubName" layoutX="14.0" layoutY="444.0" promptText="Name of Club" />
       <Label layoutX="56.0" layoutY="420.0" text="CLUB NAME" textFill="#214469">
          <font>
@@ -79,5 +79,13 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Label>
+      <Button layoutX="473.0" layoutY="27.0" mnemonicParsing="false" onAction="#onClickToEdit" prefHeight="30.0" prefWidth="124.0" style="-fx-background-color: #214469;" text="CLICK TO EDIT" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
     </children>
 </AnchorPane>
