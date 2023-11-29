@@ -31,13 +31,13 @@ public class EditClub implements Initializable {
     private TextField newClubName;
 
     @FXML
-    private TextField clubCategory;
+    private TextField newClubCategory;
 
     @FXML
-    private TextField clubAdvisor;
+    private TextField newClubAdvisor;
 
     @FXML
-    private TextField clubMotto;
+    private TextField newClubMotto;
 
     @FXML
     private Label incompleteFields;
@@ -75,48 +75,97 @@ public class EditClub implements Initializable {
     }
 
     @FXML
-    public void onEditClubClick(ActionEvent event) throws Exception {
-        String updatedName = newClubName.getText();
-        String updatedCategory = clubCategory.getText();
-        String updatedClubAdvisor = clubAdvisor.getText();
-        String updatedMotto = clubMotto.getText();
-
-        updatedCategory = updatedCategory.toLowerCase();
-        updatedName = updatedName.toLowerCase();
+    void onClickToEdit(ActionEvent event) throws SQLException {
         // Check if clubId is empty
-//        if (clubId.getText().isEmpty()) {
-//            System.out.println("Club ID cannot be empty!");
-//            incompleteFields.setText("Club ID cannot be empty!");
-//            return;
-//        }
-
-        // Checking if all the fields are filled
-        if (updatedName.isEmpty() || updatedCategory.isEmpty() || updatedClubAdvisor.isEmpty() || updatedMotto.isEmpty() || clubId.getText().isEmpty()) {
-            incompleteFields.setText("Please complete all the fields.");
-            return; // Exit the method if validation fails
-
+        if (clubId.getText().isEmpty()) {
+            incompleteFields.setText("Please enter club ID!");
+            return;
         }
+
         // Parse clubId only if it's not empty
         int clubID = Integer.parseInt(clubId.getText());
+        // Pre-fill the fields with the details of the selected club
+        showClubDetails(clubID);
 
         Connection connection = databaseConnector.dbConnector();
 
         // Checking if the clubID exists in the database
         if (!clubIDExists(clubID, connection)) {
             incompleteFields.setText("ClubID " + clubID + " does not exist!");
+        }
+    }
+
+    @FXML
+    public void onEditClubClick(ActionEvent event) throws Exception {
+        String updatedName = newClubName.getText();
+        String updatedCategory = newClubCategory.getText();
+        String updatedClubAdvisor = newClubAdvisor.getText();
+        String updatedMotto = newClubMotto.getText();
+
+        updatedCategory = updatedCategory.toLowerCase();
+        updatedName = updatedName.toLowerCase();
+
+        // Check if clubId is empty
+        if (clubId.getText().isEmpty()) {
+            incompleteFields.setText("Please enter club ID!");
             return;
         }
+
+        // Parse clubId only if it's not empty
+        int clubID = Integer.parseInt(clubId.getText());
+
+        Connection connection = databaseConnector.dbConnector();
+
+        // Checking if all the fields are filled
+        if (updatedName.isEmpty() || updatedCategory.isEmpty() || updatedClubAdvisor.isEmpty() || updatedMotto.isEmpty()) {
+            incompleteFields.setText("Please complete all the fields.");
+            return; // Exit the method if validation fails
+        }
+
+        // Checking if the clubID exists in the database
+        if (!clubIDExists(clubID, connection)) {
+            incompleteFields.setText("ClubID " + clubID + " does not exist!");
+            return;
+        }
+
         // Checking if club advisor contains only strings
-        else if (!updatedClubAdvisor.matches("[a-zA-Z ]+")) {
+        if (!updatedClubAdvisor.matches("[a-zA-Z ]+")) {
             incompleteFields.setText("Please enter a valid name for club advisor");
             return;
-
         }
 
         databaseConnector.editClub(updatedName, updatedCategory, updatedClubAdvisor, updatedMotto, clubID, connection);
         backToMenuClick(event);
-
         displayClubs();
+    }
+
+
+    // method that set text on the fields
+    private void showClubDetails(int clubID) {
+        Connection connection = databaseConnector.dbConnector();
+        try {
+            String getClubDetailsQuery = "SELECT * FROM clubsTable WHERE clubID = ?";
+            try (PreparedStatement preparedStatement = connection.prepareStatement(getClubDetailsQuery)) {
+                preparedStatement.setInt(1, clubID);
+                try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                    if (resultSet.next()) {
+                        String clubName = resultSet.getString("clubName");
+                        String clubCategory = resultSet.getString("clubCategory");
+                        String clubAdvisor = resultSet.getString("clubAdvisor");
+                        String clubMotto = resultSet.getString("clubMotto");
+
+                        // Set the extracted details of each club in the text fields
+                        newClubName.setText(clubName);
+                        newClubCategory.setText(clubCategory);
+                        newClubAdvisor.setText(clubAdvisor);
+                        newClubMotto.setText(clubMotto);
+
+                    }
+                }
+            }
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        }
     }
 
 
