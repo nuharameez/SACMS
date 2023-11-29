@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.ScheduleController">
    <children>
-      <Text layoutX="252.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schedule">
+      <ImageView fitHeight="429.0" fitWidth="610.0" pickOnBounds="true">
+         <image>
+            <Image url="@SCAMS_NewBG.png" />
+         </image></ImageView>
+      <Text layoutX="257.0" layoutY="84.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schedule">
          <font>
             <Font size="24.0" />
          </font></Text>
-      <TableView fx:id="tableView" layoutX="22.0" layoutY="86.0" prefHeight="200.0" prefWidth="558.0">
+      <TableView fx:id="tableView" layoutX="26.0" layoutY="115.0" prefHeight="200.0" prefWidth="558.0">
         <columns>
           <TableColumn fx:id="IDColumn" prefWidth="83.39996337890625" text="ID" />
           <TableColumn fx:id="typeColumn" minWidth="0.0" prefWidth="100.79999542236328" text="Type" />
@@ -19,9 +24,9 @@
             <TableColumn fx:id="clubColumn" prefWidth="129.60001220703123" text="Club" />
         </columns>
       </TableView>
-      <Button fx:id="addEvent" layoutX="58.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddEvent" prefHeight="26.0" prefWidth="116.0" text="Add Event" />
-      <Button fx:id="addMeeting" layoutX="261.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddMeeting" prefHeight="26.0" prefWidth="116.0" text="Add Meeting" />
-      <Button fx:id="addActivity" layoutX="442.0" layoutY="332.0" mnemonicParsing="false" onAction="#handleAddActivity" prefHeight="26.0" prefWidth="116.0" text="Add Activity" />
+      <Button fx:id="addEvent" layoutX="63.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleAddEvent" prefHeight="26.0" prefWidth="116.0" text="Add Event" />
+      <Button fx:id="addMeeting" layoutX="247.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleAddMeeting" prefHeight="26.0" prefWidth="116.0" text="Add Meeting" />
+      <Button fx:id="addActivity" layoutX="434.0" layoutY="348.0" mnemonicParsing="false" onAction="#handleAddActivity" prefHeight="26.0" prefWidth="116.0" text="Add Activity" />
       <Button fx:id="menuButton" layoutX="45.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleMenuButton" text="Back to Menu" />
       <Button fx:id="deleteButton" layoutX="500.0" layoutY="20.0" mnemonicParsing="false" onAction="#handleDeleteButton" text="Delete" />
    </children>

@@ -1,5 +1,4 @@
 package com.example.oodcw;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +11,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -22,6 +20,8 @@ import java.util.List;
 
 public class EventController {
 
+    private static String userId;
+    private static String userName;
     @FXML
     private TextField nameEvent;
 
@@ -55,6 +55,18 @@ public class EventController {
     @FXML
     private ChoiceBox<String> eventClub;
     private SacmsDatabaseConnector databaseConnector;
+    private UserDetails advisorDetails;
+
+    public static void setUserDetails(String userId, String userName) {
+        EventController.userId = userId;
+        EventController.userName = userName;
+    }
+    public static String getUserId() {
+        return userId;
+    }
+    public static String getUserName() {
+        return userName;
+    }
 
     @FXML
     private void initialize() throws SQLException {
@@ -68,10 +80,18 @@ public class EventController {
         loadAdvisorClubs();
     }
 
+    public EventController() {this.databaseConnector = new SacmsDatabaseConnector();
+        this.advisorDetails=new UserDetails();}
+    public void setAdvisorDetails(UserDetails advisorDetails) {
+        this.advisorDetails = advisorDetails;
+    }
+
+
+    // Setter method for loggedInUser
 
     private void loadAdvisorClubs() throws SQLException {
         Connection connection = databaseConnector.dbConnector();
-        List<String> advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(connection);
+        List<String> advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(getUserName(), connection);
         eventClub.getItems().addAll(advisorClubs);
     }
 
@@ -108,6 +128,7 @@ public class EventController {
 
     @FXML
     private void handleEventSubmit() throws SQLException {
+        Connection connection = databaseConnector.dbConnector();
             if (!checkFields()) {
                showAlert("Please fill out all required fields.");
                 return;
@@ -139,18 +160,18 @@ public class EventController {
             String selectedClub = eventClub.getValue();
             Event event = new Event(ID, name, date, venue, participants, sponsorDetails, details, isMemberOnly,selectedClub);
             try {
-                if (event.checkID(ID)) {
+                if (databaseConnector.IDExists(ID,connection)) {
                     throw new DuplicateIDException("Event ID already exists. Please enter a different ID.");
                 }
             } catch (DuplicateIDException e) {
                 showAlert(e.getMessage());
                 return;
             }
-            if (event.checkDate(date)) {
+            if (databaseConnector.isDateAlreadyScheduled(date,connection)) {
                 showAlert("There is already something scheduled on the selected date. Please choose a different date.");
                 return;
             }
-            event.saveToDatabase();
+            databaseConnector.saveScheduleToDatabase(event,connection);
             showAlert("Event Scheduled");
         }
     }

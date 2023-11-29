@@ -1,5 +1,6 @@
 package com.example.oodcw;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -16,8 +17,22 @@ public abstract class Schedule {
 
     private SacmsDatabaseConnector databaseConnector;
 
+
+
+
     public Schedule() {
+        this.databaseConnector = new SacmsDatabaseConnector();
     }
+
+    public Schedule(ResultSet resultSet) throws SQLException {
+        this.ScheduleID = resultSet.getInt("ScheduleID");
+        this.name = resultSet.getString("Name");
+        this.venue = resultSet.getString("Venue");
+        this.date = resultSet.getDate("Date").toLocalDate();
+        this.club = resultSet.getString("Club");
+    }
+
+
 
     public Schedule(int ScheduleID,String name, LocalDate date, String venue, String club) {
         this.ScheduleID=ScheduleID;
@@ -25,6 +40,7 @@ public abstract class Schedule {
         this.date = date;
         this.venue = venue;
         this.club=club;
+        this.databaseConnector = new SacmsDatabaseConnector();
     }
 
     public String getClub() {
@@ -82,19 +98,5 @@ public abstract class Schedule {
 
         this.venue = venue;
     }
-    public boolean checkDate(LocalDate date) throws SQLException {
-        Connection connection = databaseConnector.dbConnector();
-        SacmsDatabaseConnector.isDateAlreadyScheduled(date, connection);
-        return false;
-    }
 
-    public boolean checkID (int ID) throws SQLException {
-        Connection connection = databaseConnector.dbConnector();
-        SacmsDatabaseConnector.IDExists(ID, connection);
-        return false;
-    }
-    public void saveToDatabase() throws SQLException {
-        Connection connection = databaseConnector.dbConnector();
-        SacmsDatabaseConnector.saveScheduleToDatabase(this, connection);
-    }
 }

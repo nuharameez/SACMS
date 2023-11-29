@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.oodcw.ActivityController">
     <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true">
+         <image>
+            <Image url="@SCAMS_NewBG.png" />
+         </image>
+      </ImageView>
         <Text layoutX="211.0" layoutY="55.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schedule Activity">
             <font>
                 <Font size="24.0" />

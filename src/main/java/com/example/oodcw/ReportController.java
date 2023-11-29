@@ -40,17 +40,14 @@ public class ReportController {
     }
 
     @FXML
-    private void onClubActivitiesClick() {
-        Stage newStage = new Stage();
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource("clubActitvitiesReport.fxml"));
-        } catch (IOException e) {
-            System.out.println("Failed to open register page");
-        }
-        newStage.setScene(new Scene(root, 600, 400));
-        newStage.show();
-    }
+    private void onClubActivitiesClick(ActionEvent event) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clubActivitiesReport.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Main menu");
+        stage.setScene(scene);
+        stage.show();}
+
     @FXML
     void menuClick(ActionEvent event) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("clubadvisormenu.fxml"));

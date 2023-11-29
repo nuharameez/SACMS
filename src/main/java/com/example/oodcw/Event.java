@@ -1,4 +1,6 @@
 package com.example.oodcw;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 
 public class Event extends Schedule{
@@ -16,6 +18,16 @@ public class Event extends Schedule{
         this.membersOnly = membersOnly;
         this.type="Event";
     }
+
+    public Event(ResultSet resultSet) throws SQLException {
+        super(resultSet);
+        this.sponsors = resultSet.getString("Sponsors");
+        this.details = resultSet.getString("Details");
+        this.membersOnly = resultSet.getString("MemberOnly").equalsIgnoreCase("Yes");
+        this.maxParticipants = resultSet.getInt("MaxParticipants");
+        }
+
+
     @Override
     public String getType() {
         return type;

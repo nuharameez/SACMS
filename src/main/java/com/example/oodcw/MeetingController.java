@@ -13,6 +13,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class MeetingController {
+    private static String userName;
+    private static String userId;
     @FXML
     private TextField meetingName;
 
@@ -35,6 +37,19 @@ public class MeetingController {
     @FXML
     private ChoiceBox<String> meetingClub;
     private SacmsDatabaseConnector databaseConnector;
+    private UserDetails advisorDetails;
+
+
+    public static void setUserDetails(String userId, String userName) {
+        MeetingController.userId = userId;
+        MeetingController.userName = userName;
+    }
+    public static String getUserId() {
+        return userId;
+    }
+    public static String getUserName() {
+        return userName;
+    }
 
 
     @FXML
@@ -48,19 +63,16 @@ public class MeetingController {
     }
 
 
+    public MeetingController() {this.databaseConnector = new SacmsDatabaseConnector();}
+
+
     // Setter method for loggedInUser
 
-    private void loadAdvisorClubs() {
-        List<String> advisorClubs = null;
-        try {
-            Connection connection = databaseConnector.dbConnector();
-            advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(connection);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
+    private void loadAdvisorClubs() throws SQLException {
+        Connection connection = databaseConnector.dbConnector();
+        List<String> advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(getUserName(), connection);
         meetingClub.getItems().addAll(advisorClubs);
     }
-
     private boolean checkFields() {
         // Enable the submit button only if all required fields are filled
         if(!meetingName.getText().isEmpty() && meetingDate.getValue() != null && !meetingVenue.getText().isEmpty())
@@ -93,6 +105,7 @@ public class MeetingController {
 
     @FXML
     private void handleMeetingSubmit() {
+        Connection connection = databaseConnector.dbConnector();
         try {
             if (!checkFields()) {
                 showAlert("Please fill out all required fields.");
@@ -113,18 +126,18 @@ public class MeetingController {
             String club= meetingClub.getValue();
             Meeting meeting = new Meeting(ID,name,date,venue,description,club);
             try {
-                if (meeting.checkID(ID)) {
+                if (databaseConnector.IDExists(ID,connection)) {
                     throw new DuplicateIDException("Meeting ID already exists. Please enter a different ID.");
                 }
             } catch (DuplicateIDException e) {
                 showAlert(e.getMessage());
                 return;
             }
-            if (meeting.checkDate(date)) {
+            if (databaseConnector.isDateAlreadyScheduled(date,connection)) {
                 showAlert("There is already something scheduled on the selected date. Please choose a different date.");
                 return;
             }
-            meeting.saveToDatabase();
+            databaseConnector.saveScheduleToDatabase(meeting,connection);
             showAlert("Meeting Scheduled");
         } catch (Exception e) {
             showAlert("An error occurred. Please check your input values");

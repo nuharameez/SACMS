@@ -2,6 +2,7 @@ package com.example.oodcw;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -13,6 +14,11 @@ public class Meeting extends Schedule{
         super(ScheduleID,name, date, venue, club);
         this.description=description;
         this.type="Meeting";
+    }
+
+    public Meeting(ResultSet resultSet) throws SQLException {
+        super(resultSet);
+        this.description = resultSet.getString("Description");
     }
 
     public String getDescription() {

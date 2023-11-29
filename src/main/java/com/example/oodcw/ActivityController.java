@@ -16,6 +16,9 @@ import java.util.List;
 
 public class ActivityController {
 
+    private static String userId;
+    private static String userName;
+    private SacmsDatabaseConnector databaseConnector;
     @FXML
     private TextField activityName;
 
@@ -42,11 +45,24 @@ public class ActivityController {
 
     @FXML
     private TextField activityID;
+    private UserDetails advisorDetails;
+
+    public static void setUserDetails(String userId, String userName) {
+        ActivityController.userId = userId;
+        ActivityController.userName = userName;
+    }
+    public static String getUserId() {
+        return userId;
+    }
+    public static String getUserName() {
+        return userName;
+    }
+    public ActivityController() {this.databaseConnector = new SacmsDatabaseConnector();}
 
 
     @FXML
     private void initialize() throws SQLException {
-        // Add listeners to check if all required fields are filled
+        this.databaseConnector = new SacmsDatabaseConnector();
         activityName.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         activityDate.valueProperty().addListener((observable, oldValue, newValue) -> checkFields());
         activityVenue.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
@@ -55,25 +71,20 @@ public class ActivityController {
         activityID.textProperty().addListener((observable, oldValue, newValue) -> checkFields());
         loadAdvisorClubs();
     }
-    private SacmsDatabaseConnector databaseConnector;
-
-
-    // Setter method for loggedInUser
 
     private void loadAdvisorClubs() throws SQLException {
         Connection connection = databaseConnector.dbConnector();
-        List<String> advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(connection);
+        List<String> advisorClubs = SacmsDatabaseConnector.getAdvisorClubsFromDatabase(getUserName(), connection);
         activityClub.getItems().addAll(advisorClubs);
     }
     private boolean checkFields() {
         // Enable the submit button only if all required fields are filled
-        if (!activityName.getText().isEmpty() && activityDate.getValue() != null &&
+        return !activityName.getText().isEmpty() && activityDate.getValue() != null &&
                 !activityVenue.getText().isEmpty() && !activityMaxParticipants.getText().isEmpty() &&
-                !activityDescription.getText().isEmpty() && !activityID.getText().isEmpty())
-            return true;
-        else
-            return false;
+                !activityDescription.getText().isEmpty() && !activityID.getText().isEmpty() &&
+                activityClub.getValue() != null && !activityClub.getValue().isEmpty();
     }
+
 
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -98,6 +109,7 @@ public class ActivityController {
 
     @FXML
     private void handleActivitySubmit() {
+        Connection connection = databaseConnector.dbConnector();
         try {
             if (!checkFields()) {
                 showAlert("Please fill out all required fields.");
@@ -126,19 +138,19 @@ public class ActivityController {
             String description = activityDescription.getText();
             Activity activity = new Activity(ID, name, date, venue, participants, description,club);
             try {
-                if (activity.checkID(ID)) {
+                if (databaseConnector.IDExists(ID,connection)) {
                     throw new DuplicateIDException("Activity ID already exists. Please enter a different ID.");
                 }
             } catch (DuplicateIDException e) {
                 showAlert(e.getMessage());
                 return;
             }
-            if (activity.checkDate(date)) {
+            if (databaseConnector.isDateAlreadyScheduled(date,connection)) {
                 showAlert("There is already something scheduled on the selected date. Please choose a different date.");
                 return;
             }
 
-            activity.saveToDatabase();
+            databaseConnector.saveScheduleToDatabase(activity,connection);
             showAlert("Activity Scheduled");
         } catch (NumberFormatException e) {
             showAlert("Please enter a valid number for Max Participants or Activity ID.");
